@@ -93,7 +93,7 @@ I believe that knowledge is power, so I strive to learn as much as I can.`;
     // Skills section typing effect
     const skillsArray = [
         '"BSc IT Student"',
-        '"Proficient in HTML, JavaScript (React), PHP"',
+        '"Proficient in HTML, JavaScript (React), PHP, and C# (Dotnet)"',
         '"Web Design & UI/UX Principles"',
         '"Cross Platform App Development (React Native)"',
         '"AI & Machine Learning Fundamentals"',

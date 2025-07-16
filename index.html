@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tahjay Ulett | IT Student Portfolio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.32/build/spline-viewer.js"></script>
     <link rel="stylesheet" href="style.css">
 <style>
 .text-gradient {
@@ -18,6 +19,7 @@
     filter: drop-shadow(0 0 4px #0d6efd88);
 }
 </style>
+
 </head>
 <body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-offset="70" tabindex="0">
     <!-- Navbar -->
@@ -30,7 +32,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#qualifications">Qualifications</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#qualifications">Skills</a></li>
                     <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
                     <li class="nav-item"><a class="nav-link" href="#links">Links</a></li>
                 </ul>
@@ -47,6 +49,9 @@
             <a href="#projects" class="hero-btn">See My Work</a>
             <a href="#links" class="hero-btn">Contact Me</a>
         </div>
+    </div>
+    <div class="spline-3d-wrapper">
+        <spline-viewer url="https://prod.spline.design/QvSRLyh3eb8qI1Pi/scene.splinecode"></spline-viewer>
     </div>
     <!-- Optionally, add SVG or animated background here -->
 </section>
@@ -76,35 +81,64 @@
 </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="container py-5 section-animate">
-    <h2 class="text-center"><span class="text-gradient">Projects</span></h2>
-    <div class="row mt-4">
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-lg">
-                <div class="card-body">
-                    <h5 class="card-title"><span class="icon">🌐</span> Portfolio Website</h5>
-                    <p class="card-text">A modern, responsive website to showcase my skills and projects using HTML, CSS, JavaScript, and Bootstrap.</p>
-                </div>
-            </div>
+    <section id="projects" class="py-5 section-animate">
+      <div class="projects-cs-block">
+        <div class="cs-heading">
+          <span class="cs-tag">Public Void() <span class="cs-func">Projects </span> </span>
         </div>
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-lg">
-                <div class="card-body">
-                    <h5 class="card-title"><span class="icon">🤖</span> AI Chatbot</h5>
-                    <p class="card-text">A simple AI-powered chatbot for answering student queries, built with JavaScript and basic machine learning concepts.</p>
+        <span class="cs-tag">&#123;</span>
+        <div class="projects-cs-content">
+          <div class="row projects-grid row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            <div class="col">
+              <a href="https://github.com/Ikarudo/BookHive" target="_blank" class="project-card-link">
+                <div class="project-card h-100">
+                  <div class="project-body">
+                    <div class="project-title">Beehive</div>
+                    <div class="project-desc">A Microsoft dotnet Library Management System.</div>
+                    <div class="project-tags">
+                      <span class="project-tag project-tag-csharp">C#</span>
+                      <span class="project-tag project-tag-html">HTML</span>
+                      <span class="project-tag project-tag-css">CSS</span>
+                      <span class="project-tag project-tag-js">JavaScript</span>
+                    </div>
+                  </div>
                 </div>
+              </a>
             </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-lg">
-                <div class="card-body">
-                    <h5 class="card-title"><span class="icon">📱</span> Task Manager App</h5>
-                    <p class="card-text">A web-based task manager to help students organize assignments and deadlines efficiently.</p>
+            <div class="col">
+              <a href="https://github.com/Ikarudo/GigBoard" target="_blank" class="project-card-link">
+                <div class="project-card h-100">
+                  <div class="project-body">
+                    <div class="project-title">GigBoard</div>
+                    <div class="project-desc">A marketplace local to NCU where students can offer Freelance services, tutoring help or more.</div>
+                    <div class="project-tags">
+                      <span class="project-tag project-tag-html">HTML</span>
+                      <span class="project-tag project-tag-css">CSS</span>
+                    </div>
+                  </div>
                 </div>
+              </a>
             </div>
+            <div class="col">
+              <a href="https://github.com/Ikarudo/Scribit" target="_blank" class="project-card-link">
+                <div class="project-card h-100">
+                  <div class="project-body">
+                    <div class="project-title">Scribit</div>
+                    <div class="project-desc">An all in one productivity app geared towards students and designed to be a digital replacement for books. Built in React Native.</div>
+                    <div class="project-tags">
+                      <span class="project-tag project-tag-ts">TypeScript</span>
+                      <span class="project-tag project-tag-js">JavaScript</span>
+                      <span class="project-tag project-tag-kotlin">Kotlin</span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
         </div>
-    </div>
-</section>
+        <span class="cs-tag">&#125;</span>
+      </div>
+    </section>
 
     <!-- Links Section -->
     <section id="links" class="py-5 section-animate">
