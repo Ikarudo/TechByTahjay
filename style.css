@@ -1,10 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Montserrat:wght@400;700&family=Fira+Mono:wght@400;700&display=swap');
 
-html, body {
+/* Background video styles */
+#bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1;
+    pointer-events: none;
+    min-width: 100%;
+    min-height: 100%;
+    background: #000;
+}
+
+html, body, #home, section {
+    background: none !important;
+    background-image: none !important;
+    background-color: transparent !important;
     min-height: 100vh;
-    /* Universal hero-style background: deep blue radial with purple blend */
-    background: radial-gradient(ellipse at 30% 40%, #233d7a 0%, #232946 45%, #181A20 100%), linear-gradient(120deg, #232946 60%, #181A20 100%);
-    background-blend-mode: screen, normal;
     color: #f4f6fb;
     font-family: 'Montserrat', 'Segoe UI', 'Roboto', Arial, sans-serif;
     letter-spacing: 0.01em;
@@ -24,6 +39,9 @@ section {
     padding-top: 70px;
     position: relative;
     z-index: 1;
+    background: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
 }
 
 #home {
@@ -57,7 +75,8 @@ section {
 .hero-content {
     position: relative;
     z-index: 2;
-    text-align: left;
+    padding: 30px;
+    text-align: center;
     max-width: 600px;
     width: 100%;
 }
@@ -86,9 +105,9 @@ section {
     font-family: 'Orbitron', 'Montserrat', sans-serif;
     font-size: 4.2rem;
     font-weight: 700;
-    color: #f4f6fb;
+    color: #000000;
     letter-spacing: 2.5px;
-    text-shadow: 0 0 28px #0d6efd, 0 0 64px #0d6efd55;
+    text-shadow: 0 0 28px #ffffff, 0 0 64px #ffffff55;
     margin-bottom: 0.3em;
     line-height: 1.1;
 }
@@ -96,20 +115,20 @@ section {
 .hero-subtitle {
     font-family: 'Fira Mono', 'Consolas', monospace;
     font-size: 1.18rem;
-    color: #7cfae2;
+    color: #000000;
     background: none;
     letter-spacing: 0.1em;
     margin-bottom: 1.2em;
     min-height: 2.2em;
     white-space: pre;
-    border-right: 2px solid #0d6efd;
+    border-right: 2px solid #000000;
     overflow: hidden;
     display: inline-block;
     animation: blink-cursor 1s steps(1) infinite;
-    text-shadow: 0 0 8px #7cfae2cc, 0 0 16px #0d6efd55;
+    text-shadow: 0 0 8px #000000cc, 0 0 16px #00000055;
 }
 @keyframes blink-cursor {
-    0%, 100% { border-color: #0d6efd; }
+    0%, 100% { border-color: #000000; }
     50% { border-color: transparent; }
 }
 
@@ -125,26 +144,26 @@ section {
     border-radius: 32px;
     font-weight: 700;
     letter-spacing: 0.7px;
-    background: #0d6efd;
+    background: #000000;
     color: #fff;
-    box-shadow: 0 0 24px #0d6efdcc, 0 2px 18px #7c3aed55;
-    border: none;
+    box-shadow: 0 0 16px #00000088;
+    border: 2px solid #ffffff;
     transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.15s;
     outline: none;
     margin-right: 0.5em;
     text-shadow: 0 0 6px #fff9, 0 0 12px #0d6efd99;
 }
 .hero-btn:last-child {
-    background: #232946;
-    color: #7cfae2;
-    border: 2px solid #0d6efd;
-    box-shadow: 0 0 16px #7c3aed88;
-    text-shadow: 0 0 6px #7cfae2bb, 0 0 12px #0d6efd99;
+    background: #000000;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 16px #00000088;
+    text-shadow: 0 0 6px #ffffffbb, 0 0 12px #00000099;
 }
 .hero-btn:hover, .hero-btn:focus {
-    background: #7c3aed;
-    color: #fff;
-    box-shadow: 0 0 36px #7c3aedcc, 0 0 16px #0d6efd99;
+    background: #e3e3e3;
+    color: #000000;
+    box-shadow: 0 0 36px #000000cc, 0 0 16px #00000099;
     transform: translateY(-2px) scale(1.06);
 }
 
@@ -160,24 +179,39 @@ section {
     transition: background 0.35s, box-shadow 0.35s, border-bottom 0.35s;
 }
 .navbar.navbar-scrolled {
-    background: rgba(24,26,32,0.96) !important;
-    box-shadow: 0 2px 24px #0d6efd11;
-    border-bottom: 1px solid #232946;
+    background: rgba(0,0,0,0.8) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 2px 24px rgba(0,0,0,0.3);
+    border-bottom: 1px solid rgba(255,255,255,0.2);
 }
 .navbar-brand {
     font-weight: 700;
     font-size: 1.4rem;
     letter-spacing: 1px;
-    color: #0d6efd !important;
-    text-shadow: 0 0 8px #0d6efd55;
+    color: #000000 !important;
+    text-shadow: none;
+}
+.navbar.navbar-scrolled .navbar-brand {
+    color: #ffffff !important;
 }
 .nav-link {
-    color: #F4F6FB !important;
+    color: #000000 !important;
     transition: color 0.2s, text-shadow 0.2s;
 }
+.navbar.navbar-scrolled .nav-link {
+    color: #ffffff !important;
+}
 .nav-link.active, .nav-link:focus, .nav-link:hover {
-    color: #0d6efd !important;
-    text-shadow: 0 0 8px #0d6efd88;
+    color: #333333 !important;
+    text-shadow: none;
+    font-weight: 700;
+}
+.navbar.navbar-scrolled .nav-link.active, 
+.navbar.navbar-scrolled .nav-link:focus, 
+.navbar.navbar-scrolled .nav-link:hover {
+    color: #ffffff !important;
+    font-weight: 700;
 }
 
 h1, h2, h5 {
@@ -195,21 +229,21 @@ h1, h2, h5 {
     font-size: 1.3rem;
 }
 
-#about, #projects, #links {
-    background: radial-gradient(ellipse at 30% 40%, #233d7a 0%, #232946 45%, #181A20 100%), linear-gradient(120deg, #232946 60%, #181A20 100%);
-    border-radius: 24px;
-    margin-bottom: 48px;
-    box-shadow: 0 4px 32px #0d6efd11;
-    animation: fadeInUp 1.2s cubic-bezier(.4,1.2,.6,1) both;
-}
-#about {
-    margin-top: 48px;
+/* Remove conflicting section backgrounds and enforce a uniform background for all sections */
+#about, #projects, #links, #qualifications, section {
+    background: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
 }
 
-.projects-cs-block {
+/* Keep cards/blocks dark - but exclude skills-cpp-block which needs frosted glass */
+.projects-cs-block, .about-html-block {
     background: #181A20;
     border-radius: 20px;
     box-shadow: 0 0 32px #0d6efd33, 0 4px 32px #7c3aed33;
+}
+
+.projects-cs-block {
     padding: 3.2em 2.2em 2.5em 2.2em;
     font-family: 'Fira Mono', 'Consolas', monospace;
     color: #f4f6fb;
@@ -239,8 +273,8 @@ h1, h2, h5 {
 }
 .html-tag {
     display: block;
-    color: #0d6efd;
-    text-shadow: 0 0 8px #0d6efdcc, 0 0 24px #7c3aed99;
+    color: #000000;
+    /* text-shadow: 0 0 8px #0d6efdcc, 0 0 24px #7c3aed99; */
     font-size: 1.18em;
     margin-bottom: 0.7em;
     margin-top: 0.7em;
@@ -253,37 +287,21 @@ h1, h2, h5 {
 }
 .about-html-content {
     padding-left: 2.2em;
-    color: #b8c1ec;
+    color: #000000;
     margin-bottom: 0.7em;
     font-size: 1.08em;
     line-height: 1.7;
-    border-left: 2px solid #0d6efd44;
+    border-left: 2px solid #00000044;
 }
 
 
 #qualifications {
-    background: radial-gradient(ellipse at 30% 40%, #233d7a 0%, #232946 45%, #181A20 100%), linear-gradient(120deg, #232946 60%, #181A20 100%);
     box-shadow: 0 4px 32px #7c3aed11;
     border-radius: 24px;
     animation: fadeInUp 1.5s 0.2s cubic-bezier(.4,1.2,.6,1) both;
 }
 
-.skills-cpp-block {
-    background: #181A20;
-    border-radius: 20px;
-    padding: 4em 4vw 3em 4vw;
-    box-shadow: 0 0 32px #0d6efd33, 0 4px 32px #7c3aed33;
-    font-family: 'Fira Mono', 'Consolas', monospace;
-    color: #f4f6fb;
-    font-size: 1.28rem;
-    margin: 2.5em auto 2.5em auto;
-    max-width: 1100px;
-    width: 100%;
-    min-height: unset;
-    position: relative;
-    transition: box-shadow 0.3s, padding 0.3s, font-size 0.3s, max-width 0.3s;
-    overflow-x: auto;
-}
+/* Remove duplicate .skills-cpp-block rule - keeping only the comprehensive frosted glass one */
 
 @media (max-width: 1200px) {
     .skills-cpp-block {
@@ -295,8 +313,8 @@ h1, h2, h5 {
 
 .cpp-tag {
     display: block;
-    color: #0d6efd;
-    text-shadow: 0 0 8px #0d6efdcc, 0 0 24px #7c3aed99;
+    color: #000000;
+    text-shadow: 0 0 8px #ffffffcc, 0 0 24px #fefefe99;
     font-size: 1.12em;
     margin-bottom: 0.7em;
     margin-top: 0.7em;
@@ -308,8 +326,8 @@ h1, h2, h5 {
     margin-top: 0;
 }
 .cpp-var {
-    color: #7c3aed;
-    text-shadow: 0 0 8px #7c3aedcc, 0 0 16px #0d6efd99;
+    color: #000000;
+    text-shadow: 0 0 8px #ffffffcc, 0 0 16px #ffffff99;
 }
 .skills-cpp-content {
     padding-left: 2.2em;
@@ -338,11 +356,10 @@ h1, h2, h5 {
 }
 
 .project-card {
-    background: linear-gradient(120deg, #232946 80%, #0d6efd22 100%);
-    color: #f4f6fb;
-    border: none;
-    border-radius: 18px;
-    box-shadow: 0 2px 16px #0d6efd22;
+    background: #000 !important;
+    color: #fff !important;
+    border: 2px solid #fff;
+    box-shadow: none !important;
     transition: transform 0.25s cubic-bezier(.4,1.2,.6,1), box-shadow 0.2s, border 0.2s;
     opacity: 1;
     transform: none;
@@ -484,9 +501,6 @@ footer {
 }
 
 .about-html-block {
-    background: #181A20;
-    border-radius: 20px;
-    box-shadow: 0 0 32px #0d6efd33, 0 4px 32px #7c3aed33;
     padding: 4em 4vw 3em 4vw;
     font-family: 'Fira Mono', 'Consolas', monospace;
     color: #f4f6fb;
@@ -514,7 +528,7 @@ section:not(:last-child)::after {
     height: 4px;
     margin: 40px auto 0 auto;
     border-radius: 2px;
-    background: linear-gradient(90deg, #0d6efd 0%, #7c3aed 100%);
+    background: linear-gradient(90deg, #000000 0%, #000000 100%);
     opacity: 0.18;
 }
 
@@ -552,24 +566,97 @@ spline-viewer {
     z-index: 2;
 }
 
-.hero-content::before {
-    content: '';
-    position: absolute;
-    top: -30px;
-    left: -40px;
-    width: 120%;
-    height: 115%;
-    background: radial-gradient(circle at 40% 60%, #181A20cc 60%, transparent 100%);
-    filter: blur(16px);
-    z-index: -1;
-    pointer-events: none;
+/* Remove overlays and apply frosted glass effect to hero and cards */
+#home::before, .hero-content::before {
+    display: none !important;
+    content: none !important;
 }
 
+.hero-content {
+    background: rgba(255,255,255,0.18);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 2px solid rgba(255,255,255,0.35);
+    border-radius: 24px;
+    box-shadow: none !important;
+    position: relative;
+    z-index: 2;
+}
+
+.projects-cs-block, .about-html-block {
+    background: rgba(255,255,255,0.18) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 2px solid rgba(255,255,255,0.35);
+    border-radius: 24px;
+    box-shadow: none !important;
+}
+
+/* Copy About section styling exactly for Skills section */
+.skills-cpp-block {
+    background: rgba(255, 255, 255, 0.35) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-radius: 24px;
+    box-shadow: none !important;
+    padding: 4em 4vw 3em 4vw;
+    font-family: 'Fira Mono', 'Consolas', monospace;
+    color: #000000;
+    font-size: 1.28rem;
+    margin: 2.5em auto 2.5em auto;
+    max-width: 1100px;
+    width: 100%;
+    position: relative;
+    transition: box-shadow 0.3s, padding 0.3s, font-size 0.3s, max-width 0.3s;
+    overflow-x: auto;
+}
+
+.skills-cpp-block .cpp-tag {
+    display: block;
+    color: #000000;
+    font-size: 1.18em;
+    margin-bottom: 0.7em;
+    margin-top: 0.7em;
+    font-family: 'Fira Mono', 'Consolas', monospace;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+}
+
+.skills-cpp-block .cpp-var {
+    color: #000000;
+}
+
+.skills-cpp-block .skills-cpp-content {
+    padding-left: 2.2em;
+    color: #000000;
+    margin-bottom: 0.7em;
+    font-size: 1.08em;
+    line-height: 1.7;
+    border-left: 2px solid #00000044;
+}
+
+@media (max-width: 1200px) {
+    .skills-cpp-block {
+        max-width: 98vw;
+        padding: 2.5em 1em 2em 1em;
+        font-size: 1.07rem;
+    }
+}
+
+/* Remove section animation that causes disappearing */
+section {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+}
+
+/* Remove .skills-cpp-block from all media queries */
 @media (max-width: 1200px) {
     .hero-content {
         max-width: 550px;
     }
-    .projects-cs-block, .skills-cpp-block, .about-html-block {
+    .projects-cs-block, .about-html-block {
         max-width: 960px;
     }
 }
@@ -605,7 +692,7 @@ spline-viewer {
     .hero-content::before {
         display: none;
     }
-    .projects-cs-block, .skills-cpp-block, .about-html-block {
+    .projects-cs-block, .about-html-block {
         padding: 2.5em 1.5em;
         font-size: 1.05rem;
     }
@@ -621,7 +708,7 @@ spline-viewer {
     .hero-subtitle {
         font-size: 1.1rem;
     }
-    .projects-cs-block, .skills-cpp-block, .about-html-block {
+    .projects-cs-block, .about-html-block {
         font-size: 1rem;
     }
     .projects-grid {
@@ -652,7 +739,7 @@ spline-viewer {
     .cs-heading {
         font-size: 1.2rem;
     }
-    .projects-cs-block, .skills-cpp-block, .about-html-block {
+    .projects-cs-block, .about-html-block {
         padding: 2em 1em;
         font-size: 0.9rem;
     }
@@ -669,6 +756,15 @@ section.visible {
     transform: translateY(0);
 }
 
+/* Remove animated overlays for a uniform background */
+section::before, #home::before {
+    display: none !important;
+}
+
+section {
+    background: linear-gradient(135deg, #181A20 70%, #232946 100%) !important;
+}
+
 ::-webkit-scrollbar {
     width: 8px;
     background: #232946;
@@ -676,4 +772,448 @@ section.visible {
 ::-webkit-scrollbar-thumb {
     background: #0d6efd55;
     border-radius: 4px;
+}
+
+/* Project section heading black, cards black with white text */
+.cs-heading, .cs-tag, .cs-func {
+    color: #000 !important;
+    text-shadow: none !important;
+}
+
+.project-card {
+    background: #000 !important;
+    color: #fff !important;
+    border: 2px solid #fff;
+    box-shadow: none !important;
+}
+.project-card * {
+    color: #fff !important;
+    text-shadow: none !important;
+}
+
+/* Python class styling for Links section */
+.links-python-block {
+    background: rgba(255,255,255,0.18) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 2px solid rgba(255,255,255,0.35);
+    border-radius: 24px;
+    box-shadow: none !important;
+    padding: 4em 4vw 3em 4vw;
+    font-family: 'Fira Mono', 'Consolas', monospace;
+    color: #000000;
+    font-size: 1.28rem;
+    margin: 2.5em auto 2.5em auto;
+    max-width: 1100px;
+    width: 100%;
+    position: relative;
+    transition: box-shadow 0.3s, padding 0.3s, font-size 0.3s, max-width 0.3s;
+    overflow-x: auto;
+}
+
+.python-tag {
+    display: block;
+    color: #000000;
+    font-size: 1.18em;
+    margin-bottom: 0.7em;
+    margin-top: 0.7em;
+    font-family: 'Fira Mono', 'Consolas', monospace;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+}
+
+.python-class {
+    color: #000000;
+    font-weight: 700;
+}
+
+.python-indent {
+    display: block;
+    color: #000000;
+    font-size: 1.08em;
+    margin-bottom: 0.5em;
+    margin-left: 2em;
+    font-family: 'Fira Mono', 'Consolas', monospace;
+    letter-spacing: 0.05em;
+}
+
+.python-attr {
+    color: #000000;
+    font-weight: 700;
+}
+
+.python-string {
+    color: #000000;
+    font-style: italic;
+}
+
+.python-link {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.2s;
+}
+
+.python-link:hover {
+    color: #333333;
+    text-decoration: underline;
+}
+
+.python-link:visited {
+    color: inherit;
+}
+
+.links-python-content {
+    padding-left: 2.2em;
+    color: #000000;
+    margin-bottom: 0.7em;
+    font-size: 1.08em;
+    line-height: 1.7;
+    border-left: 2px solid #00000044;
+}
+
+.links-buttons {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+@media (max-width: 1200px) {
+    .links-python-block {
+        max-width: 98vw;
+        padding: 2.5em 1em 2em 1em;
+        font-size: 1.07rem;
+    }
+}
+
+/* COMPREHENSIVE RESPONSIVE DESIGN */
+
+/* Large Desktop (1400px and up) */
+@media (min-width: 1400px) {
+    .hero-content {
+        max-width: 700px;
+    }
+    .projects-cs-block, .skills-cpp-block, .about-html-block, .links-python-block {
+        max-width: 1200px;
+        font-size: 1.4rem;
+    }
+    .hero-name {
+        font-size: 5rem;
+    }
+    .hero-subtitle {
+        font-size: 1.4rem;
+    }
+}
+
+/* Desktop (1200px - 1399px) */
+@media (max-width: 1399px) and (min-width: 1200px) {
+    .hero-content {
+        max-width: 600px;
+    }
+    .projects-cs-block, .skills-cpp-block, .about-html-block, .links-python-block {
+        max-width: 1100px;
+        font-size: 1.28rem;
+    }
+}
+
+/* Tablet Landscape (992px - 1199px) */
+@media (max-width: 1199px) and (min-width: 992px) {
+    .hero-content {
+        max-width: 550px;
+    }
+    .projects-cs-block, .skills-cpp-block, .about-html-block, .links-python-block {
+        max-width: 960px;
+        font-size: 1.2rem;
+        padding: 3em 2em 2.5em 2em;
+    }
+    .spline-3d-wrapper {
+        width: 600px;
+        height: 450px;
+    }
+}
+
+/* Tablet Portrait (768px - 991px) */
+@media (max-width: 991px) and (min-width: 768px) {
+    #home {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        padding: 2em 1em;
+    }
+    .hero-content {
+        max-width: 100%;
+        padding: 0 2vw;
+        margin-bottom: 2em;
+    }
+    .hero-name {
+        font-size: 3.5rem;
+    }
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+    .spline-3d-wrapper {
+        position: relative;
+        transform: none;
+        width: 100%;
+        max-width: 500px;
+        height: 350px;
+        margin: 0 auto;
+    }
+    .projects-cs-block, .skills-cpp-block, .about-html-block, .links-python-block {
+        max-width: 95vw;
+        padding: 2.5em 1.5em 2em 1.5em;
+        font-size: 1.1rem;
+    }
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+}
+
+/* Mobile Large (576px - 767px) */
+@media (max-width: 767px) and (min-width: 576px) {
+    #home {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        padding: 1.5em 1em;
+        min-height: 100vh;
+    }
+    .hero-content {
+        max-width: 100%;
+        padding: 0 3vw;
+        margin-bottom: 1.5em;
+    }
+    .hero-name {
+        font-size: 2.8rem;
+        letter-spacing: 2px;
+    }
+    .hero-subtitle {
+        font-size: 1.1rem;
+        min-height: 2.5em;
+    }
+    .hero-buttons {
+        flex-direction: column;
+        gap: 1em;
+        align-items: center;
+    }
+    .hero-btn {
+        width: 200px;
+        padding: 0.8em 1.5em;
+        font-size: 1rem;
+    }
+    .spline-3d-wrapper {
+        position: relative;
+        transform: none;
+        width: 100%;
+        max-width: 400px;
+        height: 300px;
+        margin: 0 auto;
+    }
+    .projects-cs-block, .skills-cpp-block, .about-html-block, .links-python-block {
+        max-width: 95vw;
+        padding: 2em 1em 1.5em 1em;
+        font-size: 1rem;
+        margin: 2em auto;
+    }
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    .project-card {
+        min-height: 160px;
+        padding: 1.2em 1em 1em 1em;
+    }
+    .navbar-brand {
+        font-size: 1.1rem;
+    }
+    .nav-link {
+        font-size: 0.9rem;
+        padding: 0.5rem 0.8rem !important;
+    }
+    .python-indent, .cpp-tag, .html-tag, .cs-tag {
+        font-size: 1rem;
+    }
+    .python-indent {
+        margin-left: 1.5em;
+    }
+}
+
+/* Mobile Small (up to 575px) */
+@media (max-width: 575px) {
+    #home {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        padding: 1em 0.5em;
+        min-height: 100vh;
+    }
+    .hero-content {
+        max-width: 100%;
+        padding: 0 4vw;
+        margin-bottom: 1em;
+    }
+    .hero-name {
+        font-size: 2.2rem;
+        letter-spacing: 1.5px;
+        margin-bottom: 0.5em;
+    }
+    .hero-subtitle {
+        font-size: 1rem;
+        min-height: 2.2em;
+        margin-bottom: 1em;
+    }
+    .hero-buttons {
+        flex-direction: column;
+        gap: 0.8em;
+        align-items: center;
+        margin-top: 1.5em;
+    }
+    .hero-btn {
+        width: 180px;
+        padding: 0.7em 1.2em;
+        font-size: 0.95rem;
+        border-radius: 25px;
+    }
+    .spline-3d-wrapper {
+        position: relative;
+        transform: none;
+        width: 100%;
+        max-width: 350px;
+        height: 250px;
+        margin: 0 auto;
+    }
+    .projects-cs-block, .skills-cpp-block, .about-html-block, .links-python-block {
+        max-width: 98vw;
+        padding: 1.5em 0.8em 1.2em 0.8em;
+        font-size: 0.9rem;
+        margin: 1.5em auto;
+        border-radius: 16px;
+    }
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+    }
+    .project-card {
+        min-height: 140px;
+        padding: 1em 0.8em 0.8em 0.8em;
+        border-radius: 12px;
+    }
+    .project-title {
+        font-size: 1.1rem;
+    }
+    .project-desc {
+        font-size: 0.9rem;
+    }
+    .project-tag {
+        font-size: 0.8rem;
+        padding: 0.15em 0.6em;
+    }
+    .navbar-brand {
+        font-size: 1rem;
+    }
+    .nav-link {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.6rem !important;
+    }
+    .python-indent, .cpp-tag, .html-tag, .cs-tag {
+        font-size: 0.9rem;
+    }
+    .python-indent {
+        margin-left: 1em;
+    }
+    .python-attr, .cpp-var, .html-tag, .cs-func {
+        font-size: 0.9rem;
+    }
+    .python-string, .cpp-tag, .html-tag, .cs-tag {
+        font-size: 0.9rem;
+    }
+    .links-python-content, .skills-cpp-content, .about-html-content {
+        font-size: 0.85rem;
+        padding-left: 1.5em;
+    }
+    .btn {
+        font-size: 0.85rem;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+    }
+    .footer {
+        font-size: 0.85rem;
+        padding: 1rem 0.5rem;
+    }
+}
+
+/* Extra Small Mobile (up to 375px) */
+@media (max-width: 375px) {
+    .hero-name {
+        font-size: 1.8rem;
+        letter-spacing: 1px;
+    }
+    .hero-subtitle {
+        font-size: 0.9rem;
+    }
+    .hero-btn {
+        width: 160px;
+        padding: 0.6em 1em;
+        font-size: 0.9rem;
+    }
+    .projects-cs-block, .skills-cpp-block, .about-html-block, .links-python-block {
+        padding: 1.2em 0.6em 1em 0.6em;
+        font-size: 0.85rem;
+    }
+    .project-card {
+        min-height: 120px;
+        padding: 0.8em 0.6em 0.6em 0.6em;
+    }
+    .navbar-brand {
+        font-size: 0.9rem;
+    }
+    .nav-link {
+        font-size: 0.8rem;
+        padding: 0.3rem 0.5rem !important;
+    }
+}
+
+/* Landscape Mobile (height less than 500px) */
+@media (max-height: 500px) and (orientation: landscape) {
+    #home {
+        min-height: 100vh;
+        padding: 0.5em 1em;
+    }
+    .hero-name {
+        font-size: 2rem;
+        margin-bottom: 0.3em;
+    }
+    .hero-subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 0.8em;
+    }
+    .hero-buttons {
+        margin-top: 1em;
+    }
+    .hero-btn {
+        padding: 0.5em 1em;
+        font-size: 0.9rem;
+    }
+    .spline-3d-wrapper {
+        height: 200px;
+    }
+}
+
+/* Ensure video background works on all devices */
+@media (max-width: 768px) {
+    #bg-video {
+        object-position: center;
+    }
+}
+
+/* Touch-friendly interactions for mobile */
+@media (hover: none) and (pointer: coarse) {
+    .hero-btn:hover, .project-card:hover, .btn:hover {
+        transform: none;
+    }
+    .nav-link:hover {
+        color: inherit !important;
+    }
 }

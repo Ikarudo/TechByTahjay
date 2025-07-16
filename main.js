@@ -55,10 +55,10 @@ document.addEventListener("DOMContentLoaded", function () {
     typeLoop();
 
     // About section typing effect
-    const aboutText = `I'm Tahjay Ulett, an IT student passionate about technology. I am truly passionate about Technology, I am constantly trying to learn new skills
-and develop the ones I have now. I have experince in web design and app development with a profound interest in artificial intelligence. 
-I enjoy building creative digital solutions and continuously learning new technologies to stay ahead in the tech world.
-I believe that knowledge is power, so I strive to learn as much as I can.`;
+    const aboutText = `I'm Tahjay Ulett, an IT student truly passionate about Technology, I am constantly trying to learn new skills
+                and develop the ones I have now. I have experince in web design and app development with a profound interest in artificial intelligence. 
+                I enjoy building creative digital solutions and continuously learning new technologies to stay ahead in the tech world. I believe that knowledge is power, 
+                so I strive to learn as much as I can. I also do freelance work, so if you need a website or app, feel free to reach out to me.`;
     let aboutTypedStarted = false;
     const aboutTypedElem = document.getElementById('about-typed');
     function typeAboutText(idx = 0) {
@@ -93,6 +93,7 @@ I believe that knowledge is power, so I strive to learn as much as I can.`;
     // Skills section typing effect
     const skillsArray = [
         '"BSc IT Student"',
+        "Microsoft Certified: Azure AI Fundamentals",
         '"Proficient in HTML, JavaScript (React), PHP, and C# (Dotnet)"',
         '"Web Design & UI/UX Principles"',
         '"Cross Platform App Development (React Native)"',
