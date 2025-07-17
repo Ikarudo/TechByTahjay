@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Skills section typing effect
     const skillsArray = [
         '"BSc IT Student"',
-        "Microsoft Certified: Azure AI Fundamentals",
+        '"Microsoft Certified: Azure AI Fundamentals"',
         '"Proficient in HTML, JavaScript (React), PHP, and C# (Dotnet)"',
         '"Web Design & UI/UX Principles"',
         '"Cross Platform App Development (React Native)"',

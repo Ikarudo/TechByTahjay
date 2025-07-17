@@ -325,11 +325,32 @@ h1, h2, h5 {
 
 /* Remove duplicate .skills-cpp-block rule - keeping only the comprehensive frosted glass one */
 
+@media (max-width: 1199px) and (min-width: 992px) {
+    .skills-cpp-block {
+        max-width: 960px;
+        font-size: 1.2rem;
+        padding: 3em 2em 2.5em 2em;
+        /* Keep frosted glass - PROTECTED */
+        background: rgba(255, 255, 255, 0.35) !important;
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
+        border: 2px solid rgba(255, 255, 255, 0.35) !important;
+        border-radius: 24px !important;
+        box-shadow: none !important;
+    }
+}
 @media (max-width: 1200px) {
     .skills-cpp-block {
         max-width: 98vw;
         padding: 2.5em 1em 2em 1em;
         font-size: 1.07rem;
+        /* Keep frosted glass - PROTECTED */
+        background: rgba(255, 255, 255, 0.35) !important;
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
+        border: 2px solid rgba(255, 255, 255, 0.35) !important;
+        border-radius: 24px !important;
+        box-shadow: none !important;
     }
 }
 
@@ -606,7 +627,7 @@ spline-viewer {
 }
 
 .projects-cs-block, .about-html-block {
-    background: rgba(255,255,255,0.18) !important;
+    background: rgba(255,255,255,0.35) !important;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 2px solid rgba(255,255,255,0.35);
@@ -616,12 +637,15 @@ spline-viewer {
 
 /* Copy About section styling exactly for Skills section */
 .skills-cpp-block {
+    /* Frosted glass effect - PROTECTED */
     background: rgba(255, 255, 255, 0.35) !important;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 2px solid rgba(255, 255, 255, 0.35);
-    border-radius: 24px;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 2px solid rgba(255, 255, 255, 0.35) !important;
+    border-radius: 24px !important;
     box-shadow: none !important;
+    
+    /* Layout and typography */
     padding: 4em 4vw 3em 4vw;
     font-family: 'Fira Mono', 'Consolas', monospace;
     color: #000000;
@@ -657,22 +681,6 @@ spline-viewer {
     font-size: 1.08em;
     line-height: 1.7;
     border-left: 2px solid #00000044;
-}
-
-/* UPDATE the media query to preserve frosted glass properties */
-@media (max-width: 1200px) {
-    .skills-cpp-block {
-        max-width: 98vw;
-        padding: 2.5em 1em 2em 1em;
-        font-size: 1.07rem;
-        /* Keep the frosted glass properties */
-        background: rgba(255, 255, 255, 0.35) !important;
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 2px solid rgba(255, 255, 255, 0.35);
-        border-radius: 24px;
-        box-shadow: none !important;
-    }
 }
 
 /* Remove section animation that causes disappearing */
@@ -1009,12 +1017,12 @@ section {
         max-width: 95vw;
         padding: 2.5em 1.5em 2em 1.5em;
         font-size: 1.1rem;
-        /* Preserve frosted glass */
+        /* Keep frosted glass - PROTECTED */
         background: rgba(255, 255, 255, 0.35) !important;
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 2px solid rgba(255, 255, 255, 0.35);
-        border-radius: 24px;
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
+        border: 2px solid rgba(255, 255, 255, 0.35) !important;
+        border-radius: 24px !important;
         box-shadow: none !important;
     }
     .projects-grid {
@@ -1077,12 +1085,12 @@ section {
         padding: 2em 1em 1.5em 1em;
         font-size: 1rem;
         margin: 2em auto;
-        /* Preserve frosted glass */
+        /* Keep frosted glass - PROTECTED */
         background: rgba(255, 255, 255, 0.35) !important;
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 2px solid rgba(255, 255, 255, 0.35);
-        border-radius: 24px;
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
+        border: 2px solid rgba(255, 255, 255, 0.35) !important;
+        border-radius: 24px !important;
         box-shadow: none !important;
     }
     .projects-grid {
@@ -1165,11 +1173,11 @@ section {
         font-size: 0.9rem;
         margin: 1.5em auto;
         border-radius: 16px;
-        /* Preserve frosted glass */
+        /* Keep frosted glass - PROTECTED */
         background: rgba(255, 255, 255, 0.35) !important;
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 2px solid rgba(255, 255, 255, 0.35);
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
+        border: 2px solid rgba(255, 255, 255, 0.35) !important;
         box-shadow: none !important;
     }
     .projects-grid {
@@ -1246,12 +1254,12 @@ section {
     .skills-cpp-block {
         padding: 1.2em 0.6em 1em 0.6em;
         font-size: 0.85rem;
-        /* Preserve frosted glass */
+        /* Keep frosted glass - PROTECTED */
         background: rgba(255, 255, 255, 0.35) !important;
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 2px solid rgba(255, 255, 255, 0.35);
-        border-radius: 24px;
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
+        border: 2px solid rgba(255, 255, 255, 0.35) !important;
+        border-radius: 24px !important;
         box-shadow: none !important;
     }
     .project-card {
