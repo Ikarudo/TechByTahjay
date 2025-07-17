@@ -191,8 +191,30 @@ section {
     letter-spacing: 1px;
     color: #000000 !important;
     text-shadow: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
+
+.navbar-logo {
+    height: 32px;
+    width: auto;
+    max-width: 32px;
+    object-fit: contain;
+}
+
+.navbar-brand-text {
+    font-weight: 700;
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    color: #000000 !important;
+    text-shadow: none;
+}
+
 .navbar.navbar-scrolled .navbar-brand {
+    color: #ffffff !important;
+}
+.navbar.navbar-scrolled .navbar-brand-text {
     color: #ffffff !important;
 }
 .nav-link {
@@ -625,6 +647,7 @@ spline-viewer {
 
 .skills-cpp-block .cpp-var {
     color: #000000;
+    font-weight: 700;
 }
 
 .skills-cpp-block .skills-cpp-content {
@@ -636,11 +659,19 @@ spline-viewer {
     border-left: 2px solid #00000044;
 }
 
+/* UPDATE the media query to preserve frosted glass properties */
 @media (max-width: 1200px) {
     .skills-cpp-block {
         max-width: 98vw;
         padding: 2.5em 1em 2em 1em;
         font-size: 1.07rem;
+        /* Keep the frosted glass properties */
+        background: rgba(255, 255, 255, 0.35) !important;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 2px solid rgba(255, 255, 255, 0.35);
+        border-radius: 24px;
+        box-shadow: none !important;
     }
 }
 
@@ -919,10 +950,22 @@ section {
     .hero-content {
         max-width: 550px;
     }
-    .projects-cs-block, .skills-cpp-block, .about-html-block, .links-python-block {
+    .projects-cs-block, .about-html-block, .links-python-block {
         max-width: 960px;
         font-size: 1.2rem;
         padding: 3em 2em 2.5em 2em;
+    }
+    .skills-cpp-block {
+        max-width: 960px;
+        font-size: 1.2rem;
+        padding: 3em 2em 2.5em 2em;
+        /* Preserve frosted glass */
+        background: rgba(255, 255, 255, 0.35) !important;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 2px solid rgba(255, 255, 255, 0.35);
+        border-radius: 24px;
+        box-shadow: none !important;
     }
     .spline-3d-wrapper {
         width: 600px;
@@ -957,10 +1000,22 @@ section {
         height: 350px;
         margin: 0 auto;
     }
-    .projects-cs-block, .skills-cpp-block, .about-html-block, .links-python-block {
+    .projects-cs-block, .about-html-block, .links-python-block {
         max-width: 95vw;
         padding: 2.5em 1.5em 2em 1.5em;
         font-size: 1.1rem;
+    }
+    .skills-cpp-block {
+        max-width: 95vw;
+        padding: 2.5em 1.5em 2em 1.5em;
+        font-size: 1.1rem;
+        /* Preserve frosted glass */
+        background: rgba(255, 255, 255, 0.35) !important;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 2px solid rgba(255, 255, 255, 0.35);
+        border-radius: 24px;
+        box-shadow: none !important;
     }
     .projects-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1011,11 +1066,24 @@ section {
         height: 300px;
         margin: 0 auto;
     }
-    .projects-cs-block, .skills-cpp-block, .about-html-block, .links-python-block {
+    .projects-cs-block, .about-html-block, .links-python-block {
         max-width: 95vw;
         padding: 2em 1em 1.5em 1em;
         font-size: 1rem;
         margin: 2em auto;
+    }
+    .skills-cpp-block {
+        max-width: 95vw;
+        padding: 2em 1em 1.5em 1em;
+        font-size: 1rem;
+        margin: 2em auto;
+        /* Preserve frosted glass */
+        background: rgba(255, 255, 255, 0.35) !important;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 2px solid rgba(255, 255, 255, 0.35);
+        border-radius: 24px;
+        box-shadow: none !important;
     }
     .projects-grid {
         grid-template-columns: 1fr;
@@ -1084,12 +1152,25 @@ section {
         height: 250px;
         margin: 0 auto;
     }
-    .projects-cs-block, .skills-cpp-block, .about-html-block, .links-python-block {
+    .projects-cs-block, .about-html-block, .links-python-block {
         max-width: 98vw;
         padding: 1.5em 0.8em 1.2em 0.8em;
         font-size: 0.9rem;
         margin: 1.5em auto;
         border-radius: 16px;
+    }
+    .skills-cpp-block {
+        max-width: 98vw;
+        padding: 1.5em 0.8em 1.2em 0.8em;
+        font-size: 0.9rem;
+        margin: 1.5em auto;
+        border-radius: 16px;
+        /* Preserve frosted glass */
+        background: rgba(255, 255, 255, 0.35) !important;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 2px solid rgba(255, 255, 255, 0.35);
+        box-shadow: none !important;
     }
     .projects-grid {
         grid-template-columns: 1fr;
@@ -1158,9 +1239,20 @@ section {
         padding: 0.6em 1em;
         font-size: 0.9rem;
     }
-    .projects-cs-block, .skills-cpp-block, .about-html-block, .links-python-block {
+    .projects-cs-block, .about-html-block, .links-python-block {
         padding: 1.2em 0.6em 1em 0.6em;
         font-size: 0.85rem;
+    }
+    .skills-cpp-block {
+        padding: 1.2em 0.6em 1em 0.6em;
+        font-size: 0.85rem;
+        /* Preserve frosted glass */
+        background: rgba(255, 255, 255, 0.35) !important;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 2px solid rgba(255, 255, 255, 0.35);
+        border-radius: 24px;
+        box-shadow: none !important;
     }
     .project-card {
         min-height: 120px;
@@ -1216,4 +1308,148 @@ section {
     .nav-link:hover {
         color: inherit !important;
     }
+}
+
+/* Linux Terminal Startup Animation */
+.terminal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fira Mono', 'Consolas', 'Monaco', monospace;
+}
+
+.terminal-window {
+    width: 100vw;
+    height: 100vh;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.terminal-header {
+    background: #2a2a2a;
+    padding: 8px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #333;
+}
+
+.terminal-title {
+    color: #00ff00;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.terminal-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.control {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ff5f56;
+}
+.control:nth-child(2) {
+    background: #ffbd2e;
+}
+.control:nth-child(3) {
+    background: #27ca3f;
+}
+
+.terminal-content {
+    padding:16px;
+    height: calc(100% - 40px);
+    overflow-y: auto;
+    color: #00ff00;
+    font-size: 20px;
+    line-height:1.4;
+}
+
+.terminal-line {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.prompt {
+    color: #00ff00;
+    margin-right: 8px;
+    font-weight: bold;
+}
+
+.command {
+    color: #00ff00;
+    margin-right: 4px;
+}
+
+.cursor {
+    width:8px;
+    height: 16px;
+    background: #00ff00;
+    animation: blink1 infinite;
+}
+
+@keyframes blink {
+    0%,50% { opacity: 1 }
+    51%, 100% { opacity:0 }
+}
+
+.terminal-output {
+    margin-top: 16px;
+    color: #00ff00;
+}
+
+.terminal-output .line {
+    margin-bottom: 4px;
+}
+
+.loading-bar-container {
+    margin-top:20px;
+    width: 10%;
+    height: 4px;
+    background: #333;
+    border-radius: 2;
+    overflow: hidden;
+}
+
+.loading-bar {
+    height: 100%;
+    background: #00ff00;
+    width: 0%;
+    transition: width 0.1s;
+}
+
+/* Hide main content initially */
+.main-content {
+    opacity: 0;
+    transition: opacity 0.5;
+}
+
+.main-content.show {
+    opacity:1;
+}
+
+/* Terminal typing animation */
+.typing {
+    border-right:2px solid #00ff00;
+    animation: typing 0.1s steps(1) infinite;
+}
+
+@keyframes typing {
+  0%,50% { border-color: #0000 }
+    51%, 100% { border-color: transparent; }
 }

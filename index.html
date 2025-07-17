@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <script src="https://kit.fontawesome.com/your-kit-id.js" crossorigin="anonymous"></script>
-    <link rel="icon" href="Media/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="Media/Logo.svg" type="image/x-icon">
     <meta name="description" content="Portfolio of Tahjay Ulett, showcasing skills in web development, app development, and more.">
     <meta name="keywords" content="Tahjay Ulett, portfolio, web development, app development, React, C#, JavaScript, HTML, CSS">
     <meta name="author" content="Tahjay Ulett">
@@ -25,154 +25,190 @@
 
 </head>
 <body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-offset="70" tabindex="0">
+    <!-- Linux Terminal Startup Animation -->
+    <div id="terminal-overlay" class="terminal-overlay">
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <span class="terminal-title">Terminal</span>
+                <div class="terminal-controls">
+                    <span class="control close"></span>
+                    <span class="control minimize"></span>
+                    <span class="control maximize"></span>
+                </div>
+            </div>
+            <div class="terminal-content">
+                <div class="terminal-line">
+                    <span class="prompt">myphz@archlinux:~$</span>
+                    <span class="command" id="typing-command"></span>
+                    <span class="cursor">
+                </div>
+                <div class="terminal-output" id="terminal-output"></div>
+                <div class="loading-bar-container">
+                    <div class="loading-bar" id="loading-bar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Background Video -->
     <video id="bg-video" autoplay muted loop playsinline>
         <source src="Media/Background Video.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
-    <!-- Navbar -->
-    <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div class="container-fluid">
-            <!-- <a class="navbar-brand" href="#home">LOGO HERE</a> -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#qualifications">Skills</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#links">Links</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Home Section -->
-    <section id="home" class="vh-100 d-flex align-items-center position-relative section-animate">
-    <div class="hero-content">
-        <div class="hero-name">Tahjay Ulett</div>
-        <div class="hero-subtitle" id="hero-typed"></div>
-        <div class="hero-buttons">
-            <a href="#projects" class="hero-btn">See My Work</a>
-            <a href="#links" class="hero-btn">Contact Me</a>
-        </div>
-    </div>
-    <div class="spline-3d-wrapper">
-        <spline-viewer url="https://prod.spline.design/QvSRLyh3eb8qI1Pi/scene.splinecode"></spline-viewer>
-    </div>
-    <!-- Optionally, add SVG or animated background here -->
-</section>
-
-    <!-- About Section -->
-    <section id="about" class="container py-5 section-animate">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <div class="about-html-block">
-                <span class="html-tag">&lt;AboutMe&gt;</span>
-                <div class="about-html-content" id="about-typed" aria-live="polite"></div>
-                <span class="html-tag">&lt;/AboutMe&gt;</span>
-            </div>
-        </div>
-    </div>
-</section>
-
-    <!-- Qualifications Section -->
-    <section id="qualifications" class="py-5 section-animate">
-    <div class="container">
-        <div class="skills-cpp-block">
-            <span class="cpp-tag">std::string <span class="cpp-var">Skills</span>[6] = {</span>
-            <div class="skills-cpp-content" id="skills-typed" aria-live="polite"></div>
-            <span class="cpp-tag">};</span>
-        </div>
-    </div>
-</section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="py-5 section-animate">
-      <div class="projects-cs-block">
-        <div class="cs-heading">
-          <span class="cs-tag">Public Static Void() <span class="cs-func">Projects </span> </span>
-        </div>
-        <span class="cs-tag">&#123;</span>
-        <div class="projects-cs-content">
-          <div class="row projects-grid row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            <div class="col">
-              <a href="https://github.com/Ikarudo/BookHive" target="_blank" class="project-card-link">
-                <div class="project-card h-100">
-                  <div class="project-body">
-                    <div class="project-title">Beehive</div>
-                    <div class="project-desc">A Microsoft dotnet Library Management System which was completed as a final project for a C# course</div>
-                    <div class="project-tags">
-                      <span class="project-tag project-tag-csharp">C#</span>
-                      <span class="project-tag project-tag-html">HTML</span>
-                      <span class="project-tag project-tag-css">CSS</span>
-                      <span class="project-tag project-tag-js">JavaScript</span>
-                    </div>
-                  </div>
+    
+    <!-- Main Website Content (initially hidden) -->
+    <div id="main-content" class="main-content" style="display: none;">
+        <!-- Navbar -->
+        <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand d-flex align-items-center" href="#home">
+                    <img src="Media/Logo White TPBG.png" alt="Tahjay Ulett Logo" class="navbar-logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#qualifications">Skills</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#links">Links</a></li>
+                    </ul>
                 </div>
-              </a>
             </div>
-            <div class="col">
-              <a href="https://github.com/Ikarudo/GigBoard" target="_blank" class="project-card-link">
-                <div class="project-card h-100">
-                  <div class="project-body">
-                    <div class="project-title">GigBoard</div>
-                    <div class="project-desc">A marketplace local to NCU where students can offer Freelance services, tutoring help or more.</div>
-                    <div class="project-tags">
-                      <span class="project-tag project-tag-html">HTML</span>
-                      <span class="project-tag project-tag-css">CSS</span>
-                    </div>
-                  </div>
-                </div>
-              </a>
+        </nav>
+
+        <!-- Home Section -->
+        <section id="home" class="vh-100 d-flex align-items-center position-relative section-animate">
+        <div class="hero-content">
+            <div class="hero-name">Tahjay Ulett</div>
+            <div class="hero-subtitle" id="hero-typed"></div>
+            <div class="hero-buttons">
+                <a href="#projects" class="hero-btn">See My Work</a>
+                <a href="#links" class="hero-btn">Contact Me</a>
             </div>
-            <div class="col">
-              <a href="https://github.com/Ikarudo/Scribit" target="_blank" class="project-card-link">
-                <div class="project-card h-100">
-                  <div class="project-body">
-                    <div class="project-title">Scribit</div>
-                    <div class="project-desc">An all in one productivity app geared towards students and designed to be a digital replacement for books. Built in React Native.</div>
-                    <div class="project-tags">
-                      <span class="project-tag project-tag-ts">TypeScript</span>
-                      <span class="project-tag project-tag-js">JavaScript</span>
-                      <span class="project-tag project-tag-kotlin">Kotlin</span>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-          </div>
         </div>
-        <span class="cs-tag">&#125;</span>
-      </div>
+        <div class="spline-3d-wrapper">
+            <spline-viewer url="https://prod.spline.design/QvSRLyh3eb8qI1Pi/scene.splinecode"></spline-viewer>
+        </div>
+        <!-- Optionally, add SVG or animated background here -->
     </section>
 
-    <!-- Links Section -->
-    <section id="links" class="py-5 section-animate">
-    <div class="container">
-        <div class="links-python-block">
-            <span class="python-tag">class <span class="python-class">Links</span>:</span>
-            <div class="links-python-content">
-                <span class="python-indent">def __init__(self):</span>
-                <div class="python-indent">
-                    <span class="python-attr">self.email</span> = <a href="mailto:tahjayulett@gmail.com" class="python-link"><span class="python-string">"tahjayulett@gmail.com"</span></a>
-                </div>
-                <div class="python-indent">
-                    <span class="python-attr">self.linkedin</span> = <a href="https://www.linkedin.com/in/tahjayulett" target="_blank" class="python-link"><span class="python-string">"linkedin.com/in/tahjayulett"</span></a>
-                </div>
-                <div class="python-indent">
-                    <span class="python-attr">self.github</span> = <a href="https://github.com/Ikarudo" target="_blank" class="python-link"><span class="python-string">"github.com/Ikarudo"</span></a>
+        <!-- About Section -->
+        <section id="about" class="container py-5 section-animate">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="about-html-block">
+                    <span class="html-tag">&lt;AboutMe&gt;</span>
+                    <div class="about-html-content" id="about-typed" aria-live="polite"></div>
+                    <span class="html-tag">&lt;/AboutMe&gt;</span>
                 </div>
             </div>
         </div>
-    </div>  
-</section>
+    </section>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-white text-center py-3">
-        <div> Need a custome website? send me an Email!</div>
-    </footer>
+        <!-- Qualifications Section -->
+        <section id="qualifications" class="py-5 section-animate">
+        <div class="container">
+            <div class="skills-cpp-block">
+                <span class="cpp-tag">std::string <span class="cpp-var">Skills</span>[6] = {</span>
+                <div class="skills-cpp-content" id="skills-typed" aria-live="polite"></div>
+                <span class="cpp-tag">};</span>
+            </div>
+        </div>
+    </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-5 section-animate">
+          <div class="projects-cs-block">
+            <div class="cs-heading">
+              <span class="cs-tag">Public Static Void() <span class="cs-func">Projects </span> </span>
+            </div>
+            <span class="cs-tag">&#123;</span>
+            <div class="projects-cs-content">
+              <div class="row projects-grid row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                <div class="col">
+                  <a href="https://github.com/Ikarudo/BookHive" target="_blank" class="project-card-link">
+                    <div class="project-card h-100">
+                      <div class="project-body">
+                        <div class="project-title">Beehive</div>
+                        <div class="project-desc">A Microsoft dotnet Library Management System which was completed as a final project for a C# course</div>
+                        <div class="project-tags">
+                          <span class="project-tag project-tag-csharp">C#</span>
+                          <span class="project-tag project-tag-html">HTML</span>
+                          <span class="project-tag project-tag-css">CSS</span>
+                          <span class="project-tag project-tag-js">JavaScript</span>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="col">
+                  <a href="https://github.com/Ikarudo/GigBoard" target="_blank" class="project-card-link">
+                    <div class="project-card h-100">
+                      <div class="project-body">
+                        <div class="project-title">GigBoard</div>
+                        <div class="project-desc">A marketplace local to NCU where students can offer Freelance services, tutoring help or more.</div>
+                        <div class="project-tags">
+                          <span class="project-tag project-tag-html">HTML</span>
+                          <span class="project-tag project-tag-css">CSS</span>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="col">
+                  <a href="https://github.com/Ikarudo/Scribit" target="_blank" class="project-card-link">
+                    <div class="project-card h-100">
+                      <div class="project-body">
+                        <div class="project-title">Scribit</div>
+                        <div class="project-desc">An all in one productivity app geared towards students and designed to be a digital replacement for books. Built in React Native.</div>
+                        <div class="project-tags">
+                          <span class="project-tag project-tag-ts">TypeScript</span>
+                          <span class="project-tag project-tag-js">JavaScript</span>
+                          <span class="project-tag project-tag-kotlin">Kotlin</span>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <span class="cs-tag">&#125;</span>
+          </div>
+        </section>
+
+        <!-- Links Section -->
+        <section id="links" class="py-5 section-animate">
+        <div class="container">
+            <div class="links-python-block">
+                <span class="python-tag">Class <span class="python-class">Links</span>:</span>
+                <div class="links-python-content">
+                    <span class="python-indent">def __init__(self):</span>
+                    <div class="python-indent">
+                        <span class="python-attr">self.email</span> = <a href="mailto:tahjayulett@gmail.com" class="python-link"><span class="python-string">"tahjayulett@gmail.com"</span></a>
+                    </div>
+                    <div class="python-indent">
+                        <span class="python-attr">self.linkedin</span> = <a href="https://www.linkedin.com/in/tahjayulett" target="_blank" class="python-link"><span class="python-string">"linkedin.com/in/tahjayulett"</span></a>
+                    </div>
+                    <div class="python-indent">
+                        <span class="python-attr">self.github</span> = <a href="https://github.com/Ikarudo" target="_blank" class="python-link"><span class="python-string">"github.com/Ikarudo"</span></a>
+                    </div>
+                </div>
+                <div class="links-buttons mt-4">
+                    <a href="mailto:tahjayulett@gmail.com" class="btn btn-outline-primary mx-2"><span class="icon">✉️</span> Email</a>
+                    <a href="https://www.linkedin.com/in/tahjayulett" class="btn btn-outline-dark mx-2 target="_blank"><span class="icon">🔗</span> LinkedIn</a>
+                    <a href="https://github.com/Ikarudo" class="btn btn-outline-secondary mx-2 target="_blank"><span class="icon">🐙</span> GitHub</a>
+                </div>
+            </div>
+        </div>  
+    </section>
+
+        <!-- Footer -->
+        <footer class="bg-dark text-white text-center py-3">
+            <div> Need a Custom Website or App? Shoot me an Email</div>
+        </footer>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="main.js"></script>

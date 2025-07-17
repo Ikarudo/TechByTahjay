@@ -170,3 +170,93 @@ document.addEventListener("DOMContentLoaded", function () {
         cardObserver.observe(card);
     });
 });
+
+// Linux Terminal Startup Animation
+document.addEventListener('DOMContentLoaded', function() {
+    const terminalOverlay = document.getElementById('terminal-overlay');
+    const typingCommand = document.getElementById('typing-command');
+    const terminalOutput = document.getElementById('terminal-output');
+    const loadingBar = document.getElementById('loading-bar');
+    const mainContent = document.getElementById('main-content');
+    const commands = [
+        'exec ./tahjay.dev',
+        'Server starting...',
+        'Website loading...'
+    ];
+    
+    let commandIndex = 0;
+    let charIndex = 0;
+    
+    function typeCommand() {
+        if (commandIndex < commands.length) {
+            const currentCommand = commands[commandIndex];
+            
+            if (charIndex < currentCommand.length) {
+                typingCommand.textContent += currentCommand[charIndex];
+                charIndex++;
+                setTimeout(typeCommand, 50);
+            } else {
+                // Command finished typing
+                setTimeout(() => {
+                    // Add to output
+                    const outputLine = document.createElement('div');
+                    outputLine.className = 'line';
+                    outputLine.textContent = `$ ${currentCommand}`;
+                    terminalOutput.appendChild(outputLine);
+                    
+                    // Clear typing area
+                    typingCommand.textContent = '';
+                    charIndex = 0;
+                    commandIndex++;
+                    
+                    // Move to next command
+                    setTimeout(typeCommand, 500);
+                }, 300);
+            }
+        } else {
+            // All commands typed, start loading bar
+            setTimeout(startLoadingBar, 50);
+        }
+    }
+    
+    function startLoadingBar() {
+        const loadingLine = document.createElement('div');
+        loadingLine.className = 'line';
+        loadingLine.textContent = 'Loading website...';
+        terminalOutput.appendChild(loadingLine);
+        
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress += 2;
+            loadingBar.style.width = progress + '%';
+            if (progress >= 100) {
+                clearInterval(interval);
+                setTimeout(() => {
+                    const completeLine = document.createElement('div');
+                    completeLine.className = 'line';
+                    completeLine.textContent = 'Website loaded successfully!';
+                    terminalOutput.appendChild(completeLine);
+                    
+                    setTimeout(() => {
+                        // Fade out terminal
+                        terminalOverlay.style.opacity = '0';
+                        terminalOverlay.style.transition = 'opacity 0.5s';
+                        
+                        setTimeout(() => {
+                            terminalOverlay.style.display = 'none';
+                            mainContent.style.display = 'block';
+                            
+                            // Fade in main content
+                            setTimeout(() => {
+                                mainContent.classList.add('show');
+                            }, 100);
+                        }, 500);
+                    }, 1000);
+                }, 500);
+            }
+        }, 50);
+    }
+    
+    // Start the animation
+    setTimeout(typeCommand, 1000);
+});
