@@ -290,7 +290,7 @@ h1, h2, h5 {
     font-weight: 700;
     }
 .cs-func{
-    color: #7c3aed;
+    color: #13abc9;
     text-shadow: 0 0 8px #7c3aedcc, 0 0 16px #0d6efd99;
 }
 .html-tag {
@@ -458,10 +458,12 @@ h1, h2, h5 {
     text-shadow: none;
     transition: background 0.2s, color 0.2s;
 }
-.project-tag-csharp { background: #8236cb; color: #fff; }
+.project-tag-csharp { background: #9b099b; color: #fff; }
+.project-tag-react { background: #17b3da; color: #fff; }
 .project-tag-html { background: #e44d26; color: #fff; }
-.project-tag-css { background: #1572b6; color: #fff; }
+.project-tag-css { background: #0252e7; color: #fff; }
 .project-tag-js { background: #f7df1e; color: #232946; }
+.project-tag-expo { background: #272626; color: #ffffff;}
 .project-tag-ts { background: #3178c6; color: #fff; }
 .project-tag-kotlin { background: #7f52ff; color: #fff; }
 

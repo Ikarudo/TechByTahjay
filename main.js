@@ -22,11 +22,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Typing animation for hero subtitle
     const phrases = [
-        'IT Student',
-        'Freelance Web Developer',
-        'App Developer',
         'Programing Tutor',
-        'Student Leader'
+        'Student Leader',
+        'IT Professional',
+        'Web Developer',
+        'App Developer'
   
     ];
     let currentPhrase = 0;
