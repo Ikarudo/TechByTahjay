@@ -1,0 +1,11 @@
+# Secrets & local-only files
+.env
+email-template.html
+
+# Dependencies (this is a static site; nothing here ships to GitHub Pages)
+node_modules/
+
+# Editor / tooling
+.claude/
+.DS_Store
+*.log

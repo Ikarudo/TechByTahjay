@@ -3,16 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech By Tahjay</title>
+    <title>Tahjay Ulett — Web &amp; App Developer | Tech By Tahjay</title>
+
+    <!-- Speed up third-party connections -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.32/build/spline-viewer.js"></script>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-    <script src="https://kit.fontawesome.com/your-kit-id.js" crossorigin="anonymous"></script>
     <link rel="icon" href="Media/Logo.svg" type="image/x-icon">
-    <meta name="description" content="Portfolio of Tahjay Ulett, showcasing skills in web development, app development, and more.">
-    <meta name="keywords" content="Tahjay Ulett, portfolio, web development, app development, React, C#, JavaScript, HTML, CSS">
+
+    <link rel="canonical" href="https://ikarudo.github.io/TechByTahjay/">
+    <meta name="description" content="Tahjay Ulett is a Jamaica-based web and app developer building custom websites and apps from scratch. View the portfolio and request a commission.">
+    <meta name="keywords" content="Tahjay Ulett, portfolio, web developer Jamaica, app developer, React, Next.js, C#, JavaScript, HTML, CSS, website commissions">
     <meta name="author" content="Tahjay Ulett">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0c0d11">
+
+    <!-- Open Graph / social preview -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ikarudo.github.io/TechByTahjay/">
+    <meta property="og:site_name" content="Tech By Tahjay">
+    <meta property="og:title" content="Tahjay Ulett — Web &amp; App Developer">
+    <meta property="og:description" content="Portfolio of Tahjay Ulett. Custom websites and apps built from scratch — available for commissions.">
+    <meta property="og:image" content="https://ikarudo.github.io/TechByTahjay/Media/Logo%20White%20TPBG.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Tahjay Ulett — Web &amp; App Developer">
+    <meta name="twitter:description" content="Portfolio of Tahjay Ulett. Custom websites and apps built from scratch — available for commissions.">
+    <meta name="twitter:image" content="https://ikarudo.github.io/TechByTahjay/Media/Logo%20White%20TPBG.png">
+
+    <!-- Structured data: helps search engines understand who this is. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Tahjay Ulett",
+      "url": "https://ikarudo.github.io/TechByTahjay/",
+      "image": "https://ikarudo.github.io/TechByTahjay/Media/Logo%20White%20TPBG.png",
+      "jobTitle": "Web & App Developer",
+      "nationality": "Jamaican",
+      "sameAs": [
+        "https://github.com/Ikarudo",
+        "https://www.linkedin.com/in/tahjayulett"
+      ],
+      "knowsAbout": ["Web Development", "App Development", "React", "Next.js", "React Native", "C#", "JavaScript", "UI/UX Design", "Artificial Intelligence"],
+      "email": "mailto:tahjayulett@gmail.com"
+    }
+    </script>
 
 
     <style>
@@ -22,6 +59,14 @@
           background-clip: text;
       }
     </style>
+
+    <!-- Failsafe: if JavaScript is disabled, skip the intro and show the site. -->
+    <noscript>
+      <style>
+        #terminal-overlay { display: none !important; }
+        #main-content { display: block !important; opacity: 1 !important; }
+      </style>
+    </noscript>
 
 </head>
 <body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-offset="70" tabindex="0">
@@ -73,6 +118,7 @@
                         <li class="nav-item"><a class="nav-link" href="#qualifications">Skills</a></li>
                         <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
                         <li class="nav-item"><a class="nav-link" href="#links">Links</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                     </ul>
                 </div>
             </div>
@@ -81,11 +127,11 @@
         <!-- Home Section -->
         <section id="home" class="vh-100 d-flex align-items-center position-relative section-animate">
         <div class="hero-content">
-            <div class="hero-name">Tahjay Ulett</div>
-            <div class="hero-subtitle" id="hero-typed"></div>
+            <h1 class="hero-name">Tahjay Ulett</h1>
+            <p class="hero-subtitle" id="hero-typed" aria-label="Web Developer"></p>
             <div class="hero-buttons">
                 <a href="#projects" class="hero-btn">See My Work</a>
-                <a href="#links" class="hero-btn">Contact Me</a>
+                <a href="#contact" class="hero-btn">Contact Me</a>
             </div>
         </div>
         <div class="spline-3d-wrapper">
@@ -120,65 +166,209 @@
 
         <!-- Projects Section -->
         <section id="projects" class="py-5 section-animate">
-          <div class="projects-cs-block">
-            <div class="cs-heading">
-              <span class="cs-tag">Public Static Void() <span class="cs-func">Projects </span> </span>
-            </div>
-            <span class="cs-tag">&#123;</span>
-            <div class="projects-cs-content">
-              <div class="row projects-grid row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                <div class="col">
-                  <a href="https://github.com/Ikarudo/sadralindsay" target="_blank" class="project-card-link">
-                    <div class="project-card h-100">
-                      <div class="project-body">
-                        <div class="project-title">Client Websites</div>
-                        <div class="project-desc">I build custom websites completely from scratch, using React (primarily Next.JS) I can tailor a fully personalized website to meet your needs. </div>
-                        <div class="project-tags">
-                          <span class="project-tag project-tag-react">React</span>
-                          <span class="project-tag project-tag-html">HTML</span>
-                          <span class="project-tag project-tag-css">CSS</span>
-                          <span class="project-tag project-tag-js">JavaScript</span>
-                        </div>
+          <div class="container">
+            <!--
+              Projects render as an interactive `git log --graph`.
+              To add a live URL later: replace the matching <span class="cl-soon">…</span>
+              with <a class="cl-link" href="YOUR_URL" target="_blank" rel="noopener">Live <span aria-hidden="true">↗</span></a>
+            -->
+            <div class="commit-log" aria-label="Featured projects, shown as a git commit log">
+              <div class="commit-log__bar">
+                <span class="cl-dot cl-dot--r" aria-hidden="true"></span>
+                <span class="cl-dot cl-dot--y" aria-hidden="true"></span>
+                <span class="cl-dot cl-dot--g" aria-hidden="true"></span>
+                <span class="commit-log__title">tahjay@techbytahjay: ~/projects</span>
+              </div>
+
+              <div class="commit-log__body">
+                <p class="cl-cmd"><span class="cl-p">$</span><span class="cl-cmd__type" data-cmd="git log --graph --featured">git log --graph --featured</span><span class="cl-caret" aria-hidden="true"></span></p>
+
+                <div class="cl-graph">
+                  <span class="cl-line" aria-hidden="true"></span>
+
+                  <!-- Scribit -->
+                  <article class="commit">
+                    <div class="commit__gutter"><span class="node node--head" aria-hidden="true"></span></div>
+                    <div class="commit__main">
+                      <div class="commit__head">
+                        <span class="cl-hash" data-hash="9f3c1a7">9f3c1a7</span>
+                        <span class="commit__name">Scribit</span>
+                        <span class="cl-ref cl-ref--head">HEAD&nbsp;&rarr;&nbsp;main</span>
+                      </div>
+                      <p class="commit__desc">All-in-one productivity hub for students — color-coded notebooks, a calendar, tasks and reminders in one app. Built as a university capstone.</p>
+                      <div class="commit__meta">
+                        <span class="stack-tag">React&nbsp;Native</span>
+                        <span class="stack-tag">TypeScript</span>
+                        <span class="stack-tag">Expo</span>
+                        <span class="stack-tag">Firebase</span>
+                        <a class="cl-link" href="https://github.com/Ikarudo/Scribit/" target="_blank" rel="noopener">Code <span aria-hidden="true">↗</span></a>
+                        <a class="cl-link" href="https://github.com/Ikarudo/Scribit/releases" target="_blank" rel="noopener">Download <span aria-hidden="true">↗</span></a>
                       </div>
                     </div>
-                  </a>
-                </div>
-                 <div class="col">
-                  <a href="https://github.com/Ikarudo/sadralindsay" target="_blank" class="project-card-link">
-                    <div class="project-card h-100">
-                      <div class="project-body">
-                        <div class="project-title">BookHive</div>
-                        <div class="project-desc">A library management software built on Microsoft dotnet framework. BookHive was a final project for my Internet Authoring course that focused on C#</div>
-                        <div class="project-tags">
-                          <span class="project-tag project-tag-csharp">C#</span>
-                          <span class="project-tag project-tag-html">HTML</span>
-                          <span class="project-tag project-tag-css">CSS</span>
-                          <span class="project-tag project-tag-js">JavaScript</span>
-                        </div>
+                  </article>
+
+                  <!-- sadralindsay -->
+                  <article class="commit">
+                    <div class="commit__gutter"><span class="node" aria-hidden="true"></span></div>
+                    <div class="commit__main">
+                      <div class="commit__head">
+                        <span class="cl-hash" data-hash="b2e8d04">b2e8d04</span>
+                        <span class="commit__name">Sadra Lindsay</span>
+                        <span class="cl-ref">tag:&nbsp;client</span>
+                      </div>
+                      <p class="commit__desc">Storefront, blog and shopping cart for a creative — real-time cart that survives sign-in, plus email order confirmations.</p>
+                      <div class="commit__meta">
+                        <span class="stack-tag">Next.js</span>
+                        <span class="stack-tag">TypeScript</span>
+                        <span class="stack-tag">Firebase</span>
+                        <span class="stack-tag">Tailwind</span>
+                        <a class="cl-link" href="https://github.com/Ikarudo/sadralindsay" target="_blank" rel="noopener">Code <span aria-hidden="true">↗</span></a>
+                        <a class="cl-link" href="https://sadramadonnalindsay.com/" target="_blank" rel="noopener">Live <span aria-hidden="true">↗</span></a>
                       </div>
                     </div>
-                  </a>
-                </div>
-                <div class="col">
-                  <a href="https://github.com/Ikarudo/Scribit/releases" target="_blank" class="project-card-link">
-                    <div class="project-card h-100">
-                      <div class="project-body">
-                        <div class="project-title">Scribit</div>
-                        <div class="project-desc">Built in React-Native, Scribit is an all in one productivity app geared towards students. Head to Github releases to download!</div>
-                        <div class="project-tags">
-                          <span class="project-tag project-tag-ts">TypeScript</span>
-                          <span class="project-tag project-tag-expo">Expo</span>
-                          <span class="project-tag project-tag-kotlin">React-native</span>
-                        </div>
+                  </article>
+
+                  <!-- TTM-Shipping (private) -->
+                  <article class="commit">
+                    <div class="commit__gutter"><span class="node" aria-hidden="true"></span></div>
+                    <div class="commit__main">
+                      <div class="commit__head">
+                        <span class="cl-hash" data-hash="47a9f15">47a9f15</span>
+                        <span class="commit__name">TTM Shipping</span>
+                        <span class="cl-ref">tag:&nbsp;client</span>
+                      </div>
+                      <p class="commit__desc">Shipping management platform — marketing site, customer portal and an admin dashboard with package tracking and automated invoicing.</p>
+                      <div class="commit__meta">
+                        <span class="stack-tag">TypeScript</span>
+                        <span class="stack-tag stack-tag--lock">private repo</span>
+                        <span class="cl-soon" title="Live URL coming soon">Live · soon</span>
                       </div>
                     </div>
-                  </a>
+                  </article>
+
+                  <!-- Hemophilia Society of Jamaica (private) -->
+                  <article class="commit">
+                    <div class="commit__gutter"><span class="node" aria-hidden="true"></span></div>
+                    <div class="commit__main">
+                      <div class="commit__head">
+                        <span class="cl-hash" data-hash="c0d5e83">c0d5e83</span>
+                        <span class="commit__name">Hemophilia Society of Jamaica</span>
+                        <span class="cl-ref">tag:&nbsp;nonprofit</span>
+                      </div>
+                      <p class="commit__desc">Website and resource hub for Jamaica's hemophilia community — accessible information and a home for the organisation online.</p>
+                      <div class="commit__meta">
+                        <span class="stack-tag">Web</span>
+                        <span class="stack-tag stack-tag--lock">private repo</span>
+                        <span class="cl-soon" title="Live URL coming soon">Live · soon</span>
+                      </div>
+                    </div>
+                  </article>
+
+                  <!-- TechByTahjay -->
+                  <article class="commit">
+                    <div class="commit__gutter"><span class="node" aria-hidden="true"></span></div>
+                    <div class="commit__main">
+                      <div class="commit__head">
+                        <span class="cl-hash" data-hash="1e6b9a2">1e6b9a2</span>
+                        <span class="commit__name">TechByTahjay</span>
+                        <span class="cl-ref">chore:&nbsp;self</span>
+                      </div>
+                      <p class="commit__desc">This very portfolio — vanilla JS, frosted glass, and a terminal that boots like home. You're looking at the commit.</p>
+                      <div class="commit__meta">
+                        <span class="stack-tag">JavaScript</span>
+                        <span class="stack-tag">CSS</span>
+                        <span class="stack-tag">Bootstrap</span>
+                        <a class="cl-link" href="https://github.com/Ikarudo/TechByTahjay" target="_blank" rel="noopener">Code <span aria-hidden="true">↗</span></a>
+                        <a class="cl-link" href="#home">Live <span aria-hidden="true">↗</span></a>
+                      </div>
+                    </div>
+                  </article>
                 </div>
+
+                <p class="cl-tail"><span class="cl-p">$</span><span class="cl-caret" aria-hidden="true"></span></p>
               </div>
             </div>
-            <span class="cs-tag">&#125;</span>
           </div>
         </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-5 section-animate">
+        <div class="container">
+            <div class="contact-js-block">
+                <span class="js-tag">async function <span class="js-func">requestCommission</span>() {</span>
+                <form id="contact-form" class="contact-form" novalidate>
+                    <div class="contact-grid">
+                        <div class="form-field">
+                            <label for="cf-name">Name *</label>
+                            <input id="cf-name" name="name" type="text" placeholder="Your name" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="cf-email">Email *</label>
+                            <input id="cf-email" name="email" type="email" placeholder="you@example.com" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="cf-phone">Phone</label>
+                            <input id="cf-phone" name="phone" type="tel" placeholder="Optional">
+                        </div>
+                        <div class="form-field">
+                            <label for="cf-type">Project type *</label>
+                            <select id="cf-type" name="project_type" required>
+                                <option value="" disabled selected>Select…</option>
+                                <option>Website</option>
+                                <option>Web App</option>
+                                <option>E-commerce</option>
+                                <option>Landing Page</option>
+                                <option>Mobile App</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="cf-pages">Estimated pages</label>
+                            <select id="cf-pages" name="num_pages">
+                                <option value="" disabled selected>Select…</option>
+                                <option>1 (Landing page)</option>
+                                <option>2-5</option>
+                                <option>6-10</option>
+                                <option>10+</option>
+                                <option>Not sure yet</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="cf-budget">Budget (USD)</label>
+                            <select id="cf-budget" name="budget">
+                                <option value="" disabled selected>Select…</option>
+                                <option>Under $250</option>
+                                <option>$250 - $500</option>
+                                <option>$500 - $1,000</option>
+                                <option>$1,000+</option>
+                                <option>Let's discuss</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="cf-timeline">Timeline</label>
+                            <select id="cf-timeline" name="timeline">
+                                <option value="" disabled selected>Select…</option>
+                                <option>ASAP</option>
+                                <option>2-4 weeks</option>
+                                <option>1-2 months</option>
+                                <option>Flexible</option>
+                            </select>
+                        </div>
+                        <div class="form-field full">
+                            <label for="cf-purpose">Purpose / goal</label>
+                            <input id="cf-purpose" name="purpose" type="text" placeholder="e.g. Portfolio, online store, booking site…">
+                        </div>
+                        <div class="form-field full">
+                            <label for="cf-message">Project details *</label>
+                            <textarea id="cf-message" name="message" placeholder="Tell me about your project — ideas, references, must-have features…" required></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="contact-submit">Send Request</button>
+                </form>
+                <span class="js-tag">}</span>
+            </div>
+        </div>
+    </section>
 
         <!-- Links Section -->
         <section id="links" class="py-5 section-animate">
@@ -191,16 +381,16 @@
                         <span class="python-attr">self.email</span> = <a href="mailto:tahjayulett@gmail.com" class="python-link"><span class="python-string">"tahjayulett@gmail.com"</span></a>
                     </div>
                     <div class="python-indent">
-                        <span class="python-attr">self.linkedin</span> = <a href="https://www.linkedin.com/in/tahjayulett" target="_blank" class="python-link"><span class="python-string">"linkedin.com/in/tahjayulett"</span></a>
+                        <span class="python-attr">self.linkedin</span> = <a href="https://www.linkedin.com/in/tahjayulett" target="_blank" rel="noopener" class="python-link"><span class="python-string">"linkedin.com/in/tahjayulett"</span></a>
                     </div>
                     <div class="python-indent">
-                        <span class="python-attr">self.github</span> = <a href="https://github.com/Ikarudo" target="_blank" class="python-link"><span class="python-string">"github.com/Ikarudo"</span></a>
+                        <span class="python-attr">self.github</span> = <a href="https://github.com/Ikarudo" target="_blank" rel="noopener" class="python-link"><span class="python-string">"github.com/Ikarudo"</span></a>
                     </div>
                 </div>
                 <div class="links-buttons mt-4">
-                    <a href="mailto:tahjayulett@gmail.com" class="btn btn-outline-primary mx-2" target="_blank"><span class="icon">✉️</span> Email</a>
-                    <a href="https://www.linkedin.com/in/tahjayulett" class="btn btn-outline-dark mx-2" target="_blank"><span class="icon">🔗</span> LinkedIn</a>
-                    <a href="https://github.com/Ikarudo" class="btn btn-outline-secondary mx-2" target="_blank"><span class="icon">🐙</span> GitHub</a>
+                    <a href="mailto:tahjayulett@gmail.com" class="btn btn-outline-primary mx-2"><span class="icon">✉️</span> Email</a>
+                    <a href="https://www.linkedin.com/in/tahjayulett" class="btn btn-outline-dark mx-2" target="_blank" rel="noopener"><span class="icon">🔗</span> LinkedIn</a>
+                    <a href="https://github.com/Ikarudo" class="btn btn-outline-secondary mx-2" target="_blank" rel="noopener"><span class="icon">🐙</span> GitHub</a>
                 </div>
             </div>
         </div>  
@@ -214,7 +404,16 @@
         </footer>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="main.js"></script>
+    <!-- Toast notification -->
+    <div id="toast" class="toast-notification" role="status" aria-live="polite">
+        <span class="toast-icon">✅</span>
+        <span class="toast-msg"></span>
+    </div>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script defer src="main.js"></script>
+    <script defer src="projects.js"></script>
+    <script defer src="contact.js"></script>
 </body>
 </html>

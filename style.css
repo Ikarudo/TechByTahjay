@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Montserrat:wght@400;700&family=Fira+Mono:wght@400;700&display=swap');
 
+/* Single source of truth for the frosted-glass panels (skills, contact). */
+:root {
+    --frost-bg: rgba(255, 255, 255, 0.35);
+    --frost-blur: blur(12px);
+    --frost-border: 2px solid rgba(255, 255, 255, 0.35);
+    --frost-radius: 24px;
+}
+
 /* Background video styles */
 #bg-video {
     position: fixed;
@@ -12,7 +20,7 @@
     pointer-events: none;
     min-width: 100%;
     min-height: 100%;
-    background: #000;
+    background: transparent;
 }
 
 html, body, #home, section {
@@ -252,7 +260,7 @@ h1, h2, h5 {
 }
 
 /* Remove conflicting section backgrounds and enforce a uniform background for all sections */
-#about, #projects, #links, #qualifications, section {
+#about, #projects, #links, #qualifications, #contact, section {
     background: none !important;
     box-shadow: none !important;
     border-radius: 0 !important;
@@ -323,36 +331,8 @@ h1, h2, h5 {
     animation: fadeInUp 1.5s 0.2s cubic-bezier(.4,1.2,.6,1) both;
 }
 
-/* Remove duplicate .skills-cpp-block rule - keeping only the comprehensive frosted glass one */
-
-@media (max-width: 1199px) and (min-width: 992px) {
-    .skills-cpp-block {
-        max-width: 960px;
-        font-size: 1.2rem;
-        padding: 3em 2em 2.5em 2em;
-        /* Keep frosted glass - PROTECTED */
-        background: rgba(255, 255, 255, 0.35) !important;
-        backdrop-filter: blur(12px) !important;
-        -webkit-backdrop-filter: blur(12px) !important;
-        border: 2px solid rgba(255, 255, 255, 0.35) !important;
-        border-radius: 24px !important;
-        box-shadow: none !important;
-    }
-}
-@media (max-width: 1200px) {
-    .skills-cpp-block {
-        max-width: 98vw;
-        padding: 2.5em 1em 2em 1em;
-        font-size: 1.07rem;
-        /* Keep frosted glass - PROTECTED */
-        background: rgba(255, 255, 255, 0.35) !important;
-        backdrop-filter: blur(12px) !important;
-        -webkit-backdrop-filter: blur(12px) !important;
-        border: 2px solid rgba(255, 255, 255, 0.35) !important;
-        border-radius: 24px !important;
-        box-shadow: none !important;
-    }
-}
+/* Responsive sizing for .skills-cpp-block lives in the breakpoint blocks below;
+   the frosted-glass look is defined once on the base rule. */
 
 .cpp-tag {
     display: block;
@@ -637,16 +617,15 @@ spline-viewer {
     box-shadow: none !important;
 }
 
-/* Copy About section styling exactly for Skills section */
+/* Frosted-glass panel — defined once here, reused across all breakpoints. */
 .skills-cpp-block {
-    /* Frosted glass effect - PROTECTED */
-    background: rgba(255, 255, 255, 0.35) !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
-    border: 2px solid rgba(255, 255, 255, 0.35) !important;
-    border-radius: 24px !important;
+    background: var(--frost-bg) !important;
+    backdrop-filter: var(--frost-blur) !important;
+    -webkit-backdrop-filter: var(--frost-blur) !important;
+    border: var(--frost-border) !important;
+    border-radius: var(--frost-radius) !important;
     box-shadow: none !important;
-    
+
     /* Layout and typography */
     padding: 4em 4vw 3em 4vw;
     font-family: 'Fira Mono', 'Consolas', monospace;
@@ -969,13 +948,6 @@ section {
         max-width: 960px;
         font-size: 1.2rem;
         padding: 3em 2em 2.5em 2em;
-        /* Preserve frosted glass */
-        background: rgba(255, 255, 255, 0.35) !important;
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 2px solid rgba(255, 255, 255, 0.35);
-        border-radius: 24px;
-        box-shadow: none !important;
     }
     .spline-3d-wrapper {
         width: 600px;
@@ -1019,13 +991,6 @@ section {
         max-width: 95vw;
         padding: 2.5em 1.5em 2em 1.5em;
         font-size: 1.1rem;
-        /* Keep frosted glass - PROTECTED */
-        background: rgba(255, 255, 255, 0.35) !important;
-        backdrop-filter: blur(12px) !important;
-        -webkit-backdrop-filter: blur(12px) !important;
-        border: 2px solid rgba(255, 255, 255, 0.35) !important;
-        border-radius: 24px !important;
-        box-shadow: none !important;
     }
     .projects-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1087,13 +1052,6 @@ section {
         padding: 2em 1em 1.5em 1em;
         font-size: 1rem;
         margin: 2em auto;
-        /* Keep frosted glass - PROTECTED */
-        background: rgba(255, 255, 255, 0.35) !important;
-        backdrop-filter: blur(12px) !important;
-        -webkit-backdrop-filter: blur(12px) !important;
-        border: 2px solid rgba(255, 255, 255, 0.35) !important;
-        border-radius: 24px !important;
-        box-shadow: none !important;
     }
     .projects-grid {
         grid-template-columns: 1fr;
@@ -1174,13 +1132,6 @@ section {
         padding: 1.5em 0.8em 1.2em 0.8em;
         font-size: 0.9rem;
         margin: 1.5em auto;
-        border-radius: 16px;
-        /* Keep frosted glass - PROTECTED */
-        background: rgba(255, 255, 255, 0.35) !important;
-        backdrop-filter: blur(12px) !important;
-        -webkit-backdrop-filter: blur(12px) !important;
-        border: 2px solid rgba(255, 255, 255, 0.35) !important;
-        box-shadow: none !important;
     }
     .projects-grid {
         grid-template-columns: 1fr;
@@ -1256,13 +1207,6 @@ section {
     .skills-cpp-block {
         padding: 1.2em 0.6em 1em 0.6em;
         font-size: 0.85rem;
-        /* Keep frosted glass - PROTECTED */
-        background: rgba(255, 255, 255, 0.35) !important;
-        backdrop-filter: blur(12px) !important;
-        -webkit-backdrop-filter: blur(12px) !important;
-        border: 2px solid rgba(255, 255, 255, 0.35) !important;
-        border-radius: 24px !important;
-        box-shadow: none !important;
     }
     .project-card {
         min-height: 120px;
@@ -1462,4 +1406,385 @@ section {
 @keyframes typing {
   0%,50% { border-color: #0000 }
     51%, 100% { border-color: transparent; }
+}
+
+/* Page canvas fallback: when the background video isn't painting, show white
+   (matches the light plexus theme) instead of black. */
+html {
+    background-color: #ffffff !important;
+}
+
+/* ===================== Projects · git log terminal ===================== */
+.commit-log {
+    max-width: 1000px;
+    width: 100%;
+    margin: 2.5em auto;
+    border-radius: 14px;
+    overflow: hidden;
+    font-family: 'Fira Mono', 'Consolas', monospace;
+    color: #e8eaf0;
+    background: rgba(12, 13, 17, 0.72);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+
+.commit-log__bar {
+    display: flex;
+    align-items: center;
+    gap: 0.55em;
+    padding: 0.7em 1.1em;
+    background: rgba(255, 255, 255, 0.045);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.cl-dot { width: 12px; height: 12px; border-radius: 50%; flex: none; }
+.cl-dot--r { background: #ff5f56; }
+.cl-dot--y { background: #ffbd2e; }
+.cl-dot--g { background: #27ca3f; }
+.commit-log__title {
+    margin-left: 0.6em;
+    color: #8a93a6;
+    font-size: 0.82rem;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.commit-log__body { padding: 1.5em 1.6em 1.7em; }
+
+.cl-cmd, .cl-tail {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #d7dce6;
+    word-break: break-word;
+}
+.cl-p { color: #27ca3f; font-weight: 700; margin-right: 0.6em; }
+.cl-tail { margin-top: 1em; }
+.cl-caret {
+    display: inline-block;
+    width: 8px;
+    height: 1.05em;
+    margin-left: 3px;
+    vertical-align: text-bottom;
+    background: #27ca3f;
+    animation: cl-blink 1.05s steps(1) infinite;
+}
+@keyframes cl-blink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
+
+.cl-graph { position: relative; margin-top: 1.4em; }
+.cl-line {
+    position: absolute;
+    left: 9px;
+    top: 12px;
+    bottom: 20px;
+    width: 2px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.12) 100%);
+    transform-origin: top center;
+}
+
+.commit {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    gap: 0.15em 1em;
+    padding: 0.7em 0.7em 0.95em;
+    border-radius: 10px;
+    position: relative;
+    transition: background 0.25s ease, transform 0.25s ease;
+}
+.commit:hover { background: rgba(255, 255, 255, 0.05); transform: translateX(2px); }
+
+.commit__gutter { display: flex; justify-content: center; }
+.node {
+    width: 14px; height: 14px;
+    margin-top: 4px;
+    border-radius: 50%;
+    background: #0c0d11;
+    border: 2px solid rgba(255, 255, 255, 0.75);
+    position: relative;
+    z-index: 1;
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.node--head { background: #ffffff; box-shadow: 0 0 12px rgba(255, 255, 255, 0.55); }
+.commit:hover .node {
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1), 0 0 16px rgba(255, 255, 255, 0.55);
+}
+
+.commit__head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.55em; }
+.cl-hash { color: #6f7889; font-size: 0.85rem; }
+.commit__name { color: #ffffff; font-weight: 700; font-size: 1.08rem; letter-spacing: 0.01em; }
+.cl-ref {
+    font-size: 0.72rem;
+    color: #ffbd2e;
+    border: 1px solid rgba(255, 189, 46, 0.4);
+    border-radius: 20px;
+    padding: 0.05em 0.6em;
+    white-space: nowrap;
+}
+.cl-ref--head { color: #27ca3f; border-color: rgba(39, 202, 63, 0.45); }
+
+.commit__desc {
+    margin: 0.4em 0 0;
+    color: #aab2c0;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+    max-width: 62ch;
+}
+
+.commit__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.45em; margin-top: 0.75em; }
+.stack-tag {
+    font-size: 0.74rem;
+    color: #c2c9d6;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 6px;
+    padding: 0.22em 0.6em;
+}
+.stack-tag--lock { color: #8a93a6; }
+.stack-tag--lock::before { content: "🔒 "; }
+
+.cl-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    font-family: 'Fira Mono', 'Consolas', monospace;
+    font-size: 0.78rem;
+    text-decoration: none;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.38);
+    border-radius: 7px;
+    padding: 0.3em 0.85em;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+.cl-link:hover, .cl-link:focus-visible {
+    background: #ffffff;
+    color: #0c0d11;
+    border-color: #ffffff;
+    transform: translateY(-1px);
+}
+.cl-soon {
+    font-size: 0.78rem;
+    color: #6f7889;
+    border: 1px dashed rgba(255, 255, 255, 0.22);
+    border-radius: 7px;
+    padding: 0.3em 0.85em;
+    cursor: default;
+}
+
+/* --- Entrance animation (added by JS only when motion is allowed) --- */
+.commit-log.anim .cl-line { transform: scaleY(0); }
+.commit-log.anim .node { transform: scale(0); }
+.commit-log.anim .commit { opacity: 0; transform: translateY(10px); }
+
+.commit-log.anim.is-live .cl-line {
+    transform: scaleY(1);
+    transition: transform 0.85s ease;
+}
+.commit-log.anim.is-live .node {
+    transform: scale(1);
+    transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.commit-log.anim.is-live .commit {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+/* Stagger nodes + rows down the graph */
+.commit-log.anim.is-live .commit:nth-child(2) .node,
+.commit-log.anim.is-live .commit:nth-child(2) { transition-delay: 0.45s; }
+.commit-log.anim.is-live .commit:nth-child(3) .node,
+.commit-log.anim.is-live .commit:nth-child(3) { transition-delay: 0.6s; }
+.commit-log.anim.is-live .commit:nth-child(4) .node,
+.commit-log.anim.is-live .commit:nth-child(4) { transition-delay: 0.75s; }
+.commit-log.anim.is-live .commit:nth-child(5) .node,
+.commit-log.anim.is-live .commit:nth-child(5) { transition-delay: 0.9s; }
+.commit-log.anim.is-live .commit:nth-child(6) .node,
+.commit-log.anim.is-live .commit:nth-child(6) { transition-delay: 1.05s; }
+
+@media (max-width: 600px) {
+    .commit-log__body { padding: 1.2em 1em 1.3em; }
+    .commit { grid-template-columns: 18px 1fr; gap: 0.15em 0.7em; padding: 0.6em 0.4em 0.85em; }
+    .commit__name { font-size: 1rem; }
+    .cl-cmd, .cl-tail { font-size: 0.85rem; }
+    .commit-log__title { font-size: 0.72rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cl-caret { animation: none; }
+
+    /* Respect reduced motion globally: no entrance/loop animations, and make
+       all content immediately visible without depending on scroll. */
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+    section,
+    section.section-animate {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+    .main-content { opacity: 1 !important; }
+    .hero-subtitle { border-right: 0; }
+}
+
+/* ===================== Contact Form ===================== */
+.contact-js-block {
+    /* Frosted glass — shares the tokens defined in :root with the skills panel */
+    background: var(--frost-bg) !important;
+    backdrop-filter: var(--frost-blur) !important;
+    -webkit-backdrop-filter: var(--frost-blur) !important;
+    border: var(--frost-border) !important;
+    border-radius: var(--frost-radius) !important;
+    box-shadow: none !important;
+
+    padding: 3.2em 3vw 2.8em 3vw;
+    font-family: 'Fira Mono', 'Consolas', monospace;
+    color: #000000;
+    font-size: 1.18rem;
+    margin: 2.5em auto;
+    max-width: 820px;
+    width: 100%;
+    position: relative;
+}
+
+.js-tag {
+    display: block;
+    color: #000000;
+    font-size: 1.12em;
+    font-weight: 700;
+    font-family: 'Fira Mono', 'Consolas', monospace;
+    letter-spacing: 0.05em;
+    margin: 0.4em 0;
+}
+.js-func { color: #333333; }
+
+.contact-form {
+    padding-left: 2.2em;
+    border-left: 2px solid #00000044;
+    margin: 1.2em 0;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1em 1.3em;
+}
+
+.form-field { display: flex; flex-direction: column; }
+.form-field.full { grid-column: 1 / -1; }
+
+.form-field label {
+    font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #000000;
+    margin-bottom: 0.45em;
+    letter-spacing: 0.02em;
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+    font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+    font-size: 0.95rem;
+    color: #000000;
+    background: rgba(255, 255, 255, 0.55);
+    border: 1.5px solid rgba(0, 0, 0, 0.35);
+    border-radius: 12px;
+    padding: 0.7em 0.9em;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    width: 100%;
+}
+.contact-form input::placeholder,
+.contact-form textarea::placeholder { color: rgba(0, 0, 0, 0.45); }
+
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: #000000;
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12);
+}
+
+.contact-form textarea { resize: vertical; min-height: 130px; }
+.contact-form select { cursor: pointer; }
+
+.contact-submit {
+    margin-top: 1.6em;
+    font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+    padding: 0.75em 2.4em;
+    border-radius: 32px;
+    background: #000000;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 16px #00000088;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+.contact-submit:hover:not(:disabled),
+.contact-submit:focus:not(:disabled) {
+    background: #e3e3e3;
+    color: #000000;
+    box-shadow: 0 0 36px #000000cc;
+    transform: translateY(-2px) scale(1.04);
+}
+.contact-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+@media (max-width: 700px) {
+    .contact-grid { grid-template-columns: 1fr; }
+    .contact-js-block { padding: 2.4em 1.2em 2em 1.2em; }
+    .contact-form { padding-left: 1.2em; }
+}
+
+/* ===================== Toast Notification ===================== */
+.toast-notification {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 9999;
+    min-width: 280px;
+    max-width: 360px;
+    display: flex;
+    align-items: center;
+    gap: 0.8em;
+    padding: 1em 1.2em;
+    font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1.5px solid rgba(255, 255, 255, 0.35);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+    transform: translateY(24px);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.35s cubic-bezier(.4,1.2,.6,1), opacity 0.35s;
+}
+.toast-notification.show {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+.toast-notification.error { border-color: rgba(255, 95, 95, 0.65); }
+.toast-icon { font-size: 1.35em; line-height: 1; }
+
+@media (max-width: 560px) {
+    .toast-notification {
+        left: 16px;
+        right: 16px;
+        bottom: 16px;
+        max-width: none;
+    }
 }
