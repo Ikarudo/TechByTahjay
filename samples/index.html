@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Gallery | Tech By Tahjay</title>
+    <meta name="description" content="Four demo sites, four completely different personalities. Sample builds by Tahjay Ulett, showing custom websites coded by hand from scratch.">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0c0d11">
+    <link rel="icon" href="../Media/Logo.svg" type="image/x-icon">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Site brand fonts + the four samples' display faces (used only inside the mini previews) -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Fira+Mono:wght@400;700&family=Fraunces:ital,opsz,wght@0,9..144,900;1,9..144,600&family=Newsreader:ital,opsz@1,6..72&family=Archivo+Black&family=Cormorant+Garamond:ital,wght@1,600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-0: #0c0d11;
+            --bg-1: #171a24;
+            --ink: #f4f6fb;
+            --muted: #8a93a6;
+            --line: rgba(255, 255, 255, 0.12);
+            --green: #27ca3f;
+        }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(165deg, var(--bg-0) 0%, var(--bg-1) 55%, #1c2030 100%);
+            color: var(--ink);
+            font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+            letter-spacing: 0.01em;
+            overflow-x: hidden;
+        }
+        a { color: inherit; }
+        :focus-visible { outline: 3px solid #ffffff; outline-offset: 3px; border-radius: 4px; }
+
+        .skip-link {
+            position: absolute; left: -9999px; top: 0;
+            background: #ffffff; color: #0c0d11; font-weight: 700;
+            padding: 0.6em 1.2em; z-index: 100; border-radius: 0 0 10px 0;
+        }
+        .skip-link:focus { left: 0; }
+
+        .wrap { max-width: 1120px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px); }
+
+        /* ---- Header ---- */
+        .top {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 1em; padding: 1.2em 0;
+        }
+        .back-home {
+            display: inline-flex; align-items: center; gap: 0.5em;
+            font-family: 'Fira Mono', 'Consolas', monospace;
+            font-size: 0.85rem; text-decoration: none; color: var(--muted);
+            border: 1px solid var(--line); border-radius: 8px;
+            padding: 0.45em 0.95em;
+            transition: color 0.2s, border-color 0.2s, background 0.2s, transform 0.15s;
+        }
+        .back-home:hover, .back-home:focus-visible {
+            color: #ffffff; border-color: rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.06); transform: translateY(-1px);
+        }
+        .top-logo { height: 34px; width: auto; display: block; }
+
+        /* ---- Intro (terminal framing) ---- */
+        .intro { padding: clamp(2em, 6vh, 4.5em) 0 1em; }
+        .intro .code-tab {
+            display: inline-block;
+            font-family: 'Fira Mono', 'Consolas', monospace;
+            font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em;
+            color: var(--muted);
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--line); border-bottom: none;
+            border-radius: 10px 10px 0 0;
+            padding: 0.45em 1.2em;
+        }
+        .intro-panel {
+            border: 1px solid var(--line);
+            border-radius: 0 14px 14px 14px;
+            background: rgba(12, 13, 17, 0.55);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: clamp(1.4em, 4vw, 2.4em);
+        }
+        .cmd {
+            margin: 0 0 1.1em;
+            font-family: 'Fira Mono', 'Consolas', monospace;
+            font-size: 0.95rem; color: #d7dce6;
+        }
+        .cmd .p { color: var(--green); font-weight: 700; margin-right: 0.6em; }
+        .caret {
+            display: inline-block; width: 8px; height: 1.05em; margin-left: 4px;
+            vertical-align: text-bottom; background: var(--green);
+            animation: blink 1.05s steps(1) infinite;
+        }
+        @keyframes blink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
+
+        h1 {
+            margin: 0 0 0.35em;
+            font-size: clamp(1.7rem, 4.5vw, 2.7rem);
+            font-weight: 700; letter-spacing: 0.01em; line-height: 1.15;
+        }
+        .intro-sub {
+            margin: 0; max-width: 62ch;
+            color: #c2c9d6; font-size: 1.02rem; line-height: 1.7;
+        }
+        .intro-sub strong { color: #ffffff; }
+
+        /* ---- Card grid ---- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(430px, 100%), 1fr));
+            gap: clamp(1.2em, 3vw, 2em);
+            padding: clamp(1.8em, 5vh, 3em) 0;
+        }
+
+        .demo-card {
+            display: flex; flex-direction: column;
+            text-decoration: none;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.03);
+            transition: transform 0.3s cubic-bezier(.3,1.2,.5,1), border-color 0.3s, box-shadow 0.3s;
+        }
+        .demo-card:hover, .demo-card:focus-visible {
+            transform: translateY(-6px);
+            border-color: rgba(255,255,255,0.4);
+            box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+        }
+        .demo-card.reveal { opacity: 0; transform: translateY(26px); }
+        .demo-card.reveal.in {
+            opacity: 1; transform: translateY(0);
+            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(.3,1.2,.5,1),
+                        border-color 0.3s, box-shadow 0.3s;
+        }
+        .demo-card.reveal.in:hover, .demo-card.reveal.in:focus-visible { transform: translateY(-6px); }
+
+        /* Mini previews: each card renders a tiny mock of its sample, in that
+           sample's own palette and display face. No screenshots, just code. */
+        .mini {
+            aspect-ratio: 16 / 9.5;
+            position: relative;
+            overflow: hidden;
+            display: block;
+        }
+        .mini * { pointer-events: none; }
+        .demo-card:hover .mini-stage, .demo-card:focus-visible .mini-stage { transform: scale(1.035); }
+        .mini-stage {
+            position: absolute; inset: 0;
+            transition: transform 0.5s cubic-bezier(.3,1.2,.5,1);
+            display: flex;
+        }
+
+        /* Cookbook mini: Island Thyme */
+        .mini--cookbook .mini-stage { background: #21402F; align-items: center; padding: 8% 9%; gap: 6%; }
+        .mini--cookbook .m-copy { flex: 1.2; }
+        .mini--cookbook .m-eyebrow {
+            font-family: 'Fira Mono', monospace; font-size: clamp(7px, 1.4vw, 10px);
+            letter-spacing: 0.22em; color: #E8A03B; text-transform: uppercase;
+        }
+        .mini--cookbook .m-title {
+            font-family: 'Fraunces', serif; font-weight: 900;
+            font-size: clamp(20px, 4.2vw, 34px); line-height: 1.02;
+            color: #FBF7EC; margin: 0.25em 0 0.35em;
+        }
+        .mini--cookbook .m-chiprow { display: flex; gap: 6px; }
+        .mini--cookbook .m-chip {
+            font-family: 'Montserrat', sans-serif; font-size: clamp(6px, 1.2vw, 9px); font-weight: 700;
+            color: #21402F; background: #E9F0E0; border-radius: 20px; padding: 3px 9px;
+        }
+        .mini--cookbook .m-chip--hot { background: #E8641B; color: #FBF7EC; }
+        .mini--cookbook .m-pot { flex: 0.8; display: flex; justify-content: center; }
+        .mini--cookbook .m-pot svg { width: 78%; height: auto; }
+
+        /* Blog mini: Tidelines */
+        .mini--blog .mini-stage { background: linear-gradient(180deg, #F2F5F4 55%, #D9E4E6 100%); }
+        .mini--blog .m-rail {
+            width: 14%; border-right: 1px solid rgba(27,51,61,0.18);
+            display: flex; flex-direction: column; justify-content: space-between;
+            padding: 8% 0 8% 6%;
+            font-family: 'Fira Mono', monospace; font-size: clamp(6px, 1.1vw, 9px); color: #5C7078;
+        }
+        .mini--blog .m-body { flex: 1; padding: 7% 9%; }
+        .mini--blog .m-kicker {
+            font-family: 'Montserrat', sans-serif; font-size: clamp(6px, 1.2vw, 9px);
+            font-weight: 700; letter-spacing: 0.3em; color: #B0462F; text-transform: uppercase;
+        }
+        .mini--blog .m-head {
+            font-family: 'Newsreader', serif; font-style: italic;
+            font-size: clamp(18px, 3.8vw, 30px); line-height: 1.08; color: #16303A;
+            margin: 0.3em 0 0.5em;
+        }
+        .mini--blog .m-line { height: 4px; border-radius: 2px; background: rgba(27,51,61,0.22); margin: 6px 0; }
+        .mini--blog .m-line:nth-child(odd) { width: 92%; }
+        .mini--blog .m-line:nth-child(even) { width: 78%; }
+
+        /* Store mini: Brimstone */
+        .mini--store .mini-stage { background: #FFC93C; flex-direction: column; }
+        .mini--store .m-hero { flex: 1; display: flex; align-items: center; padding: 6% 9% 2%; gap: 4%; }
+        .mini--store .m-shout {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(19px, 4vw, 32px); line-height: 0.98;
+            color: #191410; text-transform: uppercase; flex: 1;
+        }
+        .mini--store .m-shout em { font-style: normal; color: #E23D28; }
+        .mini--store .m-sticker {
+            width: clamp(48px, 22%, 86px); aspect-ratio: 1; border-radius: 50%;
+            background: #E23D28; color: #FFC93C;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            font-family: 'Archivo Black', sans-serif; font-size: clamp(7px, 1.4vw, 11px);
+            transform: rotate(-12deg); line-height: 1.1; padding: 4%;
+        }
+        .mini--store .m-marquee {
+            background: #191410; color: #FFC93C;
+            font-family: 'Fira Mono', monospace; font-size: clamp(7px, 1.3vw, 10px);
+            letter-spacing: 0.18em; white-space: nowrap; overflow: hidden;
+            padding: 6px 0; text-transform: uppercase;
+        }
+
+        /* Booking mini: Cove & Palm */
+        .mini--booking .mini-stage { background: #FBFAF7; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        .mini--booking .m-eyebrow {
+            font-family: 'Montserrat', sans-serif; font-size: clamp(6px, 1.2vw, 9px);
+            font-weight: 700; letter-spacing: 0.34em; color: #47705B; text-transform: uppercase;
+        }
+        .mini--booking .m-head {
+            font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 600;
+            font-size: clamp(20px, 4.4vw, 36px); color: #0B3C4D; margin: 0.2em 0 0.6em;
+        }
+        .mini--booking .m-steps { display: flex; gap: 10px; align-items: center; z-index: 1; }
+        .mini--booking .m-step {
+            width: 18px; height: 18px; border-radius: 50%;
+            border: 1.5px solid #0E6E8C; color: #0E6E8C;
+            font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .mini--booking .m-step.on { background: #0E6E8C; color: #FBFAF7; }
+        .mini--booking .m-dash { width: 22px; height: 1.5px; background: rgba(14,110,140,0.4); }
+        .mini--booking .m-waves { position: absolute; left: 0; right: 0; bottom: -2px; }
+        .mini--booking .m-waves svg { display: block; width: 100%; height: auto; }
+
+        /* ---- Card meta ---- */
+        .card-meta { padding: 1.15em 1.3em 1.3em; border-top: 1px solid var(--line); flex: 1; display: flex; flex-direction: column; gap: 0.45em; }
+        .card-kind {
+            font-family: 'Fira Mono', 'Consolas', monospace;
+            font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+            color: var(--muted);
+        }
+        .card-name { font-size: 1.18rem; font-weight: 700; color: #ffffff; display: flex; align-items: baseline; gap: 0.5em; }
+        .card-name .arrow { font-family: 'Fira Mono', monospace; transition: transform 0.25s cubic-bezier(.3,1.2,.5,1); }
+        .demo-card:hover .arrow, .demo-card:focus-visible .arrow { transform: translateX(5px); }
+        .card-proof { margin: 0; color: #aab2c0; font-size: 0.9rem; line-height: 1.6; }
+        .card-tags { display: flex; flex-wrap: wrap; gap: 0.4em; margin-top: auto; padding-top: 0.7em; }
+        .tag {
+            font-family: 'Fira Mono', 'Consolas', monospace; font-size: 0.7rem;
+            color: #c2c9d6; background: rgba(255,255,255,0.05);
+            border: 1px solid var(--line); border-radius: 6px; padding: 0.2em 0.6em;
+        }
+
+        /* ---- Outro ---- */
+        .outro {
+            text-align: center;
+            padding: 1em 0 4em;
+        }
+        .outro p { color: var(--muted); font-size: 0.95rem; margin: 0 0 1.2em; }
+        .outro-btn {
+            display: inline-flex; align-items: baseline; gap: 0.55em;
+            font-weight: 700; font-size: 1.02rem; text-decoration: none;
+            color: #0c0d11; background: #ffffff;
+            border: 2px solid #ffffff; border-radius: 32px;
+            padding: 0.7em 1.8em;
+            transition: transform 0.2s cubic-bezier(.4,1.4,.6,1), box-shadow 0.25s, background 0.25s;
+        }
+        .outro-btn:hover, .outro-btn:focus-visible {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 34px rgba(255,255,255,0.25);
+        }
+
+        @media (max-width: 480px) {
+            .top-logo { height: 28px; }
+            .card-meta { padding: 1em 1em 1.1em; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .caret { animation: none; }
+            .demo-card.reveal { opacity: 1; transform: none; }
+            .demo-card, .mini-stage, .card-name .arrow, .back-home, .outro-btn { transition: none; }
+            .demo-card:hover, .demo-card:focus-visible { transform: none; }
+        }
+    </style>
+</head>
+<body>
+    <a class="skip-link" href="#gallery">Skip to the gallery</a>
+
+    <div class="wrap">
+        <header class="top">
+            <a class="back-home" href="../">&larr; techbytahjay</a>
+            <a href="../" aria-label="Back to Tech By Tahjay home">
+                <img class="top-logo" src="../Media/Logo White TPBG.png" alt="Tech By Tahjay logo">
+            </a>
+        </header>
+
+        <section class="intro" aria-labelledby="gallery-title">
+            <span class="code-tab" aria-hidden="true">samples/</span>
+            <div class="intro-panel">
+                <p class="cmd" aria-hidden="true"><span class="p">$</span>ls --demos ./samples<span class="caret"></span></p>
+                <h1 id="gallery-title">Four sites. Four completely different personalities.</h1>
+                <p class="intro-sub">
+                    I designed and coded every demo below from scratch. Different palettes,
+                    different type, different layouts, different ways to move around.
+                    <strong>No two share a look, and none of them look like this page.</strong>
+                    That's the whole idea: your site should look like <em>you</em>, not like everyone else's.
+                </p>
+            </div>
+        </section>
+
+        <main id="gallery">
+            <div class="grid">
+                <!-- Cookbook -->
+                <a class="demo-card reveal" href="cookbook/">
+                    <span class="mini mini--cookbook" aria-hidden="true">
+                        <span class="mini-stage">
+                            <span class="m-copy">
+                                <span class="m-eyebrow">Sunday supper</span>
+                                <span class="m-title" style="display:block">Brown Stew Chicken</span>
+                                <span class="m-chiprow">
+                                    <span class="m-chip">1 hr 10 min</span>
+                                    <span class="m-chip m-chip--hot">One pot</span>
+                                </span>
+                            </span>
+                            <span class="m-pot">
+                                <svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">
+                                    <ellipse cx="60" cy="88" rx="44" ry="7" fill="#183324"/>
+                                    <path d="M22 46 Q22 84 60 84 Q98 84 98 46 Z" fill="#141A16"/>
+                                    <rect x="16" y="42" width="88" height="8" rx="4" fill="#0E130F"/>
+                                    <path d="M40 34 q4 -8 0 -14" stroke="#E9F0E0" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.7"/>
+                                    <path d="M60 32 q-4 -9 0 -17" stroke="#E9F0E0" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.5"/>
+                                    <path d="M80 34 q4 -8 0 -14" stroke="#E9F0E0" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.7"/>
+                                </svg>
+                            </span>
+                        </span>
+                    </span>
+                    <span class="card-meta">
+                        <span class="card-kind">Recipe site</span>
+                        <span class="card-name">Island Thyme <span class="arrow" aria-hidden="true">&rarr;</span></span>
+                        <p class="card-proof">A Jamaican cookbook with a servings scaler that recalculates every ingredient, and cook-mode steps you tick off as you go.</p>
+                        <span class="card-tags">
+                            <span class="tag">warm editorial</span><span class="tag">live scaling</span><span class="tag">svg illustration</span>
+                        </span>
+                    </span>
+                </a>
+
+                <!-- Blog -->
+                <a class="demo-card reveal" href="blog/">
+                    <span class="mini mini--blog" aria-hidden="true">
+                        <span class="mini-stage">
+                            <span class="m-rail"><span>0 m</span><span>−9 m</span><span>−18 m</span></span>
+                            <span class="m-body">
+                                <span class="m-kicker">Dive 143</span>
+                                <span class="m-head" style="display:block">What the reef does after dark</span>
+                                <span class="m-line" style="display:block"></span>
+                                <span class="m-line" style="display:block"></span>
+                                <span class="m-line" style="display:block"></span>
+                            </span>
+                        </span>
+                    </span>
+                    <span class="card-meta">
+                        <span class="card-kind">Personal blog</span>
+                        <span class="card-name">Tidelines <span class="arrow" aria-hidden="true">&rarr;</span></span>
+                        <p class="card-proof">A field-notes blog laid out like a dive log. A depth gauge follows how far you've read while the page sinks from daylight into deep-sea dark.</p>
+                        <span class="card-tags">
+                            <span class="tag">literary type</span><span class="tag">scroll narrative</span><span class="tag">theme morph</span>
+                        </span>
+                    </span>
+                </a>
+
+                <!-- Store -->
+                <a class="demo-card reveal" href="store/">
+                    <span class="mini mini--store" aria-hidden="true">
+                        <span class="mini-stage">
+                            <span class="m-hero">
+                                <span class="m-shout">Fire you can <em>cook</em> with.</span>
+                                <span class="m-sticker">Small batch · JA</span>
+                            </span>
+                            <span class="m-marquee">scotch bonnet • small batch • kingston ja • scotch bonnet • small batch •</span>
+                        </span>
+                    </span>
+                    <span class="card-meta">
+                        <span class="card-kind">Product landing page</span>
+                        <span class="card-name">Brimstone Pepper Co. <span class="arrow" aria-hidden="true">&rarr;</span></span>
+                        <p class="card-proof">A hot-sauce storefront where the heat selector re-paints the entire page, swaps the bottle and counts the Scoville ticker up to 850,000.</p>
+                        <span class="card-tags">
+                            <span class="tag">loud & bold</span><span class="tag">palette morph</span><span class="tag">count-up ticker</span>
+                        </span>
+                    </span>
+                </a>
+
+                <!-- Booking -->
+                <a class="demo-card reveal" href="booking/">
+                    <span class="mini mini--booking" aria-hidden="true">
+                        <span class="mini-stage">
+                            <span class="m-eyebrow">Treasure Beach · Jamaica</span>
+                            <span class="m-head">Cove &amp; Palm</span>
+                            <span class="m-steps">
+                                <span class="m-step on">1</span><span class="m-dash"></span>
+                                <span class="m-step">2</span><span class="m-dash"></span>
+                                <span class="m-step">3</span>
+                            </span>
+                            <span class="m-waves">
+                                <svg viewBox="0 0 400 46" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                                    <path d="M0 26 Q50 12 100 26 T200 26 T300 26 T400 26 V46 H0 Z" fill="#9CC4CE" opacity="0.7"/>
+                                    <path d="M0 34 Q50 22 100 34 T200 34 T300 34 T400 34 V46 H0 Z" fill="#0E6E8C" opacity="0.85"/>
+                                </svg>
+                            </span>
+                        </span>
+                    </span>
+                    <span class="card-meta">
+                        <span class="card-kind">Booking experience</span>
+                        <span class="card-name">Cove &amp; Palm <span class="arrow" aria-hidden="true">&rarr;</span></span>
+                        <p class="card-proof">A villa booking flow with a working calendar, a suite picker and a running price total. Proof I build app-like interfaces, not just pages.</p>
+                        <span class="card-tags">
+                            <span class="tag">multi-step flow</span><span class="tag">date picker</span><span class="tag">form ux</span>
+                        </span>
+                    </span>
+                </a>
+            </div>
+        </main>
+
+        <footer class="outro">
+            <p>All four are demos. Made-up brands, made-up content, real work.</p>
+            <a class="outro-btn" href="../#contact">Want one of your own? Start a project <span aria-hidden="true">&rarr;</span></a>
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            "use strict";
+            var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            var cards = document.querySelectorAll(".demo-card.reveal");
+            if (reduced || !("IntersectionObserver" in window)) {
+                cards.forEach(function (c) { c.classList.add("in"); });
+                return;
+            }
+            var io = new IntersectionObserver(function (entries, obs) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) { entry.target.classList.add("in"); obs.unobserve(entry.target); }
+                });
+            }, { threshold: 0.12 });
+            cards.forEach(function (c) { io.observe(c); });
+        })();
+    </script>
+</body>
+</html>

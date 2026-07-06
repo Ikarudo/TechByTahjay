@@ -117,6 +117,7 @@
                         <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                         <li class="nav-item"><a class="nav-link" href="#qualifications">Skills</a></li>
                         <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#hire">Hire Me</a></li>
                         <li class="nav-item"><a class="nav-link" href="#links">Links</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                     </ul>
@@ -130,8 +131,14 @@
             <h1 class="hero-name">Tahjay Ulett</h1>
             <p class="hero-subtitle" id="hero-typed" aria-label="Web Developer"></p>
             <div class="hero-buttons">
-                <a href="#projects" class="hero-btn">See My Work</a>
-                <a href="#contact" class="hero-btn">Contact Me</a>
+                <a href="#projects" class="hero-btn hero-btn--primary">
+                    <span class="hero-btn__label">See My Work</span>
+                    <span class="hero-btn__glyph hero-btn__arrow" aria-hidden="true">&rarr;</span>
+                </a>
+                <a href="#contact" class="hero-btn hero-btn--ghost">
+                    <span class="hero-btn__label">Contact Me</span>
+                    <span class="hero-btn__glyph hero-btn__caret" aria-hidden="true">_</span>
+                </a>
             </div>
         </div>
         <div class="spline-3d-wrapper">
@@ -145,7 +152,8 @@
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="about-html-block">
-                    <span class="html-tag">&lt;AboutMe&gt;</span>
+                    <div class="code-tab" aria-hidden="true">about.html</div>
+                    <span class="html-tag">&lt;AboutMe<br class="tag-wrap">&nbsp;&nbsp;<span class="html-attr">role</span>=<span class="html-val">"Web Developer"</span><br class="tag-wrap">&nbsp;&nbsp;<span class="html-attr">status</span>=<span class="html-val">"Available for commission"</span>&gt;</span>
                     <div class="about-html-content" id="about-typed" aria-live="polite"></div>
                     <span class="html-tag">&lt;/AboutMe&gt;</span>
                 </div>
@@ -157,6 +165,7 @@
         <section id="qualifications" class="py-5 section-animate">
         <div class="container">
             <div class="skills-cpp-block">
+                <div class="code-tab" aria-hidden="true">skills.cpp</div>
                 <span class="cpp-tag">std::string <span class="cpp-var">Skills</span>[7] = {</span>
                 <div class="skills-cpp-content" id="skills-typed" aria-live="polite"></div>
                 <span class="cpp-tag">};</span>
@@ -164,7 +173,43 @@
         </div>
     </section>
 
-        <!-- Projects Section -->
+       
+
+        <!-- Hire Me / Custom websites Section -->
+        <section id="hire" class="py-5 section-animate">
+        <div class="container">
+            <div class="hire-md-block">
+                <div class="code-tab" style="background: var(--frost-bg) !important;backdrop-filter: var(--frost-blur) !important;" aria-hidden="true">README.md</div>
+                <h2 style="text-shadow:none" class="md-h1"><span class="md-mark" aria-hidden="true">#</span> Need a website? I build them from scratch.</h2>
+                <p class="md-p">No page builders, no recycled templates. I code every site by hand around your brand, so it loads fast, shows up on Google, and looks like nobody else's.</p>
+
+                <h3 class="md-h2"><span class="md-mark" aria-hidden="true">##</span> Every build includes</h3>
+                <ul class="md-checklist">
+                    <li><span class="md-check" aria-hidden="true">[x]</span> Work closely with me for a design built around your brand</li>
+                    <li><span class="md-check" aria-hidden="true">[x]</span> Competitive tailored pricing, no one size fits all</li>
+                    <li><span class="md-check" aria-hidden="true">[x]</span> Responsive on every screen, from a small phone to a wide desktop</li>
+                    <li><span class="md-check" aria-hidden="true">[x]</span> SEO, social previews and accessibility done properly</li>
+                    <li><span class="md-check" aria-hidden="true">[x]</span> Launch support, Including domain, hosting and updates sorted</li>
+                </ul>
+
+                <h3 class="md-h2"><span class="md-mark" aria-hidden="true">##</span> See the range</h3>
+                <p class="md-p">I built four demo sites and made sure no two of them feel alike: a cookbook, a personal blog, a hot-sauce shop and a villa booking flow. If I can pull those four apart, picture what I could do with yours.</p>
+
+                <div class="md-cta">
+                    <a href="samples/" class="hero-btn hero-btn--primary">
+                        <span class="hero-btn__label">Browse the demo gallery</span>
+                        <span class="hero-btn__glyph hero-btn__arrow" aria-hidden="true">&rarr;</span>
+                    </a>
+                    <a href="#contact" class="hero-btn hero-btn--ghost">
+                        <span class="hero-btn__label">Start a project</span>
+                        <span class="hero-btn__glyph hero-btn__caret" aria-hidden="true">_</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- Projects Section -->
         <section id="projects" class="py-5 section-animate">
           <div class="container">
             <!--
@@ -252,14 +297,14 @@
                     <div class="commit__main">
                       <div class="commit__head">
                         <span class="cl-hash" data-hash="c0d5e83">c0d5e83</span>
-                        <span class="commit__name">Hemophilia Society of Jamaica</span>
+                        <span class="commit__name">Haemophilia Society of Jamaica</span>
                         <span class="cl-ref">tag:&nbsp;nonprofit</span>
                       </div>
                       <p class="commit__desc">Website and resource hub for Jamaica's hemophilia community — accessible information and a home for the organisation online.</p>
                       <div class="commit__meta">
                         <span class="stack-tag">Web</span>
                         <span class="stack-tag stack-tag--lock">private repo</span>
-                        <span class="cl-soon" title="Live URL coming soon">Live · soon</span>
+                        <a class="cl-link" href="https://ikarudo.github.io/Hemophilia_Society_Jamaica/" target="_blank">Live <span aria-hidden="true">↗</span></a>
                       </div>
                     </div>
                   </article>
@@ -374,23 +419,30 @@
         <section id="links" class="py-5 section-animate">
         <div class="container">
             <div class="links-python-block">
-                <span class="python-tag">Class <span class="python-class">Links</span>:</span>
+                <div class="code-tab" aria-hidden="true">links.py</div>
+                <span class="python-tag">class <span class="python-class">Links</span>:</span>
                 <div class="links-python-content">
                     <span class="python-indent">def __init__(self):</span>
-                    <div class="python-indent">
-                        <span class="python-attr">self.email</span> = <a href="mailto:tahjayulett@gmail.com" class="python-link"><span class="python-string">"tahjayulett@gmail.com"</span></a>
-                    </div>
-                    <div class="python-indent">
-                        <span class="python-attr">self.linkedin</span> = <a href="https://www.linkedin.com/in/tahjayulett" target="_blank" rel="noopener" class="python-link"><span class="python-string">"linkedin.com/in/tahjayulett"</span></a>
-                    </div>
-                    <div class="python-indent">
-                        <span class="python-attr">self.github</span> = <a href="https://github.com/Ikarudo" target="_blank" rel="noopener" class="python-link"><span class="python-string">"github.com/Ikarudo"</span></a>
-                    </div>
+                    <a href="mailto:tahjayulett@gmail.com" class="python-line" aria-label="Email tahjayulett@gmail.com">
+                        <span class="python-attr">self.email</span>&nbsp;&nbsp;&nbsp;&nbsp;= <span class="python-string">"tahjayulett@gmail.com"</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/tahjayulett" target="_blank" rel="noopener" class="python-line" aria-label="Open LinkedIn profile">
+                        <span class="python-attr">self.linkedin</span>&nbsp;= <span class="python-string">"linkedin.com/in/tahjayulett"</span>
+                    </a>
+                    <a href="https://github.com/Ikarudo" target="_blank" rel="noopener" class="python-line" aria-label="Open GitHub profile">
+                        <span class="python-attr">self.github</span>&nbsp;&nbsp;&nbsp;= <span class="python-string">"github.com/Ikarudo"</span>
+                    </a>
                 </div>
-                <div class="links-buttons mt-4">
-                    <a href="mailto:tahjayulett@gmail.com" class="btn btn-outline-primary mx-2"><span class="icon">✉️</span> Email</a>
-                    <a href="https://www.linkedin.com/in/tahjayulett" class="btn btn-outline-dark mx-2" target="_blank" rel="noopener"><span class="icon">🔗</span> LinkedIn</a>
-                    <a href="https://github.com/Ikarudo" class="btn btn-outline-secondary mx-2" target="_blank" rel="noopener"><span class="icon">🐙</span> GitHub</a>
+                <div class="links-repl">
+                    <div class="repl-line">
+                        <span class="repl-prompt" aria-hidden="true">&gt;&gt;&gt;</span>
+                        <span class="repl-caption">reach out — call a channel</span>
+                    </div>
+                    <div class="repl-chips">
+                        <a href="mailto:tahjayulett@gmail.com" class="repl-chip" aria-label="Email Tahjay">.email()</a>
+                        <a href="https://www.linkedin.com/in/tahjayulett" target="_blank" rel="noopener" class="repl-chip" aria-label="Open LinkedIn profile">.linkedin()</a>
+                        <a href="https://github.com/Ikarudo" target="_blank" rel="noopener" class="repl-chip" aria-label="Open GitHub profile">.github()</a>
+                    </div>
                 </div>
             </div>
         </div>  
@@ -399,7 +451,7 @@
         <!-- Footer -->
         <footer class="bg-dark text-white text-center py-3">
             <div>
-              Do you need a custom Website or App? Shoot me an Email!
+              Need a custom website or app? <a href="#hire" class="footer-link">Hire me</a>, or browse the <a href="samples/" class="footer-link">demo gallery</a>.
             </div>
         </footer>
     </div>

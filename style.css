@@ -143,36 +143,101 @@ section {
 .hero-buttons {
     margin-top: 2em;
     display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     gap: 1.2em;
 }
+/* Hero CTAs — a terminal motif echoing the typed subtitle:
+   the primary is a command ready to run, the ghost is an open prompt. */
 .hero-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.55em;
     font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
-    font-size: 1.13rem;
-    padding: 0.7em 2.1em;
+    font-size: 1.08rem;
+    padding: 0.72em 1.7em;
     border-radius: 32px;
     font-weight: 700;
-    letter-spacing: 0.7px;
-    background: #000000;
-    color: #fff;
-    box-shadow: 0 0 16px #00000088;
-    border: 2px solid #ffffff;
-    transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.15s;
+    letter-spacing: 0.6px;
+    text-decoration: none;
+    overflow: hidden;
     outline: none;
-    margin-right: 0.5em;
-    text-shadow: 0 0 6px #fff9, 0 0 12px #0d6efd99;
+    transition: background 0.25s, color 0.25s, border-color 0.25s,
+                box-shadow 0.25s, transform 0.2s cubic-bezier(.4,1.4,.6,1);
 }
-.hero-btn:last-child {
+.hero-btn__glyph {
+    font-family: 'Fira Mono', 'Consolas', monospace;
+    font-weight: 700;
+}
+
+/* Primary — the "executed" command */
+.hero-btn--primary {
     background: #000000;
     color: #ffffff;
     border: 2px solid #ffffff;
     box-shadow: 0 0 16px #00000088;
     text-shadow: 0 0 6px #ffffffbb, 0 0 12px #00000099;
 }
-.hero-btn:hover, .hero-btn:focus {
-    background: #e3e3e3;
+.hero-btn__arrow {
+    transition: transform 0.25s cubic-bezier(.4,1.4,.6,1);
+}
+/* Light sheen that sweeps across on hover */
+.hero-btn--primary::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -130%;
+    width: 55%;
+    height: 100%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,0.38), transparent);
+    transform: skewX(-18deg);
+    pointer-events: none;
+    transition: left 0.6s cubic-bezier(.4,0,.2,1);
+}
+.hero-btn--primary:hover, .hero-btn--primary:focus-visible {
+    box-shadow: 0 8px 30px #000000cc, 0 0 18px #00000099;
+    transform: translateY(-2px);
+}
+.hero-btn--primary:hover::before, .hero-btn--primary:focus-visible::before {
+    left: 135%;
+}
+.hero-btn--primary:hover .hero-btn__arrow,
+.hero-btn--primary:focus-visible .hero-btn__arrow {
+    transform: translateX(5px);
+}
+
+/* Ghost — an open prompt awaiting input */
+.hero-btn--ghost {
+    background: rgba(0,0,0,0.30);
+    color: #ffffff;
+    border: 2px solid rgba(255,255,255,0.55);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    text-shadow: 0 0 8px #000000aa;
+}
+.hero-btn__caret {
+    margin-left: 0.05em;
+    animation: hero-caret-blink 1.1s step-end infinite;
+}
+.hero-btn--ghost:hover, .hero-btn--ghost:focus-visible {
+    background: #ffffff;
     color: #000000;
-    box-shadow: 0 0 36px #000000cc, 0 0 16px #00000099;
-    transform: translateY(-2px) scale(1.06);
+    border-color: #ffffff;
+    text-shadow: none;
+    box-shadow: 0 8px 30px #00000066;
+    transform: translateY(-2px);
+}
+.hero-btn--ghost:hover .hero-btn__caret,
+.hero-btn--ghost:focus-visible .hero-btn__caret {
+    animation: none;
+    opacity: 1;
+}
+
+@keyframes hero-caret-blink {
+    0%, 50% { opacity: 1; }
+    50.01%, 100% { opacity: 0; }
 }
 
 @keyframes bg-move {
@@ -260,7 +325,7 @@ h1, h2, h5 {
 }
 
 /* Remove conflicting section backgrounds and enforce a uniform background for all sections */
-#about, #projects, #links, #qualifications, #contact, section {
+#about, #projects, #links, #qualifications, #hire, #contact, section {
     background: none !important;
     box-shadow: none !important;
     border-radius: 0 !important;
@@ -315,6 +380,16 @@ h1, h2, h5 {
 .about-html-block .html-tag:first-child {
     margin-top: 0;
 }
+/* Attributes on the <AboutMe> element — real markup encoding real facts. */
+.html-attr {
+    color: #000000;
+    font-weight: 700;
+}
+.html-val {
+    color: rgba(0,0,0,0.62);
+    font-style: italic;
+    font-weight: 400;
+}
 .about-html-content {
     padding-left: 2.2em;
     color: #000000;
@@ -354,13 +429,54 @@ h1, h2, h5 {
 }
 .skills-cpp-content {
     padding-left: 2.2em;
-    color: #b8c1ec;
+    color: #000000;
     margin-bottom: 0.7em;
     font-size: 1.08em;
     line-height: 1.7;
-    border-left: 2px solid #0d6efd44;
+    border-left: 2px solid #00000044;
     min-height: 8em;
     white-space: pre;
+}
+
+/* The array rendered as an indexed editor: each element is a selectable line. */
+.skills-cpp-content.cpp-array {
+    white-space: normal;
+}
+.cpp-line {
+    display: flex;
+    align-items: baseline;
+    gap: 0.9em;
+    padding: 0.18em 0.7em;
+    border-radius: 7px;
+    transition: background 0.18s, transform 0.18s;
+}
+.cpp-line:hover {
+    background: rgba(255,255,255,0.5);
+    transform: translateX(4px);
+}
+.cpp-gutter {
+    flex: 0 0 auto;
+    min-width: 2.4em;
+    text-align: right;
+    color: rgba(0,0,0,0.42);
+    font-weight: 700;
+    font-size: 0.9em;
+    user-select: none;
+}
+.cpp-str {
+    flex: 1 1 auto;
+    min-width: 0;
+    color: #000000;
+    font-style: italic;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+.cpp-punct {
+    color: rgba(0,0,0,0.55);
+}
+/* A soft caret on the line currently being typed. */
+.cpp-line.is-typing .cpp-str {
+    box-shadow: 1px 0 0 rgba(0,0,0,0.7);
 }
 
 
@@ -865,21 +981,24 @@ section {
 .python-string {
     color: #000000;
     font-style: italic;
+    border-bottom: 1px dashed rgba(0,0,0,0.35);
+    transition: border-color 0.18s;
 }
 
-.python-link {
-    text-decoration: none;
-    color: inherit;
-    transition: color 0.2s;
-}
-
-.python-link:hover {
-    color: #333333;
-    text-decoration: underline;
-}
-
-.python-link:visited {
-    color: inherit;
+/* Editor filename tab — reads the panel as an open file, not a card. */
+.code-tab {
+    display: inline-block;
+    font-family: 'Fira Mono', 'Consolas', monospace;
+    font-size: 0.8em;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: rgba(0,0,0,0.6);
+    background: rgba(255,255,255,0.4);
+    border: 1px solid rgba(255,255,255,0.55);
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
+    padding: 0.45em 1.2em;
+    margin-bottom: 1.3em;
 }
 
 .links-python-content {
@@ -891,9 +1010,85 @@ section {
     border-left: 2px solid #00000044;
 }
 
-.links-buttons {
-    text-align: center;
-    margin-top: 2rem;
+/* Each attribute is a full "editor line" — hovering selects it like a code editor. */
+.python-line {
+    display: block;
+    position: relative;
+    margin-left: 2em;
+    margin-bottom: 0.35em;
+    padding: 0.2em 0.7em;
+    font-family: 'Fira Mono', 'Consolas', monospace;
+    font-size: 1.08em;
+    letter-spacing: 0.05em;
+    color: #000000;
+    text-decoration: none;
+    border-radius: 7px;
+    white-space: nowrap;
+    transition: background 0.18s, transform 0.18s;
+}
+.python-line:hover,
+.python-line:focus-visible {
+    background: rgba(255,255,255,0.5);
+    transform: translateX(4px);
+    outline: none;
+}
+.python-line:focus-visible {
+    box-shadow: 0 0 0 2px rgba(0,0,0,0.55);
+}
+.python-line:hover .python-string,
+.python-line:focus-visible .python-string {
+    border-bottom-color: rgba(0,0,0,0.85);
+}
+
+/* REPL — the emoji buttons, reimagined as callable method chips. */
+.links-repl {
+    margin-top: 2em;
+    padding-top: 1.4em;
+    border-top: 1px dashed rgba(0,0,0,0.28);
+    font-family: 'Fira Mono', 'Consolas', monospace;
+}
+.repl-line {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7em;
+    flex-wrap: wrap;
+}
+.repl-prompt {
+    color: rgba(0,0,0,0.55);
+    font-weight: 700;
+}
+.repl-caption {
+    color: rgba(0,0,0,0.72);
+    font-style: italic;
+    font-size: 0.95em;
+}
+.repl-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85em;
+    margin-top: 1.1em;
+    padding-left: 2.2em;
+}
+.repl-chip {
+    font-family: 'Fira Mono', 'Consolas', monospace;
+    font-weight: 700;
+    font-size: 1em;
+    color: #000000;
+    text-decoration: none;
+    padding: 0.5em 1.15em;
+    border: 1.5px solid rgba(0,0,0,0.55);
+    border-radius: 9px;
+    background: rgba(255,255,255,0.28);
+    transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+.repl-chip:hover,
+.repl-chip:focus-visible {
+    background: #000000;
+    color: #ffffff;
+    border-color: #000000;
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(0,0,0,0.35);
+    outline: none;
 }
 
 @media (max-width: 1200px) {
@@ -1174,6 +1369,29 @@ section {
     .links-python-content, .skills-cpp-content, .about-html-content {
         font-size: 0.85rem;
         padding-left: 1.5em;
+    }
+    .python-line {
+        margin-left: 1em;
+        font-size: 0.9rem;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+    .cpp-line {
+        gap: 0.5em;
+        padding: 0.18em 0.4em;
+    }
+    .cpp-gutter {
+        min-width: 1.9em;
+        font-size: 0.8em;
+    }
+    .repl-chips {
+        padding-left: 1em;
+        gap: 0.6em;
+    }
+    .repl-chip {
+        font-size: 0.9rem;
+        padding: 0.45em 0.9em;
     }
     .btn {
         font-size: 0.85rem;
@@ -1787,4 +2005,120 @@ html {
         bottom: 16px;
         max-width: none;
     }
+}
+
+/* ===================== Hire Me · README.md ===================== */
+/* Same frosted-glass file panel as the other sections. This one is the
+   repo's README, where a project pitches itself. */
+.hire-md-block {
+    position: relative;
+    background: var(--frost-bg) !important;
+    backdrop-filter: var(--frost-blur) !important;
+    -webkit-backdrop-filter: var(--frost-blur) !important;
+    border: var(--frost-border) !important;
+    border-radius: 0 var(--frost-radius) var(--frost-radius) var(--frost-radius) !important;
+    box-shadow: none !important;
+
+    padding: 3.2em 3.2em 2.8em;
+    margin: 3.2em auto 2.5em;
+    max-width: 1100px;
+    width: 100%;
+    color: rgba(0, 0, 0, 0.85);
+    font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+}
+
+/* README.md filename tab: sits flush on the panel's top-left edge like a
+   real file tab, rather than floating inside the panel. */
+.hire-md-block .code-tab {
+    position: absolute;
+    top: 0;
+    left: -2px; /* cancel the panel's 2px border so tab + panel left edges align */
+    transform: translateY(-100%);
+    margin: 0;
+    background: var(--frost-bg);
+    border: var(--frost-border);
+    border-bottom: none;
+    -webkit-backdrop-filter: var(--frost-blur);
+    backdrop-filter: var(--frost-blur);
+    border-radius: var(--frost-radius) var(--frost-radius) 0 0;
+    padding: 0.5em 1.4em;
+    color: rgba(0, 0, 0, 0.72);
+}
+
+.hire-md-block .md-mark {
+    font-family: 'Fira Mono', 'Consolas', monospace;
+    color: rgba(0, 0, 0, 0.45);
+    font-weight: 400;
+    margin-right: 0.35em;
+}
+
+.hire-md-block .md-h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #000000;
+    letter-spacing: 0.01em;
+    margin: 0 0 0.6em;
+    padding-bottom: 0.45em;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.25);
+}
+
+.hire-md-block .md-h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #000000;
+    margin: 1.6em 0 0.6em;
+}
+
+.hire-md-block .md-p {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    max-width: 68ch;
+    margin: 0 0 0.4em;
+}
+
+.hire-md-block .md-checklist {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 1.02rem;
+    line-height: 1.7;
+}
+.hire-md-block .md-checklist li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7em;
+    padding: 0.28em 0;
+}
+.hire-md-block .md-check {
+    font-family: 'Fira Mono', 'Consolas', monospace;
+    font-weight: 700;
+    color: #000000;
+    flex: none;
+}
+
+.hire-md-block .md-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.1em;
+    margin-top: 1.8em;
+}
+
+.footer-link {
+    color: #ffffff;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+.footer-link:hover, .footer-link:focus-visible { color: #d7dce6; }
+
+@media (max-width: 992px) {
+    .hire-md-block { padding: 2.5em 1.8em 2.3em; }
+}
+@media (max-width: 576px) {
+    .hire-md-block { padding: 2em 1.1em; }
+    .hire-md-block .md-h1 { font-size: 1.45rem; }
+    .hire-md-block .md-h2 { font-size: 1.1rem; }
+    .hire-md-block .md-p, .hire-md-block .md-checklist { font-size: 0.95rem; }
+    .hire-md-block .md-cta { flex-direction: column; align-items: stretch; }
+    .hire-md-block .md-cta .hero-btn { justify-content: center; }
 }

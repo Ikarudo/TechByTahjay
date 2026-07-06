@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Island Thyme: Brown Stew Chicken | Demo by Tech By Tahjay</title>
+    <meta name="description" content="Demo recipe site: Jamaican comfort cooking with a live servings scaler and cook-mode steps. A sample build by Tahjay Ulett.">
+    <meta name="robots" content="noindex">
+    <meta name="theme-color" content="#1E3A2C">
+    <link rel="icon" href="../../Media/Logo.svg" type="image/x-icon">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,900;1,9..144,500&family=Nunito+Sans:ital,wght@0,400;0,600;0,800;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --green-950: #16291F;
+            --green-900: #1E3A2C;
+            --green-700: #2E5240;
+            --leaf: #E9F0E0;
+            --paper: #FFFDF6;
+            --ink: #22301F;
+            --bonnet: #D45312;          /* scotch bonnet: actions & accents */
+            --bonnet-soft: #E8A03B;     /* turmeric: eyebrows on dark green */
+            --sugar: #7A4E2D;
+            --rule: rgba(34, 48, 31, 0.16);
+        }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            background: var(--leaf);
+            color: var(--ink);
+            font-family: 'Nunito Sans', 'Segoe UI', Arial, sans-serif;
+            font-size: 1.02rem;
+            line-height: 1.65;
+            overflow-x: hidden;
+        }
+        :focus-visible { outline: 3px solid var(--bonnet); outline-offset: 3px; border-radius: 4px; }
+        .skip-link {
+            position: absolute; left: -9999px; top: 0; z-index: 100;
+            background: var(--bonnet); color: #fff; font-weight: 800;
+            padding: 0.6em 1.2em; border-radius: 0 0 10px 0;
+        }
+        .skip-link:focus { left: 0; }
+        .wrap { max-width: 1080px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px); }
+
+        /* ---------- Header ---------- */
+        .site-head {
+            background: var(--green-900);
+            color: var(--paper);
+        }
+        .site-head .wrap {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 1em; padding-top: 1.1em; padding-bottom: 1.1em;
+        }
+        .brand {
+            display: flex; align-items: center; gap: 0.55em;
+            font-family: 'Fraunces', serif; font-style: italic; font-weight: 500;
+            font-size: 1.45rem; color: var(--paper); text-decoration: none;
+        }
+        .brand svg { width: 22px; height: auto; }
+        .site-nav { display: flex; gap: clamp(0.8em, 2.5vw, 1.8em); }
+        .site-nav a {
+            color: var(--leaf); text-decoration: none; font-weight: 600; font-size: 0.95rem;
+            padding: 0.2em 0.1em; border-bottom: 2px solid transparent;
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .site-nav a:hover, .site-nav a:focus-visible { color: #fff; border-color: var(--bonnet-soft); }
+        @media (max-width: 640px) { .site-nav a:nth-child(n+3) { display: none; } }
+
+        /* ---------- Hero ---------- */
+        .hero { background: var(--green-900); color: var(--paper); overflow: hidden; }
+        .hero .wrap {
+            display: grid; grid-template-columns: 1.25fr 0.75fr;
+            gap: clamp(1.5em, 4vw, 3em); align-items: center;
+            padding-top: clamp(2.5em, 7vh, 5em); padding-bottom: clamp(3em, 8vh, 5.5em);
+        }
+        .eyebrow {
+            font-size: 0.78rem; font-weight: 800; letter-spacing: 0.24em;
+            text-transform: uppercase; color: var(--bonnet-soft); margin: 0 0 0.9em;
+        }
+        h1 {
+            font-family: 'Fraunces', serif; font-weight: 900;
+            font-size: clamp(2.5rem, 7.5vw, 4.6rem);
+            line-height: 1.0; letter-spacing: -0.01em; margin: 0 0 0.35em;
+        }
+        h1 .swash { font-style: italic; font-weight: 600; color: var(--bonnet-soft); }
+        .dek {
+            max-width: 46ch; margin: 0 0 1.6em;
+            color: var(--leaf); font-size: 1.08rem;
+        }
+        .meta-row { display: flex; flex-wrap: wrap; gap: 0.6em; }
+        .meta-chip {
+            font-size: 0.85rem; font-weight: 800;
+            background: var(--leaf); color: var(--green-900);
+            border-radius: 24px; padding: 0.4em 1.05em;
+        }
+        .meta-chip--hot { background: var(--bonnet); color: var(--paper); }
+
+        .pot-stage { display: flex; justify-content: center; }
+        .pot-stage svg { width: min(100%, 320px); height: auto; }
+        .steam path {
+            transform-box: fill-box; transform-origin: 50% 100%;
+            animation: rise 4.2s ease-in-out infinite;
+        }
+        .steam path:nth-child(2) { animation-delay: 1.3s; }
+        .steam path:nth-child(3) { animation-delay: 2.4s; }
+        @keyframes rise {
+            0%   { opacity: 0; transform: translateY(8px) scaleY(0.7); }
+            35%  { opacity: 0.75; }
+            100% { opacity: 0; transform: translateY(-16px) scaleY(1.15); }
+        }
+        @media (max-width: 820px) {
+            .hero .wrap { grid-template-columns: 1fr; text-align: center; }
+            .dek { margin-left: auto; margin-right: auto; }
+            .meta-row { justify-content: center; }
+            .pot-stage { order: -1; }
+            .pot-stage svg { width: min(52vw, 230px); }
+        }
+
+        /* Scalloped divider between hero and recipe */
+        .scallop { display: block; width: 100%; height: 34px; margin-top: -1px; }
+
+        /* ---------- Recipe card ---------- */
+        .recipe { padding: clamp(1em, 4vh, 3em) 0 clamp(2.5em, 6vh, 4em); }
+        .recipe-card {
+            background: var(--paper);
+            border-radius: 22px;
+            box-shadow: 0 20px 50px rgba(30, 58, 44, 0.18);
+            display: grid; grid-template-columns: 0.9fr 1.1fr;
+            overflow: hidden;
+        }
+        @media (max-width: 880px) { .recipe-card { grid-template-columns: 1fr; } }
+
+        .panel { padding: clamp(1.5em, 4vw, 2.6em); }
+        .panel--ing { border-right: 1px dashed var(--rule); background: #FDF9EE; }
+        @media (max-width: 880px) { .panel--ing { border-right: none; border-bottom: 1px dashed var(--rule); } }
+
+        .panel h2 {
+            font-family: 'Fraunces', serif; font-weight: 900;
+            font-size: 1.6rem; margin: 0 0 0.8em; color: var(--green-900);
+        }
+
+        /* Servings scaler */
+        .scaler {
+            display: flex; align-items: center; gap: 0.9em;
+            background: var(--green-900); color: var(--paper);
+            border-radius: 16px; padding: 0.7em 1em; margin-bottom: 1.4em;
+        }
+        .scaler-label { font-weight: 800; font-size: 0.9rem; letter-spacing: 0.04em; }
+        .scaler-controls { margin-left: auto; display: flex; align-items: center; gap: 0.7em; }
+        .scale-btn {
+            width: 38px; height: 38px; border-radius: 50%;
+            border: 2px solid var(--leaf); background: transparent; color: var(--paper);
+            font-size: 1.3rem; font-weight: 800; line-height: 1; cursor: pointer;
+            transition: background 0.2s, color 0.2s, transform 0.15s;
+        }
+        .scale-btn:hover:not(:disabled), .scale-btn:focus-visible { background: var(--leaf); color: var(--green-900); transform: scale(1.08); }
+        .scale-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+        .serves-num {
+            font-family: 'Fraunces', serif; font-weight: 900; font-size: 1.5rem;
+            min-width: 1.6em; text-align: center; color: var(--bonnet-soft);
+        }
+
+        .ing-list { list-style: none; margin: 0; padding: 0; }
+        .ing-list li {
+            display: flex; align-items: baseline; gap: 0.7em;
+            padding: 0.55em 0.2em; border-bottom: 1px dotted var(--rule);
+        }
+        .ing-list li:last-child { border-bottom: none; }
+        .qty {
+            font-weight: 800; color: var(--bonnet);
+            min-width: 4.6em; text-align: right; font-variant-numeric: tabular-nums;
+            transition: transform 0.2s ease;
+        }
+        .qty.bump { transform: scale(1.18); }
+        .ing-note { color: rgba(34,48,31,0.55); font-style: italic; }
+
+        /* Method */
+        .progress-row { display: flex; align-items: center; gap: 0.9em; margin-bottom: 1.2em; }
+        .progress-track {
+            flex: 1; height: 10px; border-radius: 6px;
+            background: rgba(30, 58, 44, 0.14); overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%; width: 0%;
+            background: linear-gradient(90deg, var(--green-700), var(--bonnet));
+            border-radius: 6px;
+            transition: width 0.45s cubic-bezier(.4,1.2,.5,1);
+        }
+        .progress-label { font-size: 0.85rem; font-weight: 800; color: var(--green-700); white-space: nowrap; }
+
+        .steps { list-style: none; margin: 0; padding: 0; counter-reset: step; }
+        .step {
+            display: grid; grid-template-columns: 44px 1fr; gap: 1em;
+            padding: 0.9em 0.6em; border-radius: 14px;
+            cursor: pointer; transition: background 0.2s;
+            position: relative;
+        }
+        .step:hover { background: rgba(46, 82, 64, 0.07); }
+        .step-toggle {
+            counter-increment: step;
+            width: 40px; height: 40px; border-radius: 50%; flex: none;
+            border: 2.5px solid var(--green-700); background: transparent;
+            color: var(--green-700);
+            font-family: 'Fraunces', serif; font-weight: 900; font-size: 1.05rem;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: background 0.25s, color 0.25s, transform 0.25s cubic-bezier(.3,1.6,.5,1);
+        }
+        .step-toggle::before { content: counter(step); }
+        .step[aria-checked="true"] .step-toggle { background: var(--green-700); color: var(--paper); transform: scale(1.06); }
+        .step[aria-checked="true"] .step-toggle::before { content: "✓"; }
+        .step-body { transition: opacity 0.3s; }
+        .step[aria-checked="true"] .step-body { opacity: 0.45; }
+        .step-lead { display: block; font-weight: 800; color: var(--green-900); margin-bottom: 0.15em; }
+        .step-text { margin: 0; font-size: 0.98rem; }
+        .steps-done {
+            margin: 1.1em 0 0; padding: 0.9em 1.1em;
+            background: var(--leaf); border-radius: 14px;
+            font-weight: 800; color: var(--green-900); text-align: center;
+            opacity: 0; transform: translateY(8px);
+            transition: opacity 0.4s, transform 0.4s;
+        }
+        .steps-done.show { opacity: 1; transform: none; }
+
+        /* ---------- More recipes ---------- */
+        .more { padding: 0 0 clamp(3em, 8vh, 5em); }
+        .more h2 {
+            font-family: 'Fraunces', serif; font-weight: 900; font-size: clamp(1.6rem, 4vw, 2.2rem);
+            color: var(--green-900); margin: 0 0 1em;
+        }
+        .more-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.3em; }
+        @media (max-width: 760px) { .more-grid { grid-template-columns: 1fr; } }
+        .r-card {
+            background: var(--paper); border-radius: 18px; overflow: hidden;
+            text-decoration: none; color: var(--ink);
+            box-shadow: 0 10px 26px rgba(30, 58, 44, 0.12);
+            transition: transform 0.3s cubic-bezier(.3,1.2,.5,1), box-shadow 0.3s;
+            display: block;
+        }
+        .r-card:hover, .r-card:focus-visible { transform: translateY(-5px); box-shadow: 0 20px 44px rgba(30, 58, 44, 0.2); }
+        .r-thumb { height: 120px; position: relative; }
+        .r-thumb--ackee { background: radial-gradient(circle at 30% 40%, #F2C230 0 26%, transparent 27%), radial-gradient(circle at 68% 62%, #E8641B 0 20%, transparent 21%), #2E5240; }
+        .r-thumb--festival { background: repeating-linear-gradient(-38deg, #E8A03B 0 14px, #D98426 14px 28px); }
+        .r-thumb--sorrel { background: radial-gradient(circle at 70% 30%, #B33A3A 0 30%, transparent 31%), linear-gradient(180deg, #7E1F3C, #58152A); }
+        .r-tag {
+            position: absolute; top: 10px; left: 10px;
+            background: var(--paper); color: var(--green-900);
+            font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+            border-radius: 20px; padding: 0.25em 0.8em;
+        }
+        .r-body { padding: 1em 1.2em 1.2em; }
+        .r-name { font-family: 'Fraunces', serif; font-weight: 900; font-size: 1.15rem; color: var(--green-900); margin: 0 0 0.25em; }
+        .r-meta { margin: 0; font-size: 0.85rem; color: rgba(34,48,31,0.6); font-weight: 600; }
+
+        /* ---------- Footer ---------- */
+        .site-foot { background: var(--green-950); color: var(--leaf); }
+        .site-foot .wrap {
+            padding-top: 2em; padding-bottom: 5.5em;
+            display: flex; flex-wrap: wrap; gap: 1em; align-items: center; justify-content: space-between;
+            font-size: 0.9rem;
+        }
+        .site-foot a { color: var(--bonnet-soft); font-weight: 800; }
+
+        /* Reveal on scroll */
+        .reveal { opacity: 0; transform: translateY(24px); }
+        .reveal.in { opacity: 1; transform: none; transition: opacity 0.6s ease, transform 0.6s cubic-bezier(.3,1.2,.5,1); }
+
+        /* Demo return chip (shared convention across all samples) */
+        .demo-chip {
+            position: fixed; left: 16px; bottom: 16px; z-index: 60;
+            display: inline-flex; align-items: center; gap: 0.5em;
+            background: rgba(12, 13, 17, 0.82); color: #fff;
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            font-family: 'Nunito Sans', sans-serif; font-size: 0.82rem; font-weight: 800;
+            text-decoration: none; border-radius: 24px; padding: 0.55em 1.1em;
+            border: 1px solid rgba(255,255,255,0.25);
+            transition: transform 0.2s, background 0.2s;
+        }
+        .demo-chip:hover, .demo-chip:focus-visible { transform: translateY(-2px); background: rgba(12,13,17,0.95); }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .steam path { animation: none; opacity: 0.45; }
+            .reveal { opacity: 1; transform: none; }
+            *, *::before, *::after { transition-duration: 0.001ms !important; animation-duration: 0.001ms !important; }
+        }
+    </style>
+</head>
+<body>
+    <a class="skip-link" href="#recipe">Skip to the recipe</a>
+
+    <header class="site-head">
+        <div class="wrap">
+            <a class="brand" href="#">
+                <svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M12 30 V6" stroke="#E9F0E0" stroke-width="2" stroke-linecap="round"/>
+                    <ellipse cx="7" cy="10" rx="4" ry="2.4" fill="#E8A03B" transform="rotate(-32 7 10)"/>
+                    <ellipse cx="17" cy="14" rx="4" ry="2.4" fill="#E9F0E0" transform="rotate(28 17 14)"/>
+                    <ellipse cx="7" cy="19" rx="4" ry="2.4" fill="#E9F0E0" transform="rotate(-28 7 19)"/>
+                    <ellipse cx="17" cy="23" rx="4" ry="2.4" fill="#E8A03B" transform="rotate(30 17 23)"/>
+                </svg>
+                Island Thyme
+            </a>
+            <nav class="site-nav" aria-label="Site">
+                <a href="#recipe">Recipes</a>
+                <a href="#more">Pantry</a>
+                <a href="#more">Stories</a>
+                <a href="#more">About</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="wrap">
+            <div>
+                <p class="eyebrow">Sunday supper · Kingston style</p>
+                <h1>Brown Stew <span class="swash">Chicken</span></h1>
+                <p class="dek">
+                    Burnt sugar, pimento and a whole scotch bonnet that flavours the pot without
+                    setting it on fire. This is the dinner that ends every Jamaican week properly.
+                </p>
+                <div class="meta-row" role="list" aria-label="Recipe details">
+                    <span class="meta-chip" role="listitem">Prep 20 min</span>
+                    <span class="meta-chip" role="listitem">Cook 50 min</span>
+                    <span class="meta-chip" role="listitem">Serves <span data-serves-echo>4</span></span>
+                    <span class="meta-chip meta-chip--hot" role="listitem">One pot</span>
+                </div>
+            </div>
+            <div class="pot-stage" aria-hidden="true">
+                <svg viewBox="0 0 240 210" xmlns="http://www.w3.org/2000/svg">
+                    <g class="steam">
+                        <path d="M85 78 q8 -16 0 -30 q-7 -13 2 -24" stroke="#E9F0E0" stroke-width="6" fill="none" stroke-linecap="round"/>
+                        <path d="M120 74 q-9 -17 0 -32 q8 -14 -2 -26" stroke="#E9F0E0" stroke-width="6" fill="none" stroke-linecap="round"/>
+                        <path d="M155 78 q8 -16 0 -30 q-7 -13 2 -24" stroke="#E9F0E0" stroke-width="6" fill="none" stroke-linecap="round"/>
+                    </g>
+                    <ellipse cx="120" cy="192" rx="86" ry="12" fill="#16291F"/>
+                    <path d="M44 104 Q44 182 120 182 Q196 182 196 104 Z" fill="#141A16"/>
+                    <path d="M60 118 Q60 168 120 168" stroke="#2E5240" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.5"/>
+                    <rect x="34" y="96" width="172" height="14" rx="7" fill="#0E130F"/>
+                    <rect x="18" y="98" width="22" height="9" rx="4.5" fill="#0E130F"/>
+                    <rect x="200" y="98" width="22" height="9" rx="4.5" fill="#0E130F"/>
+                    <path d="M78 96 Q78 88 120 88 Q162 88 162 96" fill="none" stroke="#E8641B" stroke-width="7" stroke-linecap="round"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+    <svg class="scallop" viewBox="0 0 1200 34" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M0 0 H1200 V6 Q1150 34 1100 6 Q1050 34 1000 6 Q950 34 900 6 Q850 34 800 6 Q750 34 700 6 Q650 34 600 6 Q550 34 500 6 Q450 34 400 6 Q350 34 300 6 Q250 34 200 6 Q150 34 100 6 Q50 34 0 6 Z" fill="#1E3A2C"/>
+    </svg>
+
+    <main id="recipe" class="recipe">
+        <div class="wrap">
+            <article class="recipe-card reveal" aria-label="Brown stew chicken recipe">
+                <aside class="panel panel--ing">
+                    <h2>Ingredients</h2>
+                    <div class="scaler">
+                        <span class="scaler-label" id="serves-label">Servings</span>
+                        <div class="scaler-controls" role="group" aria-labelledby="serves-label">
+                            <button class="scale-btn" type="button" id="serves-down" aria-label="Fewer servings">&minus;</button>
+                            <span class="serves-num" id="serves-num" aria-live="polite">4</span>
+                            <button class="scale-btn" type="button" id="serves-up" aria-label="More servings">+</button>
+                        </div>
+                    </div>
+                    <ul class="ing-list" id="ing-list">
+                        <li><span class="qty" data-qty="2" data-unit="lb"></span> chicken thighs &amp; drumsticks</li>
+                        <li><span class="qty" data-qty="1" data-unit=""></span> lime, halved <span class="ing-note">(for washing)</span></li>
+                        <li><span class="qty" data-qty="1" data-unit="tbsp"></span> browning</li>
+                        <li><span class="qty" data-qty="1" data-unit="tbsp"></span> dark brown sugar</li>
+                        <li><span class="qty" data-qty="2" data-unit="tbsp"></span> ketchup</li>
+                        <li><span class="qty" data-qty="2" data-unit="cups"></span> chicken stock</li>
+                        <li><span class="qty" data-qty="1" data-unit=""></span> scotch bonnet <span class="ing-note">(left whole)</span></li>
+                        <li><span class="qty" data-qty="2" data-unit="stalks"></span> scallion, crushed</li>
+                        <li><span class="qty" data-qty="4" data-unit="sprigs"></span> fresh thyme</li>
+                        <li><span class="qty" data-qty="1" data-unit="tsp"></span> ground pimento (allspice)</li>
+                        <li><span class="qty" data-qty="1" data-unit=""></span> onion, sliced</li>
+                        <li><span class="qty" data-qty="0.5" data-unit=""></span> red bell pepper, in strips</li>
+                        <li><span class="qty" data-qty="1" data-unit=""></span> carrot, cut on the bias</li>
+                    </ul>
+                </aside>
+
+                <section class="panel" aria-label="Method">
+                    <h2>Method</h2>
+                    <div class="progress-row">
+                        <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progress-fill"></div></div>
+                        <span class="progress-label" id="progress-label">0 of 6 done</span>
+                    </div>
+                    <ol class="steps" id="steps">
+                        <li class="step" role="checkbox" aria-checked="false" tabindex="0">
+                            <span class="step-toggle" aria-hidden="true"></span>
+                            <span class="step-body">
+                                <span class="step-lead">Wash and season, overnight if you can.</span>
+                                <p class="step-text">Rub the chicken with the lime, rinse, then season with pimento, scallion, thyme, salt and black pepper. Cover and rest in the fridge, ideally till tomorrow.</p>
+                            </span>
+                        </li>
+                        <li class="step" role="checkbox" aria-checked="false" tabindex="0">
+                            <span class="step-toggle" aria-hidden="true"></span>
+                            <span class="step-body">
+                                <span class="step-lead">Burn the sugar.</span>
+                                <p class="step-text">Heat oil in a dutch pot until it shimmers, add the brown sugar and let it froth and darken to a deep mahogany. Take it right to the edge of bitter, but never past it.</p>
+                            </span>
+                        </li>
+                        <li class="step" role="checkbox" aria-checked="false" tabindex="0">
+                            <span class="step-toggle" aria-hidden="true"></span>
+                            <span class="step-body">
+                                <span class="step-lead">Brown the chicken.</span>
+                                <p class="step-text">Shake the seasoning bits off the chicken (keep them!) and lay it into the caramel skin-side down. Turn until every piece wears a dark, glossy coat.</p>
+                            </span>
+                        </li>
+                        <li class="step" role="checkbox" aria-checked="false" tabindex="0">
+                            <span class="step-toggle" aria-hidden="true"></span>
+                            <span class="step-body">
+                                <span class="step-lead">Build the gravy.</span>
+                                <p class="step-text">Add the onion, reserved seasoning, browning, ketchup and stock. Drop in the whole scotch bonnet, and don't burst it unless you mean it.</p>
+                            </span>
+                        </li>
+                        <li class="step" role="checkbox" aria-checked="false" tabindex="0">
+                            <span class="step-toggle" aria-hidden="true"></span>
+                            <span class="step-body">
+                                <span class="step-lead">Simmer low and slow.</span>
+                                <p class="step-text">Cover and simmer 35–40 minutes, adding the carrot and bell pepper for the last ten. The gravy should coat the back of a spoon and shine.</p>
+                            </span>
+                        </li>
+                        <li class="step" role="checkbox" aria-checked="false" tabindex="0">
+                            <span class="step-toggle" aria-hidden="true"></span>
+                            <span class="step-body">
+                                <span class="step-lead">Rest, then serve.</span>
+                                <p class="step-text">Fish out the bonnet and thyme stems. Rest five minutes, then serve over rice and peas with the gravy spooned generously on top.</p>
+                            </span>
+                        </li>
+                    </ol>
+                    <p class="steps-done" id="steps-done" role="status">Pot's empty, plates are full. Nice cooking. 🍗</p>
+                </section>
+            </article>
+        </div>
+    </main>
+
+    <section id="more" class="more">
+        <div class="wrap">
+            <h2>From the same kitchen</h2>
+            <div class="more-grid">
+                <a class="r-card reveal" href="#recipe" aria-label="Ackee and saltfish recipe (demo link)">
+                    <div class="r-thumb r-thumb--ackee"><span class="r-tag">Breakfast</span></div>
+                    <div class="r-body">
+                        <h3 class="r-name">Ackee &amp; Saltfish</h3>
+                        <p class="r-meta">The national dish, done gently · 35 min</p>
+                    </div>
+                </a>
+                <a class="r-card reveal" href="#recipe" aria-label="Festival recipe (demo link)">
+                    <div class="r-thumb r-thumb--festival"><span class="r-tag">Side</span></div>
+                    <div class="r-body">
+                        <h3 class="r-name">Festival</h3>
+                        <p class="r-meta">Sweet fried dumplings, beach-shack style · 25 min</p>
+                    </div>
+                </a>
+                <a class="r-card reveal" href="#recipe" aria-label="Sorrel and ginger punch recipe (demo link)">
+                    <div class="r-thumb r-thumb--sorrel"><span class="r-tag">Drink</span></div>
+                    <div class="r-body">
+                        <h3 class="r-name">Sorrel &amp; Ginger Punch</h3>
+                        <p class="r-meta">Christmas in a glass, year round · 15 min + steep</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-foot">
+        <div class="wrap">
+            <span>Island Thyme is a demo brand, but the recipe is real. 🇯🇲</span>
+            <span>Sample site by <a href="../../">Tech By Tahjay</a></span>
+        </div>
+    </footer>
+
+    <a class="demo-chip" href="../">&larr; All demos</a>
+
+    <script>
+        (function () {
+            "use strict";
+            var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+            /* ---- Servings scaler ---- */
+            var BASE = 4, MIN = 2, MAX = 12;
+            var serves = BASE;
+            var numEl = document.getElementById("serves-num");
+            var echoEl = document.querySelector("[data-serves-echo]");
+            var down = document.getElementById("serves-down");
+            var up = document.getElementById("serves-up");
+            var qtys = Array.prototype.slice.call(document.querySelectorAll(".qty"));
+
+            var GLYPHS = { "1/4": "¼", "1/2": "½", "3/4": "¾", "1/3": "⅓", "2/3": "⅔", "1/8": "⅛", "3/8": "⅜", "5/8": "⅝", "7/8": "⅞" };
+            function fmtQty(value) {
+                // Snap to the nearest kitchen-friendly fraction (eighths + thirds).
+                var candidates = [0, 1/8, 1/4, 1/3, 3/8, 1/2, 5/8, 2/3, 3/4, 7/8, 1];
+                var names =      ["", "1/8", "1/4", "1/3", "3/8", "1/2", "5/8", "2/3", "3/4", "7/8", ""];
+                var whole = Math.floor(value + 1e-9);
+                var rem = value - whole;
+                var best = 0, bestDiff = Infinity;
+                for (var i = 0; i < candidates.length; i++) {
+                    var d = Math.abs(rem - candidates[i]);
+                    if (d < bestDiff) { bestDiff = d; best = i; }
+                }
+                if (best === candidates.length - 1) { whole += 1; best = 0; }
+                var frac = names[best] ? GLYPHS[names[best]] : "";
+                if (whole === 0 && !frac) return "a pinch";
+                return (whole || "") + (whole && frac ? " " : "") + frac;
+            }
+
+            function render(bump) {
+                numEl.textContent = serves;
+                if (echoEl) echoEl.textContent = serves;
+                down.disabled = serves <= MIN;
+                up.disabled = serves >= MAX;
+                var factor = serves / BASE;
+                qtys.forEach(function (el) {
+                    var q = parseFloat(el.getAttribute("data-qty")) * factor;
+                    var unit = el.getAttribute("data-unit");
+                    el.textContent = fmtQty(q) + (unit ? " " + unit : "");
+                    if (bump && !reduced) {
+                        el.classList.remove("bump");
+                        void el.offsetWidth; /* restart the pop */
+                        el.classList.add("bump");
+                    }
+                });
+            }
+            down.addEventListener("click", function () { if (serves > MIN) { serves--; render(true); } });
+            up.addEventListener("click", function () { if (serves < MAX) { serves++; render(true); } });
+            render(false);
+
+            /* ---- Cook-mode steps ---- */
+            var steps = Array.prototype.slice.call(document.querySelectorAll(".step"));
+            var fill = document.getElementById("progress-fill");
+            var label = document.getElementById("progress-label");
+            var doneMsg = document.getElementById("steps-done");
+            function updateProgress() {
+                var done = steps.filter(function (s) { return s.getAttribute("aria-checked") === "true"; }).length;
+                fill.style.width = (done / steps.length * 100) + "%";
+                label.textContent = done + " of " + steps.length + " done";
+                doneMsg.classList.toggle("show", done === steps.length);
+            }
+            steps.forEach(function (s) {
+                function toggle() {
+                    s.setAttribute("aria-checked", s.getAttribute("aria-checked") === "true" ? "false" : "true");
+                    updateProgress();
+                }
+                s.addEventListener("click", toggle);
+                s.addEventListener("keydown", function (e) {
+                    if (e.key === " " || e.key === "Enter") { e.preventDefault(); toggle(); }
+                });
+            });
+
+            /* ---- Reveal on scroll ---- */
+            var reveals = document.querySelectorAll(".reveal");
+            if (reduced || !("IntersectionObserver" in window)) {
+                reveals.forEach(function (r) { r.classList.add("in"); });
+            } else {
+                var io = new IntersectionObserver(function (entries, obs) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) { entry.target.classList.add("in"); obs.unobserve(entry.target); }
+                    });
+                }, { threshold: 0.12 });
+                reveals.forEach(function (r) { io.observe(r); });
+            }
+        })();
+    </script>
+</body>
+</html>

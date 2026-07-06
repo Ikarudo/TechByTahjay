@@ -223,24 +223,60 @@
             '"AI & Machine Learning Fundamentals"',
             '"Teamwork, Leadership & Communication Skills"'
         ];
-        function full() {
-            return skills.map(function (s, i) {
-                return "    " + s + (i < skills.length - 1 ? "," : "");
-            }).join("\n");
+
+        // Build one row per array element: an index gutter ([0]..[6], true to
+        // Skills[7]) + the string literal + a trailing comma.
+        el.classList.add("cpp-array");
+        const rows = skills.map(function (text, i) {
+            const line = document.createElement("div");
+            line.className = "cpp-line";
+
+            const gutter = document.createElement("span");
+            gutter.className = "cpp-gutter";
+            gutter.setAttribute("aria-hidden", "true");
+            gutter.textContent = "[" + i + "]";
+
+            const val = document.createElement("span");
+            val.className = "cpp-str";
+
+            const comma = document.createElement("span");
+            comma.className = "cpp-punct";
+            comma.textContent = i < skills.length - 1 ? "," : "";
+
+            line.appendChild(gutter);
+            line.appendChild(val);
+            line.appendChild(comma);
+            return { line: line, val: val, comma: comma, text: text };
+        });
+
+        function mount() {
+            el.textContent = "";
+            rows.forEach(function (r) { el.appendChild(r.line); });
         }
+
         return {
-            instant: function () { el.textContent = full(); },
+            instant: function () {
+                mount();
+                rows.forEach(function (r) { r.val.textContent = r.text; });
+            },
             animate: function () {
-                let arrIdx = 0, idx = 0;
+                mount();
+                rows.forEach(function (r) { r.comma.style.visibility = "hidden"; });
+                let ri = 0, ci = 0;
                 (function tick() {
-                    let prefix = "";
-                    for (let i = 0; i < arrIdx; i++) prefix += "    " + skills[i] + (i < skills.length - 1 ? ",\n" : "\n");
-                    const current = arrIdx < skills.length ? "    " + skills[arrIdx].slice(0, idx) : "";
-                    const comma = (arrIdx < skills.length - 1 && idx === skills[arrIdx].length) ? "," : "";
-                    el.textContent = prefix + current + comma;
-                    if (arrIdx < skills.length) {
-                        if (idx < skills[arrIdx].length) { idx++; setTimeout(tick, 16); }
-                        else { idx = 0; arrIdx++; setTimeout(tick, 300); }
+                    if (ri >= rows.length) return;
+                    const r = rows[ri];
+                    r.val.textContent = r.text.slice(0, ci);
+                    r.line.classList.add("is-typing");
+                    if (ci < r.text.length) {
+                        ci++;
+                        setTimeout(tick, 16);
+                    } else {
+                        r.comma.style.visibility = "visible";
+                        r.line.classList.remove("is-typing");
+                        ci = 0;
+                        ri++;
+                        setTimeout(tick, 300);
                     }
                 })();
             }

@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cove &amp; Palm: Seven Suites on Treasure Beach | Demo by Tech By Tahjay</title>
+    <meta name="description" content="Demo booking experience: a boutique villa with a three-step booking flow covering a calendar, suite picker and live price summary. A sample build by Tahjay Ulett.">
+    <meta name="robots" content="noindex">
+    <meta name="theme-color" content="#0B3C4D">
+    <link rel="icon" href="../../Media/Logo.svg" type="image/x-icon">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --shell: #FBFAF7;
+            --ink: #22333B;
+            --lagoon: #0E6E8C;
+            --deep: #0B3C4D;
+            --palm: #47705B;
+            --sand: #E7DCC3;
+            --mist: #EEF3F2;
+            --rule: rgba(34, 51, 59, 0.14);
+        }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            background: var(--shell);
+            color: var(--ink);
+            font-family: 'Jost', 'Segoe UI', Arial, sans-serif;
+            font-weight: 400;
+            line-height: 1.65;
+            overflow-x: hidden;
+        }
+        :focus-visible { outline: 3px solid var(--lagoon); outline-offset: 3px; border-radius: 4px; }
+        .skip-link {
+            position: absolute; left: -9999px; top: 0; z-index: 100;
+            background: var(--deep); color: #fff; font-weight: 600;
+            padding: 0.6em 1.2em; border-radius: 0 0 10px 0;
+        }
+        .skip-link:focus { left: 0; }
+        .wrap { max-width: 1060px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px); }
+        .serif { font-family: 'Cormorant Garamond', Georgia, serif; }
+
+        /* ---------- Nav ---------- */
+        .nav {
+            position: absolute; top: 0; left: 0; right: 0; z-index: 10;
+        }
+        .nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1em; padding-top: 1.3em; padding-bottom: 1.3em; }
+        .brand {
+            font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 600;
+            font-size: 1.5rem; color: var(--deep); text-decoration: none; letter-spacing: 0.01em;
+        }
+        .nav-links { display: flex; align-items: center; gap: clamp(0.9em, 2.5vw, 2em); }
+        .nav-links a { color: var(--deep); text-decoration: none; font-size: 0.92rem; font-weight: 500; letter-spacing: 0.06em; }
+        .nav-links a:hover, .nav-links a:focus-visible { text-decoration: underline; text-underline-offset: 5px; }
+        .nav-book {
+            background: var(--deep); color: #fff !important; border-radius: 26px;
+            padding: 0.5em 1.4em; text-decoration: none !important;
+            transition: background 0.25s, transform 0.2s;
+        }
+        .nav-book:hover, .nav-book:focus-visible { background: var(--lagoon); transform: translateY(-1px); }
+        @media (max-width: 620px) { .nav-links a:not(.nav-book) { display: none; } }
+
+        /* ---------- Hero ---------- */
+        .hero {
+            position: relative; min-height: 88vh;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            background: linear-gradient(180deg, #FBFAF7 0%, #EAF2F1 46%, #CDE3E6 78%, #ACD0D8 100%);
+            overflow: hidden; padding: 7em 0 9em;
+        }
+        .hero-inner { position: relative; z-index: 3; }
+        .hero-eyebrow {
+            font-size: 0.78rem; font-weight: 600; letter-spacing: 0.42em; text-transform: uppercase;
+            color: var(--palm); margin: 0 0 1.1em; text-indent: 0.42em;
+        }
+        h1 {
+            font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500;
+            font-size: clamp(2.6rem, 7.5vw, 5rem); line-height: 1.06;
+            color: var(--deep); margin: 0 0 0.4em; letter-spacing: 0.005em;
+        }
+        .hero-sub { max-width: 46ch; margin: 0 auto 2.2em; font-weight: 300; font-size: 1.12rem; color: #33505B; }
+        .hero-cta {
+            display: inline-block; background: var(--deep); color: #fff;
+            text-decoration: none; font-weight: 500; letter-spacing: 0.08em; font-size: 0.95rem;
+            border-radius: 30px; padding: 0.85em 2.2em;
+            transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
+        }
+        .hero-cta:hover, .hero-cta:focus-visible { background: var(--lagoon); transform: translateY(-2px); box-shadow: 0 14px 30px rgba(11, 60, 77, 0.25); }
+
+        .waves { position: absolute; left: 0; right: 0; bottom: -2px; z-index: 1; pointer-events: none; }
+        .wave { display: block; width: 200%; height: auto; will-change: transform; }
+        .wave--back { animation: drift 26s linear infinite; opacity: 0.45; margin-bottom: -8vw; }
+        .wave--mid { animation: drift 18s linear infinite reverse; opacity: 0.7; margin-bottom: -9vw; }
+        .wave--front { animation: drift 12s linear infinite; }
+        @keyframes drift { to { transform: translateX(-50%); } }
+
+        /* ---------- Amenities ---------- */
+        .amenities { background: var(--deep); color: var(--shell); }
+        .amenities .wrap {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2em;
+            padding-top: 2.2em; padding-bottom: 2.2em; text-align: center;
+        }
+        @media (max-width: 760px) { .amenities .wrap { grid-template-columns: repeat(2, 1fr); } }
+        .amen { font-size: 0.9rem; font-weight: 300; letter-spacing: 0.04em; }
+        .amen svg { display: block; margin: 0 auto 0.6em; width: 30px; height: 30px; stroke: var(--sand); fill: none; stroke-width: 1.5; }
+
+        /* ---------- Booking widget ---------- */
+        .booking { padding: clamp(3em, 9vh, 5.5em) 0; background: var(--mist); }
+        .booking-head { text-align: center; margin-bottom: 2.2em; }
+        .booking-head h2 { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500; font-size: clamp(1.9rem, 5vw, 2.8rem); color: var(--deep); margin: 0 0 0.25em; }
+        .booking-head p { margin: 0; color: #4A626C; font-weight: 300; }
+
+        .widget {
+            max-width: 780px; margin: 0 auto;
+            background: #fff; border-radius: 22px;
+            box-shadow: 0 24px 70px rgba(11, 60, 77, 0.14);
+            overflow: hidden;
+        }
+        .stepper { display: flex; border-bottom: 1px solid var(--rule); }
+        .stepper button {
+            flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.6em;
+            background: none; border: none; cursor: pointer;
+            font-family: 'Jost', sans-serif; font-size: 0.88rem; font-weight: 500;
+            letter-spacing: 0.04em; color: #7B8E96;
+            padding: 1.1em 0.4em; position: relative;
+        }
+        .stepper button:disabled { cursor: not-allowed; opacity: 0.55; }
+        .stepper .dot {
+            width: 26px; height: 26px; border-radius: 50%; flex: none;
+            display: flex; align-items: center; justify-content: center;
+            border: 1.5px solid currentColor; font-size: 0.8rem;
+            transition: background 0.3s, color 0.3s, border-color 0.3s;
+        }
+        .stepper button[aria-current="step"] { color: var(--deep); }
+        .stepper button[aria-current="step"] .dot { background: var(--deep); border-color: var(--deep); color: #fff; }
+        .stepper button.done { color: var(--lagoon); }
+        .stepper button::after {
+            content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2.5px;
+            background: var(--deep); transform: scaleX(0); transform-origin: left center;
+            transition: transform 0.4s cubic-bezier(.4,1,.4,1);
+        }
+        .stepper button[aria-current="step"]::after { transform: scaleX(1); }
+        @media (max-width: 560px) { .stepper .step-word { display: none; } }
+
+        .panel { padding: clamp(1.4em, 4vw, 2.4em); }
+        .panel[hidden] { display: none; }
+        .panel.enter { animation: panel-in 0.45s cubic-bezier(.3,1.1,.4,1); }
+        @keyframes panel-in {
+            from { opacity: 0; transform: translateX(26px); }
+            to { opacity: 1; transform: none; }
+        }
+
+        /* Calendar */
+        .cal-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1em; margin-bottom: 1em; }
+        .cal-month { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.5rem; color: var(--deep); margin: 0; }
+        .cal-hint { font-size: 0.85rem; color: #7B8E96; font-weight: 300; }
+        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+        .cal-dow { text-align: center; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; color: #9AAAB1; padding: 0.4em 0; text-transform: uppercase; }
+        .cal-day {
+            aspect-ratio: 1; border: none; border-radius: 10px;
+            background: var(--mist); color: var(--ink);
+            font-family: 'Jost', sans-serif; font-size: 0.95rem; cursor: pointer;
+            transition: background 0.2s, color 0.2s, transform 0.15s;
+        }
+        .cal-day:hover:not(:disabled) { background: var(--sand); transform: scale(1.06); }
+        .cal-day:disabled { background: transparent; color: #C3CFD4; cursor: not-allowed; }
+        .cal-day.blank { background: transparent; cursor: default; }
+        .cal-day.in-range { background: #CFE4EA; }
+        .cal-day.edge { background: var(--deep); color: #fff; font-weight: 600; }
+        .cal-summary {
+            display: flex; flex-wrap: wrap; align-items: center; gap: 0.8em;
+            margin-top: 1.2em; font-size: 0.95rem;
+        }
+        .cal-summary .nights { font-weight: 600; color: var(--lagoon); }
+        .cal-clear {
+            background: none; border: none; cursor: pointer; color: #7B8E96;
+            font-family: 'Jost', sans-serif; font-size: 0.85rem; text-decoration: underline; text-underline-offset: 3px;
+            padding: 0.2em 0.4em;
+        }
+        .cal-clear:hover { color: var(--deep); }
+
+        /* Suites */
+        .suites { display: grid; gap: 0.9em; }
+        .suite {
+            display: grid; grid-template-columns: 74px 1fr auto; gap: 1.1em; align-items: center;
+            width: 100%; text-align: left; cursor: pointer;
+            background: var(--mist); border: 2px solid transparent; border-radius: 16px;
+            padding: 0.9em 1.1em; font-family: 'Jost', sans-serif;
+            transition: border-color 0.25s, background 0.25s, transform 0.2s;
+        }
+        .suite:hover { transform: translateY(-2px); }
+        .suite[aria-pressed="true"] { border-color: var(--deep); background: #fff; box-shadow: 0 10px 28px rgba(11,60,77,0.12); }
+        .suite-swatch { width: 74px; height: 58px; border-radius: 10px; flex: none; }
+        .suite-swatch--1 { background: linear-gradient(140deg, #47705B 0%, #7FA48D 60%, #E7DCC3 100%); }
+        .suite-swatch--2 { background: linear-gradient(140deg, #0E6E8C 0%, #6FB4C8 65%, #EAF2F1 100%); }
+        .suite-swatch--3 { background: linear-gradient(140deg, #0B3C4D 0%, #9C7BA8 70%, #F4E0C8 100%); }
+        .suite-name { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.25rem; color: var(--deep); margin: 0; }
+        .suite-desc { margin: 0; font-size: 0.86rem; font-weight: 300; color: #4A626C; }
+        .suite-rate { font-weight: 600; color: var(--deep); white-space: nowrap; }
+        .suite-rate small { display: block; font-weight: 300; color: #7B8E96; text-align: right; }
+        @media (max-width: 560px) {
+            .suite { grid-template-columns: 54px 1fr; }
+            .suite-swatch { width: 54px; height: 44px; }
+            .suite-rate { grid-column: 2; justify-self: start; }
+            .suite-rate small { text-align: left; display: inline; margin-left: 0.4em; }
+        }
+
+        /* Confirm */
+        .summary { background: var(--mist); border-radius: 16px; padding: 1.2em 1.4em; margin-bottom: 1.4em; }
+        .summary dl { margin: 0; display: grid; grid-template-columns: 1fr auto; row-gap: 0.35em; font-size: 0.95rem; }
+        .summary dt { color: #4A626C; font-weight: 300; }
+        .summary dd { margin: 0; text-align: right; font-weight: 500; }
+        .summary .total-row dt, .summary .total-row dd {
+            padding-top: 0.6em; margin-top: 0.4em; border-top: 1px solid var(--rule);
+            font-weight: 600; color: var(--deep); font-size: 1.08rem;
+        }
+        .field { display: flex; flex-direction: column; margin-bottom: 1em; }
+        .field label { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.04em; margin-bottom: 0.35em; }
+        .field input {
+            font-family: 'Jost', sans-serif; font-size: 1rem;
+            border: 1.5px solid var(--rule); border-radius: 12px;
+            padding: 0.7em 0.95em; background: #fff; color: var(--ink);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .field input:focus { outline: none; border-color: var(--lagoon); box-shadow: 0 0 0 3px rgba(14, 110, 140, 0.18); }
+        .field .err { color: #A63F28; font-size: 0.8rem; margin-top: 0.3em; min-height: 1.1em; }
+
+        .panel-foot { display: flex; justify-content: space-between; align-items: center; gap: 1em; margin-top: 1.6em; }
+        .btn-next {
+            background: var(--deep); color: #fff; border: none; cursor: pointer;
+            font-family: 'Jost', sans-serif; font-weight: 500; font-size: 0.98rem; letter-spacing: 0.06em;
+            border-radius: 28px; padding: 0.8em 2.1em;
+            transition: background 0.25s, transform 0.2s, box-shadow 0.25s, opacity 0.25s;
+        }
+        .btn-next:hover:not(:disabled), .btn-next:focus-visible { background: var(--lagoon); transform: translateY(-2px); box-shadow: 0 12px 26px rgba(11,60,77,0.22); }
+        .btn-next:disabled { opacity: 0.4; cursor: not-allowed; }
+        .btn-back {
+            background: none; border: none; cursor: pointer; color: #7B8E96;
+            font-family: 'Jost', sans-serif; font-size: 0.92rem;
+            text-decoration: underline; text-underline-offset: 4px; padding: 0.4em;
+        }
+        .btn-back:hover, .btn-back:focus-visible { color: var(--deep); }
+
+        /* Success */
+        .success { text-align: center; padding: clamp(2em, 5vw, 3em); }
+        .success svg { width: 84px; height: 84px; margin-bottom: 1em; }
+        .success circle { stroke: var(--palm); stroke-width: 2.5; fill: none; stroke-dasharray: 214; stroke-dashoffset: 214; }
+        .success path { stroke: var(--palm); stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 48; stroke-dashoffset: 48; }
+        .success.play circle { animation: draw 0.7s ease forwards; }
+        .success.play path { animation: draw 0.45s ease 0.55s forwards; }
+        @keyframes draw { to { stroke-dashoffset: 0; } }
+        .success h3 { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 600; font-size: 1.9rem; color: var(--deep); margin: 0 0 0.3em; }
+        .success p { color: #4A626C; font-weight: 300; max-width: 40ch; margin: 0 auto 1.4em; }
+
+        /* ---------- Gallery ---------- */
+        .gallery { padding: clamp(3em, 9vh, 5.5em) 0; }
+        .gallery h2 { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500; font-size: clamp(1.9rem, 5vw, 2.6rem); color: var(--deep); text-align: center; margin: 0 0 1.2em; }
+        .gal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2em; }
+        @media (max-width: 760px) { .gal-grid { grid-template-columns: 1fr; } }
+        .gal-item { border-radius: 18px; overflow: hidden; position: relative; aspect-ratio: 4 / 3.4; }
+        .gal-item figure { margin: 0; height: 100%; }
+        .gal-photo { height: 100%; transition: transform 0.6s cubic-bezier(.3,1,.4,1); }
+        .gal-item:hover .gal-photo { transform: scale(1.05); }
+        .gal-photo--1 { background: linear-gradient(160deg, #F8E9CE 0%, #EFC98F 38%, #7FB0BC 62%, #0E6E8C 100%); }
+        .gal-photo--2 { background: linear-gradient(200deg, #FBFAF7 0%, #E7DCC3 45%, #47705B 100%); }
+        .gal-photo--3 { background: linear-gradient(150deg, #2E5E70 0%, #9C7BA8 55%, #F4B183 85%, #F8E9CE 100%); }
+        .gal-item figcaption {
+            position: absolute; left: 0; right: 0; bottom: 0;
+            padding: 2em 1.2em 1em;
+            background: linear-gradient(180deg, transparent, rgba(11, 60, 77, 0.72));
+            color: #fff; font-size: 0.9rem; font-weight: 300; letter-spacing: 0.04em;
+        }
+
+        /* ---------- Footer ---------- */
+        .foot { background: var(--deep); color: rgba(251, 250, 247, 0.85); }
+        .foot .wrap {
+            display: flex; flex-wrap: wrap; gap: 1em; justify-content: space-between;
+            padding-top: 2em; padding-bottom: 6em; font-size: 0.88rem; font-weight: 300;
+        }
+        .foot a { color: var(--sand); font-weight: 500; }
+
+        /* Demo return chip */
+        .demo-chip {
+            position: fixed; left: 16px; bottom: 16px; z-index: 60;
+            display: inline-flex; align-items: center; gap: 0.5em;
+            background: rgba(12, 13, 17, 0.82); color: #fff;
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            font-family: 'Jost', sans-serif; font-size: 0.8rem; font-weight: 500;
+            text-decoration: none; border-radius: 24px; padding: 0.55em 1.1em;
+            border: 1px solid rgba(255,255,255,0.25);
+            transition: transform 0.2s, background 0.2s;
+        }
+        .demo-chip:hover, .demo-chip:focus-visible { transform: translateY(-2px); background: rgba(12,13,17,0.95); }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .wave--back, .wave--mid, .wave--front { animation: none; }
+            .panel.enter { animation: none; }
+            .success circle, .success path { stroke-dashoffset: 0; animation: none; }
+            *, *::before, *::after { transition-duration: 0.001ms !important; }
+        }
+    </style>
+</head>
+<body>
+    <a class="skip-link" href="#book">Skip to booking</a>
+
+    <nav class="nav" aria-label="Site">
+        <div class="wrap">
+            <a class="brand" href="#top">Cove &amp; Palm</a>
+            <div class="nav-links">
+                <a href="#book">Suites</a>
+                <a href="#gallery">The Cove</a>
+                <a class="nav-book" href="#book">Book a stay</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero" id="top">
+        <div class="hero-inner wrap">
+            <p class="hero-eyebrow">Treasure Beach · South Coast · Jamaica</p>
+            <h1>Seven suites.<br>One quiet cove.</h1>
+            <p class="hero-sub">A family-run villa where the loudest thing all day is the sea. Breakfast is from the garden, the reef is a short swim, and your phone will forgive you.</p>
+            <a class="hero-cta" href="#book">Check availability</a>
+        </div>
+        <div class="waves" aria-hidden="true">
+            <svg class="wave wave--back" viewBox="0 0 2880 140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                <path d="M0 70 Q180 30 360 70 T720 70 T1080 70 T1440 70 T1800 70 T2160 70 T2520 70 T2880 70 V140 H0 Z" fill="#8FBCC9"/>
+            </svg>
+            <svg class="wave wave--mid" viewBox="0 0 2880 140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                <path d="M0 80 Q240 40 480 80 T960 80 T1440 80 T1920 80 T2400 80 T2880 80 V140 H0 Z" fill="#4E96AC"/>
+            </svg>
+            <svg class="wave wave--front" viewBox="0 0 2880 140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                <path d="M0 90 Q160 55 320 90 T640 90 T960 90 T1280 90 T1600 90 T1920 90 T2240 90 T2560 90 T2880 90 V140 H0 Z" fill="#0B3C4D"/>
+            </svg>
+        </div>
+    </header>
+
+    <section class="amenities" aria-label="Amenities">
+        <div class="wrap">
+            <div class="amen">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 17 q3 -3 5 0 t5 0 t5 0 t5 0 M2 21 q3 -3 5 0 t5 0 t5 0 t5 0 M12 3 v6 M8 6 l4 3 4 -3"/></svg>
+                Saltwater pool
+            </div>
+            <div class="amen">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4 v4 M12 16 v4 M4 12 h4 M16 12 h4"/></svg>
+                Chef's breakfast
+            </div>
+            <div class="amen">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="5"/><path d="M14 14 l6 6 M10 7 v6 M7 10 h6"/></svg>
+                Reef snorkels
+            </div>
+            <div class="amen">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="13" rx="2"/><path d="M4 4 L20 19"/></svg>
+                No televisions
+            </div>
+        </div>
+    </section>
+
+    <main class="booking" id="book">
+        <div class="wrap">
+            <div class="booking-head">
+                <h2>Plan your stay</h2>
+                <p>Three steps, no account, and no hold on your card. It's a demo, after all.</p>
+            </div>
+
+            <div class="widget">
+                <div class="stepper" role="tablist" aria-label="Booking steps">
+                    <button type="button" id="tab-1" aria-current="step"><span class="dot">1</span><span class="step-word">Dates</span></button>
+                    <button type="button" id="tab-2" disabled><span class="dot">2</span><span class="step-word">Suite</span></button>
+                    <button type="button" id="tab-3" disabled><span class="dot">3</span><span class="step-word">Confirm</span></button>
+                </div>
+
+                <!-- Step 1: dates -->
+                <section class="panel" id="panel-1" aria-label="Step 1: choose dates">
+                    <div class="cal-head">
+                        <h3 class="cal-month" id="cal-month">Month</h3>
+                        <span class="cal-hint">Tap check-in, then check-out</span>
+                    </div>
+                    <div class="cal-grid" id="cal-grid"></div>
+                    <div class="cal-summary">
+                        <span id="date-summary">No dates selected yet.</span>
+                        <span class="nights" id="nights-label"></span>
+                        <button type="button" class="cal-clear" id="cal-clear" hidden>Clear dates</button>
+                    </div>
+                    <div class="panel-foot">
+                        <span></span>
+                        <button type="button" class="btn-next" id="next-1" disabled>Choose a suite</button>
+                    </div>
+                </section>
+
+                <!-- Step 2: suites -->
+                <section class="panel" id="panel-2" aria-label="Step 2: choose a suite" hidden>
+                    <div class="suites" role="group" aria-label="Suites">
+                        <button type="button" class="suite" data-suite="Sea Grape" data-rate="180" aria-pressed="false">
+                            <span class="suite-swatch suite-swatch--1" aria-hidden="true"></span>
+                            <span>
+                                <h3 class="suite-name">Sea Grape</h3>
+                                <p class="suite-desc">Garden level, outdoor shower, hammock for two under the almond tree.</p>
+                            </span>
+                            <span class="suite-rate">$180<small>per night</small></span>
+                        </button>
+                        <button type="button" class="suite" data-suite="Blue Mahoe" data-rate="240" aria-pressed="false">
+                            <span class="suite-swatch suite-swatch--2" aria-hidden="true"></span>
+                            <span>
+                                <h3 class="suite-name">Blue Mahoe</h3>
+                                <p class="suite-desc">Second floor, sea-facing balcony, the sunrise does the wake-up call.</p>
+                            </span>
+                            <span class="suite-rate">$240<small>per night</small></span>
+                        </button>
+                        <button type="button" class="suite" data-suite="Starapple Loft" data-rate="320" aria-pressed="false">
+                            <span class="suite-swatch suite-swatch--3" aria-hidden="true"></span>
+                            <span>
+                                <h3 class="suite-name">Starapple Loft</h3>
+                                <p class="suite-desc">Top floor, wraparound terrace, full view of the cove and outdoor tub.</p>
+                            </span>
+                            <span class="suite-rate">$320<small>per night</small></span>
+                        </button>
+                    </div>
+                    <div class="panel-foot">
+                        <button type="button" class="btn-back" data-goto="1">&larr; Back to dates</button>
+                        <button type="button" class="btn-next" id="next-2" disabled>Review &amp; confirm</button>
+                    </div>
+                </section>
+
+                <!-- Step 3: confirm -->
+                <section class="panel" id="panel-3" aria-label="Step 3: review and confirm" hidden>
+                    <div class="summary">
+                        <dl>
+                            <dt>Dates</dt><dd id="sum-dates">…</dd>
+                            <dt>Suite</dt><dd id="sum-suite">…</dd>
+                            <dt id="sum-rate-label">Nights</dt><dd id="sum-rate">…</dd>
+                            <dt>Housekeeping</dt><dd>$40</dd>
+                            <div class="total-row" style="display: contents;">
+                                <dt>Total</dt><dd id="sum-total">…</dd>
+                            </div>
+                        </dl>
+                    </div>
+                    <form id="confirm-form" novalidate>
+                        <div class="field">
+                            <label for="bk-name">Name</label>
+                            <input id="bk-name" name="name" type="text" autocomplete="name" placeholder="Who's coming?" required>
+                            <span class="err" id="err-name"></span>
+                        </div>
+                        <div class="field">
+                            <label for="bk-email">Email</label>
+                            <input id="bk-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+                            <span class="err" id="err-email"></span>
+                        </div>
+                        <div class="panel-foot">
+                            <button type="button" class="btn-back" data-goto="2">&larr; Back to suites</button>
+                            <button type="submit" class="btn-next">Request booking</button>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- Success -->
+                <section class="panel success" id="panel-done" hidden aria-label="Booking requested">
+                    <svg viewBox="0 0 76 76" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <circle cx="38" cy="38" r="34"/>
+                        <path d="M24 39 L34 49 L53 29"/>
+                    </svg>
+                    <h3>Request sent</h3>
+                    <p id="done-copy">We'd normally email you within the hour. This is a demo, so instead: imagine the sound of the sea.</p>
+                    <button type="button" class="btn-next" id="reset-btn">Plan another stay</button>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <section class="gallery" id="gallery">
+        <div class="wrap">
+            <h2>The cove, at its hours</h2>
+            <div class="gal-grid">
+                <div class="gal-item">
+                    <figure>
+                        <div class="gal-photo gal-photo--1" role="img" aria-label="Placeholder photo: sunrise over the cove, warm light on calm water"></div>
+                        <figcaption>The cove at 6 a.m.</figcaption>
+                    </figure>
+                </div>
+                <div class="gal-item">
+                    <figure>
+                        <div class="gal-photo gal-photo--2" role="img" aria-label="Placeholder photo: breakfast table on the verandah among the palms"></div>
+                        <figcaption>Verandah breakfast</figcaption>
+                    </figure>
+                </div>
+                <div class="gal-item">
+                    <figure>
+                        <div class="gal-photo gal-photo--3" role="img" aria-label="Placeholder photo: dusk from the Starapple terrace, violet sky over the sea"></div>
+                        <figcaption>Dusk from the Starapple terrace</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="foot">
+        <div class="wrap">
+            <span>Cove &amp; Palm is a demo property, but the south coast is real.</span>
+            <span>Sample site by <a href="../../">Tech By Tahjay</a></span>
+        </div>
+    </footer>
+
+    <a class="demo-chip" href="../">&larr; All demos</a>
+
+    <script>
+        (function () {
+            "use strict";
+            var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+            /* ---------- State ---------- */
+            var state = { start: null, end: null, suite: null, rate: 0 };
+            var FEE = 40;
+
+            /* ---------- Calendar (uses next month, so every date is in the future) ---------- */
+            var today = new Date();
+            var view = new Date(today.getFullYear(), today.getMonth() + 1, 1); /* next month */
+            var MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+            var DOWS = ["Su","Mo","Tu","We","Th","Fr","Sa"];
+
+            var grid = document.getElementById("cal-grid");
+            var monthEl = document.getElementById("cal-month");
+            var dateSummary = document.getElementById("date-summary");
+            var nightsLabel = document.getElementById("nights-label");
+            var clearBtn = document.getElementById("cal-clear");
+            var next1 = document.getElementById("next-1");
+
+            function fmtDay(d) { return MONTHS[view.getMonth()].slice(0, 3) + " " + d; }
+            function nights() { return (state.start && state.end) ? state.end - state.start : 0; }
+
+            function renderCal() {
+                monthEl.textContent = MONTHS[view.getMonth()] + " " + view.getFullYear();
+                grid.innerHTML = "";
+                DOWS.forEach(function (d) {
+                    var el = document.createElement("span");
+                    el.className = "cal-dow"; el.textContent = d;
+                    grid.appendChild(el);
+                });
+                var firstDow = view.getDay();
+                var daysInMonth = new Date(view.getFullYear(), view.getMonth() + 1, 0).getDate();
+                for (var b = 0; b < firstDow; b++) {
+                    var blank = document.createElement("span");
+                    blank.className = "cal-day blank";
+                    grid.appendChild(blank);
+                }
+                for (var d = 1; d <= daysInMonth; d++) {
+                    (function (day) {
+                        var btn = document.createElement("button");
+                        btn.type = "button";
+                        btn.className = "cal-day";
+                        btn.textContent = day;
+                        btn.setAttribute("aria-label", MONTHS[view.getMonth()] + " " + day + ", " + view.getFullYear());
+                        if (state.start && day === state.start) btn.classList.add("edge");
+                        if (state.end && day === state.end) btn.classList.add("edge");
+                        if (state.start && state.end && day > state.start && day < state.end) btn.classList.add("in-range");
+                        btn.addEventListener("click", function () { pick(day); });
+                        grid.appendChild(btn);
+                    })(d);
+                }
+            }
+
+            function pick(day) {
+                if (!state.start || (state.start && state.end)) {
+                    state.start = day; state.end = null;
+                } else if (day > state.start) {
+                    state.end = day;
+                } else if (day < state.start) {
+                    state.start = day;
+                } /* same day: ignore, since zero-night stays are just visiting */
+                syncDates();
+                renderCal();
+            }
+
+            function syncDates() {
+                var n = nights();
+                if (state.start && state.end) {
+                    dateSummary.textContent = fmtDay(state.start) + " → " + fmtDay(state.end);
+                    nightsLabel.textContent = n + " night" + (n > 1 ? "s" : "");
+                } else if (state.start) {
+                    dateSummary.textContent = fmtDay(state.start) + " → pick a check-out day";
+                    nightsLabel.textContent = "";
+                } else {
+                    dateSummary.textContent = "No dates selected yet.";
+                    nightsLabel.textContent = "";
+                }
+                clearBtn.hidden = !state.start;
+                next1.disabled = !(state.start && state.end);
+            }
+            clearBtn.addEventListener("click", function () {
+                state.start = state.end = null;
+                syncDates(); renderCal();
+            });
+
+            /* ---------- Steps ---------- */
+            var tabs = [null, document.getElementById("tab-1"), document.getElementById("tab-2"), document.getElementById("tab-3")];
+            var panels = [null, document.getElementById("panel-1"), document.getElementById("panel-2"), document.getElementById("panel-3")];
+            var donePanel = document.getElementById("panel-done");
+            var currentStep = 1;
+
+            function goto(step) {
+                currentStep = step;
+                for (var i = 1; i <= 3; i++) {
+                    var active = i === step;
+                    panels[i].hidden = !active;
+                    panels[i].classList.toggle("enter", active && !reduced);
+                    if (active) tabs[i].setAttribute("aria-current", "step");
+                    else tabs[i].removeAttribute("aria-current");
+                    tabs[i].classList.toggle("done", i < step);
+                    tabs[i].disabled = i > step;
+                }
+                donePanel.hidden = true;
+                var target = panels[step].querySelector("button:not(:disabled), input");
+                if (target) target.focus({ preventScroll: true });
+            }
+            tabs[1].addEventListener("click", function () { goto(1); });
+            tabs[2].addEventListener("click", function () { if (!tabs[2].disabled) goto(2); });
+            tabs[3].addEventListener("click", function () { if (!tabs[3].disabled) goto(3); });
+            document.querySelectorAll("[data-goto]").forEach(function (b) {
+                b.addEventListener("click", function () { goto(parseInt(b.getAttribute("data-goto"), 10)); });
+            });
+            next1.addEventListener("click", function () { goto(2); });
+
+            /* ---------- Suites ---------- */
+            var next2 = document.getElementById("next-2");
+            document.querySelectorAll(".suite").forEach(function (card) {
+                card.addEventListener("click", function () {
+                    document.querySelectorAll(".suite").forEach(function (c) { c.setAttribute("aria-pressed", "false"); });
+                    card.setAttribute("aria-pressed", "true");
+                    state.suite = card.getAttribute("data-suite");
+                    state.rate = parseInt(card.getAttribute("data-rate"), 10);
+                    next2.disabled = false;
+                });
+            });
+            next2.addEventListener("click", function () {
+                fillSummary();
+                goto(3);
+            });
+
+            function fillSummary() {
+                var n = nights();
+                document.getElementById("sum-dates").textContent = fmtDay(state.start) + " → " + fmtDay(state.end) + ", " + view.getFullYear();
+                document.getElementById("sum-suite").textContent = state.suite;
+                document.getElementById("sum-rate-label").textContent = n + " night" + (n > 1 ? "s" : "") + " × $" + state.rate;
+                document.getElementById("sum-rate").textContent = "$" + (n * state.rate).toLocaleString("en-US");
+                document.getElementById("sum-total").textContent = "$" + (n * state.rate + FEE).toLocaleString("en-US");
+            }
+
+            /* ---------- Confirm ---------- */
+            var form = document.getElementById("confirm-form");
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+                var name = document.getElementById("bk-name");
+                var email = document.getElementById("bk-email");
+                var errName = document.getElementById("err-name");
+                var errEmail = document.getElementById("err-email");
+                var ok = true;
+                errName.textContent = ""; errEmail.textContent = "";
+                if (!name.value.trim()) { errName.textContent = "Tell us who's coming."; ok = false; }
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) { errEmail.textContent = "That email doesn't look right."; ok = false; }
+                if (!ok) return;
+
+                panels[3].hidden = true;
+                donePanel.hidden = false;
+                document.getElementById("done-copy").textContent =
+                    "Thanks, " + name.value.trim().split(" ")[0] + ". You're down for the " + state.suite + ", " +
+                    fmtDay(state.start) + " to " + fmtDay(state.end) +
+                    ". We'd normally email you within the hour, but this is a demo, so instead: imagine the sound of the sea.";
+                donePanel.classList.remove("play");
+                if (!reduced) {
+                    void donePanel.getBoundingClientRect();
+                    donePanel.classList.add("play");
+                }
+                document.getElementById("reset-btn").focus({ preventScroll: true });
+            });
+
+            document.getElementById("reset-btn").addEventListener("click", function () {
+                state.start = state.end = state.suite = null; state.rate = 0;
+                document.querySelectorAll(".suite").forEach(function (c) { c.setAttribute("aria-pressed", "false"); });
+                next2.disabled = true;
+                form.reset();
+                syncDates(); renderCal();
+                goto(1);
+            });
+
+            renderCal();
+            syncDates();
+        })();
+    </script>
+</body>
+</html>

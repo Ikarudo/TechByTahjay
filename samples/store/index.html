@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brimstone Pepper Co., small-batch scotch bonnet hot sauce | Demo by Tech By Tahjay</title>
+    <meta name="description" content="Demo product landing page: a Kingston hot-sauce brand where the heat selector re-paints the whole page. A sample build by Tahjay Ulett.">
+    <meta name="robots" content="noindex">
+    <meta name="theme-color" content="#FFC93C">
+    <link rel="icon" href="../../Media/Logo.svg" type="image/x-icon">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* One brand, three heats. The heat selector swaps these tokens and the
+           entire page (background, ink, bottle, chips) morphs with it. */
+        :root {
+            --bg: #FFC93C;
+            --ink: #191410;
+            --pop: #E23D28;
+            --bottle: #F49D1D;
+            --panel: #FFDD7A;
+            --band-bg: #191410;
+            --band-ink: #FFC93C;
+        }
+        body[data-heat="2"] {
+            --bg: #F4581C; --ink: #1A0B05; --pop: #7E1108; --bottle: #C7351B; --panel: #FF8A54;
+            --band-bg: #1A0B05; --band-ink: #F4581C;
+        }
+        body[data-heat="3"] {
+            --bg: #1C0A0E; --ink: #FFE9DB; --pop: #FF4B33; --bottle: #8C0F1F; --panel: #33141A;
+            --band-bg: #FF4B33; --band-ink: #1C0A0E;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--ink);
+            font-family: 'Space Grotesk', 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            transition: background-color 0.55s ease, color 0.55s ease;
+            overflow-x: hidden;
+        }
+        :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+        .skip-link {
+            position: absolute; left: -9999px; top: 0; z-index: 100;
+            background: var(--ink); color: var(--bg); font-weight: 700;
+            padding: 0.6em 1.2em;
+        }
+        .skip-link:focus { left: 0; }
+        .wrap { max-width: 1120px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px); }
+        .shout { font-family: 'Archivo Black', 'Arial Black', sans-serif; text-transform: uppercase; line-height: 0.95; letter-spacing: -0.01em; }
+
+        /* ---------- Top bar ---------- */
+        .bar { border-bottom: 3px solid var(--ink); transition: border-color 0.55s ease; }
+        .bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1em; padding-top: 0.9em; padding-bottom: 0.9em; }
+        .logo { font-family: 'Archivo Black', sans-serif; font-size: 1.15rem; text-transform: uppercase; text-decoration: none; color: var(--ink); transition: color 0.55s ease; }
+        .logo span { color: var(--pop); transition: color 0.55s ease; }
+        .crate-btn {
+            font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.9rem;
+            background: var(--ink); color: var(--bg); border: none; cursor: pointer;
+            padding: 0.55em 1.2em; border-radius: 0;
+            transition: background-color 0.55s ease, color 0.55s ease, transform 0.15s;
+        }
+        .crate-btn:hover, .crate-btn:focus-visible { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--pop); }
+
+        /* ---------- Hero ---------- */
+        .hero .wrap {
+            display: grid; grid-template-columns: 1.15fr 0.85fr;
+            gap: clamp(1.5em, 4vw, 3em); align-items: center;
+            padding-top: clamp(2em, 6vh, 4em); padding-bottom: clamp(2em, 6vh, 4em);
+        }
+        .eyebrow {
+            font-weight: 700; font-size: 0.78rem; letter-spacing: 0.28em; text-transform: uppercase;
+            margin: 0 0 1em; display: flex; align-items: center; gap: 0.8em;
+        }
+        .eyebrow::before { content: ""; width: 34px; height: 3px; background: var(--pop); transition: background-color 0.55s ease; }
+        h1.shout { font-size: clamp(2.4rem, 7.2vw, 5rem); margin: 0 0 0.35em; }
+        h1 .pop { color: var(--pop); transition: color 0.55s ease; }
+        .sauce-tag { font-size: clamp(1.02rem, 2.4vw, 1.2rem); font-weight: 500; max-width: 42ch; margin: 0 0 1.6em; min-height: 3.2em; }
+        .sauce-tag strong { color: var(--pop); transition: color 0.55s ease; }
+
+        /* Heat selector */
+        .heat-label { font-weight: 700; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; margin: 0 0 0.6em; }
+        .heat-row { display: flex; flex-wrap: wrap; gap: 0.7em; margin-bottom: 1.7em; }
+        .heat-btn {
+            font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.95rem;
+            background: transparent; color: var(--ink);
+            border: 3px solid var(--ink); padding: 0.55em 1.15em; cursor: pointer;
+            transition: background-color 0.3s, color 0.3s, border-color 0.55s, transform 0.15s;
+        }
+        .heat-btn .peps { letter-spacing: 0.1em; margin-left: 0.4em; }
+        .heat-btn:hover { transform: translateY(-2px); }
+        .heat-btn[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+
+        .buy-row { display: flex; flex-wrap: wrap; align-items: center; gap: 1.2em; }
+        .price { font-family: 'Archivo Black', sans-serif; font-size: 1.7rem; }
+        .add-btn {
+            font-family: 'Archivo Black', sans-serif; font-size: 1rem; text-transform: uppercase;
+            background: var(--pop); color: var(--bg); border: 3px solid var(--ink);
+            padding: 0.75em 1.7em; cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.15s, background-color 0.55s, color 0.55s, border-color 0.55s;
+        }
+        .add-btn:hover, .add-btn:focus-visible { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--ink); }
+        .add-btn:active { transform: translate(0, 0); box-shadow: none; }
+
+        .scoville { margin-top: 1.6em; font-size: 0.9rem; font-weight: 500; }
+        .scoville strong {
+            font-family: 'Archivo Black', sans-serif; font-size: 1.5rem; display: block;
+            font-variant-numeric: tabular-nums; color: var(--pop); transition: color 0.55s ease;
+        }
+
+        /* Bottle + rotating sticker */
+        .stage { position: relative; display: flex; justify-content: center; align-items: center; min-height: 340px; }
+        .sticker { position: absolute; width: min(78%, 330px); animation: spin 26s linear infinite; }
+        .sticker text {
+            font-family: 'Archivo Black', sans-serif; font-size: 12.5px; letter-spacing: 3.5px;
+            fill: var(--ink); text-transform: uppercase; transition: fill 0.55s ease;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .bottle { position: relative; width: min(46%, 170px); filter: drop-shadow(0 18px 24px rgba(0,0,0,0.25)); }
+        .bottle .glass { fill: var(--bottle); transition: fill 0.55s ease; }
+        .bottle .label-bg { fill: var(--bg); transition: fill 0.55s ease; }
+        .bottle .label-name { font-family: 'Archivo Black', sans-serif; font-size: 11px; fill: var(--ink); text-transform: uppercase; transition: fill 0.55s ease; }
+        .bottle .label-brand { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 6px; letter-spacing: 1.6px; fill: var(--pop); text-transform: uppercase; transition: fill 0.55s ease; }
+        .bottle.shake { animation: shake 0.5s ease; }
+        @keyframes shake {
+            0%, 100% { transform: rotate(0); }
+            25% { transform: rotate(-4deg) scale(1.03); }
+            60% { transform: rotate(3.5deg) scale(1.03); }
+        }
+        @media (max-width: 800px) {
+            .hero .wrap { grid-template-columns: 1fr; text-align: center; }
+            .eyebrow, .heat-row, .buy-row { justify-content: center; }
+            .eyebrow { justify-content: center; }
+            .sauce-tag { margin-left: auto; margin-right: auto; }
+            .stage { order: -1; min-height: 280px; }
+        }
+
+        /* ---------- Marquee ---------- */
+        .band { background: var(--band-bg); color: var(--band-ink); overflow: hidden; padding: 0.7em 0; border-top: 3px solid var(--ink); border-bottom: 3px solid var(--ink); transition: background-color 0.55s ease, color 0.55s ease, border-color 0.55s ease; }
+        .band-inner { display: flex; width: max-content; animation: slide 22s linear infinite; }
+        .band-chunk { font-family: 'Archivo Black', sans-serif; font-size: 0.95rem; letter-spacing: 0.22em; text-transform: uppercase; white-space: nowrap; padding-right: 2em; }
+        @keyframes slide { to { transform: translateX(-50%); } }
+
+        /* ---------- Lineup ---------- */
+        .lineup { padding: clamp(2.5em, 7vh, 4.5em) 0; }
+        .lineup h2 { font-size: clamp(1.7rem, 4.5vw, 2.6rem); margin: 0 0 1em; }
+        .lineup-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.3em; }
+        @media (max-width: 760px) { .lineup-grid { grid-template-columns: 1fr; } }
+        .sauce-card {
+            text-align: left; cursor: pointer;
+            background: var(--panel); color: var(--ink);
+            border: 3px solid var(--ink); padding: 1.4em 1.4em 1.5em;
+            font-family: inherit; font-size: 1rem;
+            transition: transform 0.2s, box-shadow 0.2s, background-color 0.55s, color 0.55s, border-color 0.55s;
+        }
+        .sauce-card:hover, .sauce-card:focus-visible { transform: translate(-4px, -4px); box-shadow: 8px 8px 0 var(--ink); }
+        .sauce-card[aria-pressed="true"] { box-shadow: 8px 8px 0 var(--pop); transform: translate(-4px, -4px); }
+        .sauce-card .peps { font-size: 1.15rem; letter-spacing: 0.15em; }
+        .sauce-card h3 { font-family: 'Archivo Black', sans-serif; font-size: 1.3rem; text-transform: uppercase; margin: 0.5em 0 0.3em; }
+        .sauce-card p { margin: 0 0 0.8em; font-size: 0.92rem; }
+        .sauce-card .shu { font-weight: 700; font-variant-numeric: tabular-nums; color: var(--pop); transition: color 0.55s ease; }
+
+        /* ---------- Story ---------- */
+        .story { border-top: 3px solid var(--ink); transition: border-color 0.55s ease; padding: clamp(2.5em, 7vh, 4.5em) 0; }
+        .story h2 { font-size: clamp(1.7rem, 4.5vw, 2.6rem); margin: 0 0 0.9em; max-width: 20ch; }
+        .story-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5em; }
+        @media (max-width: 760px) { .story-grid { grid-template-columns: 1fr; } }
+        .ing h3 { font-family: 'Archivo Black', sans-serif; font-size: 1.05rem; text-transform: uppercase; margin: 0 0 0.35em; display: flex; align-items: center; gap: 0.5em; }
+        .ing h3::before { content: ""; width: 14px; height: 14px; background: var(--pop); transition: background-color 0.55s ease; }
+        .ing p { margin: 0; font-size: 0.95rem; }
+
+        /* ---------- Reviews ---------- */
+        .reviews { border-top: 3px solid var(--ink); transition: border-color 0.55s ease; padding: clamp(2.5em, 7vh, 4.5em) 0; }
+        .reviews h2 { font-size: clamp(1.7rem, 4.5vw, 2.6rem); margin: 0 0 1em; }
+        .rev-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.3em; }
+        @media (max-width: 760px) { .rev-grid { grid-template-columns: 1fr; } }
+        .rev { background: var(--panel); border: 3px solid var(--ink); padding: 1.3em 1.4em; transition: background-color 0.55s ease, border-color 0.55s ease; }
+        .rev .stars { color: var(--pop); letter-spacing: 0.2em; font-size: 0.95rem; transition: color 0.55s ease; }
+        .rev blockquote { margin: 0.6em 0 0.8em; font-size: 0.98rem; font-weight: 500; }
+        .rev cite { font-style: normal; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+
+        /* ---------- Footer ---------- */
+        .foot { background: var(--band-bg); color: var(--band-ink); transition: background-color 0.55s ease, color 0.55s ease; }
+        .foot .wrap { display: flex; flex-wrap: wrap; gap: 1em; justify-content: space-between; padding-top: 1.8em; padding-bottom: 6em; font-size: 0.88rem; font-weight: 500; }
+        .foot a { color: inherit; font-weight: 700; }
+
+        /* Toast */
+        .toast {
+            position: fixed; right: 16px; bottom: 16px; z-index: 70;
+            background: var(--ink); color: var(--bg);
+            font-weight: 700; font-size: 0.92rem;
+            border: 3px solid var(--pop); padding: 0.9em 1.3em; max-width: 320px;
+            transform: translateY(16px); opacity: 0; pointer-events: none;
+            transition: transform 0.3s cubic-bezier(.3,1.4,.5,1), opacity 0.3s, background-color 0.55s, color 0.55s, border-color 0.55s;
+        }
+        .toast.show { transform: none; opacity: 1; }
+
+        /* Demo return chip */
+        .demo-chip {
+            position: fixed; left: 16px; bottom: 16px; z-index: 60;
+            display: inline-flex; align-items: center; gap: 0.5em;
+            background: rgba(12, 13, 17, 0.85); color: #fff;
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            font-family: 'Space Grotesk', sans-serif; font-size: 0.8rem; font-weight: 700;
+            text-decoration: none; border-radius: 24px; padding: 0.55em 1.1em;
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: transform 0.2s;
+        }
+        .demo-chip:hover, .demo-chip:focus-visible { transform: translateY(-2px); }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .sticker { animation: none; }
+            .band-inner { animation: none; }
+            .bottle.shake { animation: none; }
+            *, *::before, *::after { transition-duration: 0.001ms !important; }
+        }
+    </style>
+</head>
+<body data-heat="1">
+    <a class="skip-link" href="#hero">Skip to content</a>
+
+    <header class="bar">
+        <div class="wrap">
+            <a class="logo" href="#hero">Brimstone <span>Pepper Co.</span></a>
+            <button class="crate-btn" type="button" id="crate-btn">Crate (<span id="crate-count">0</span>)</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="hero">
+            <div class="wrap">
+                <div>
+                    <p class="eyebrow">Small-batch · Kingston, Jamaica</p>
+                    <h1 class="shout">Fire you can <span class="pop">cook</span> with.</h1>
+                    <p class="sauce-tag" id="sauce-tag" aria-live="polite"><strong>Sweet Hills.</strong> Mango and scotch bonnet, sweet first with a grin after. The one to start with.</p>
+
+                    <p class="heat-label" id="heat-label">Pick your heat</p>
+                    <div class="heat-row" role="group" aria-labelledby="heat-label">
+                        <button class="heat-btn" type="button" data-heat="1" aria-pressed="true">Sweet Hills<span class="peps" aria-hidden="true">🌶</span></button>
+                        <button class="heat-btn" type="button" data-heat="2" aria-pressed="false">Red Dirt<span class="peps" aria-hidden="true">🌶🌶</span></button>
+                        <button class="heat-btn" type="button" data-heat="3" aria-pressed="false">Duppy Fire<span class="peps" aria-hidden="true">🌶🌶🌶</span></button>
+                    </div>
+
+                    <div class="buy-row">
+                        <span class="price" id="price">$9</span>
+                        <button class="add-btn" type="button" id="add-btn">Add to crate</button>
+                    </div>
+
+                    <p class="scoville">Scoville heat units
+                        <strong id="shu" aria-live="polite">4,000</strong>
+                    </p>
+                </div>
+
+                <div class="stage" aria-hidden="true">
+                    <svg class="sticker" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <path id="ring" d="M100,100 m-84,0 a84,84 0 1,1 168,0 a84,84 0 1,1 -168,0"/>
+                        </defs>
+                        <text><textPath href="#ring">scotch bonnet · small batch · no shortcuts · scotch bonnet · small batch ·</textPath></text>
+                    </svg>
+                    <svg class="bottle" id="bottle" viewBox="0 0 100 240" xmlns="http://www.w3.org/2000/svg">
+                        <rect class="glass" x="40" y="6" width="20" height="18" rx="3"/>
+                        <rect x="36" y="0" width="28" height="12" rx="3" fill="#191410"/>
+                        <path class="glass" d="M40 24 L38 44 Q24 56 24 76 L24 218 Q24 234 40 234 L60 234 Q76 234 76 218 L76 76 Q76 56 62 44 L60 24 Z"/>
+                        <rect class="label-bg" x="30" y="96" width="40" height="86" rx="5"/>
+                        <text class="label-brand" x="50" y="112" text-anchor="middle">Brimstone</text>
+                        <text class="label-name" id="label-name" x="50" y="136" text-anchor="middle">Sweet</text>
+                        <text class="label-name" id="label-name2" x="50" y="150" text-anchor="middle">Hills</text>
+                        <text class="label-brand" id="label-shu" x="50" y="172" text-anchor="middle">4,000 SHU</text>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <div class="band" aria-hidden="true">
+            <div class="band-inner">
+                <span class="band-chunk">Scotch bonnet · small batch · Kingston JA · no thickeners · cane vinegar ·&nbsp;</span>
+                <span class="band-chunk">Scotch bonnet · small batch · Kingston JA · no thickeners · cane vinegar ·&nbsp;</span>
+            </div>
+        </div>
+
+        <section class="lineup">
+            <div class="wrap">
+                <h2 class="shout">The lineup</h2>
+                <div class="lineup-grid" role="group" aria-label="Choose a sauce">
+                    <button class="sauce-card" type="button" data-heat="1" aria-pressed="true">
+                        <span class="peps" aria-hidden="true">🌶</span>
+                        <h3>Sweet Hills</h3>
+                        <p>Mango, scotch bonnet, lime. Sweet first, warm after. Put it on everything. We do.</p>
+                        <span class="shu">4,000 SHU · $9</span>
+                    </button>
+                    <button class="sauce-card" type="button" data-heat="2" aria-pressed="false">
+                        <span class="peps" aria-hidden="true">🌶🌶</span>
+                        <h3>Red Dirt</h3>
+                        <p>Fire-roasted red bonnets and garlic. The one the jerk stands keep under the counter.</p>
+                        <span class="shu">65,000 SHU · $11</span>
+                    </button>
+                    <button class="sauce-card" type="button" data-heat="3" aria-pressed="false">
+                        <span class="peps" aria-hidden="true">🌶🌶🌶</span>
+                        <h3>Duppy Fire</h3>
+                        <p>Smoked bonnets, aged three months in the dark. Named after a ghost for a reason.</p>
+                        <span class="shu">850,000 SHU · $14</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="story">
+            <div class="wrap">
+                <h2 class="shout">Three ingredients you can pronounce.</h2>
+                <div class="story-grid">
+                    <div class="ing">
+                        <h3>Scotch bonnet</h3>
+                        <p>Grown on two family farms in St. Elizabeth's red dirt. Picked ripe, never frozen, paid fairly.</p>
+                    </div>
+                    <div class="ing">
+                        <h3>Cane vinegar</h3>
+                        <p>Pressed from Jamaican cane, not diluted white vinegar. It's why the burn tastes like something.</p>
+                    </div>
+                    <div class="ing">
+                        <h3>Sea salt</h3>
+                        <p>That's it. That's the list. No gums, no thickeners, no "natural flavourings" doing unnatural things.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="reviews">
+            <div class="wrap">
+                <h2 class="shout">The burn report</h2>
+                <div class="rev-grid">
+                    <article class="rev">
+                        <span class="stars" aria-label="5 out of 5 stars">★★★★★</span>
+                        <blockquote>"Sweet Hills went on my eggs Monday. By Friday I was putting it in soup, on plantain, and once, no regrets, on ice cream."</blockquote>
+                        <cite>Alicia M., Montego Bay</cite>
+                    </article>
+                    <article class="rev">
+                        <span class="stars" aria-label="5 out of 5 stars">★★★★★</span>
+                        <blockquote>"Red Dirt tastes like the pepper actually grew somewhere. Most hot sauce is just pain with marketing. This one's dinner."</blockquote>
+                        <cite>Devon T., Brooklyn</cite>
+                    </article>
+                    <article class="rev">
+                        <span class="stars" aria-label="4 out of 5 stars">★★★★☆</span>
+                        <blockquote>"One star off because the label says Duppy Fire and not a legally binding warning. I saw my ancestors. They were proud."</blockquote>
+                        <cite>Karen O., London</cite>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="foot">
+        <div class="wrap">
+            <span>Brimstone Pepper Co. is a demo brand. No peppers were harmed in this portfolio piece.</span>
+            <span>Sample site by <a href="../../">Tech By Tahjay</a></span>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <a class="demo-chip" href="../">&larr; All demos</a>
+
+    <script>
+        (function () {
+            "use strict";
+            var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+            var SAUCES = {
+                "1": { name: "Sweet Hills", label: ["Sweet", "Hills"], shu: 4000, price: "$9",
+                       tag: "<strong>Sweet Hills.</strong> Mango and scotch bonnet, sweet first with a grin after. The one to start with." },
+                "2": { name: "Red Dirt", label: ["Red", "Dirt"], shu: 65000, price: "$11",
+                       tag: "<strong>Red Dirt.</strong> Fire-roasted bonnets and garlic, loud enough to season a whole pot from the doorway." },
+                "3": { name: "Duppy Fire", label: ["Duppy", "Fire"], shu: 850000, price: "$14",
+                       tag: "<strong>Duppy Fire.</strong> Smoked and aged in the dark. Sign here, initial here, and don't touch your eyes." }
+            };
+
+            var current = "1";
+            var shuEl = document.getElementById("shu");
+            var tagEl = document.getElementById("sauce-tag");
+            var priceEl = document.getElementById("price");
+            var bottle = document.getElementById("bottle");
+            var labelName = document.getElementById("label-name");
+            var labelName2 = document.getElementById("label-name2");
+            var labelShu = document.getElementById("label-shu");
+            var shuAnim = null;
+
+            function fmt(n) { return Math.round(n).toLocaleString("en-US"); }
+
+            function tickShu(from, to) {
+                if (shuAnim) cancelAnimationFrame(shuAnim);
+                if (reduced) { shuEl.textContent = fmt(to); return; }
+                var start = null, DUR = 800;
+                function frame(ts) {
+                    if (!start) start = ts;
+                    var t = Math.min(1, (ts - start) / DUR);
+                    var eased = 1 - Math.pow(1 - t, 3);
+                    shuEl.textContent = fmt(from + (to - from) * eased);
+                    if (t < 1) shuAnim = requestAnimationFrame(frame);
+                }
+                shuAnim = requestAnimationFrame(frame);
+            }
+
+            function setHeat(heat) {
+                if (heat === current) return;
+                var prev = SAUCES[current], next = SAUCES[heat];
+                current = heat;
+                document.body.setAttribute("data-heat", heat);
+                tagEl.innerHTML = next.tag;
+                priceEl.textContent = next.price;
+                labelName.textContent = next.label[0];
+                labelName2.textContent = next.label[1];
+                labelShu.textContent = fmt(next.shu) + " SHU";
+                tickShu(prev.shu, next.shu);
+                document.querySelectorAll("[data-heat]").forEach(function (el) {
+                    if (el.tagName === "BUTTON") el.setAttribute("aria-pressed", String(el.getAttribute("data-heat") === heat));
+                });
+                if (!reduced && bottle) {
+                    bottle.classList.remove("shake");
+                    void bottle.getBoundingClientRect(); /* restart animation */
+                    bottle.classList.add("shake");
+                }
+            }
+
+            document.querySelectorAll("button[data-heat]").forEach(function (btn) {
+                btn.addEventListener("click", function () { setHeat(btn.getAttribute("data-heat")); });
+            });
+
+            /* Crate: demo only */
+            var count = 0;
+            var countEl = document.getElementById("crate-count");
+            var toast = document.getElementById("toast");
+            var toastTimer = null;
+            function showToast(msg) {
+                toast.textContent = msg;
+                toast.classList.add("show");
+                clearTimeout(toastTimer);
+                toastTimer = setTimeout(function () { toast.classList.remove("show"); }, 3200);
+            }
+            document.getElementById("add-btn").addEventListener("click", function () {
+                count++;
+                countEl.textContent = count;
+                showToast(SAUCES[current].name + " added. Demo store: the burn is real, the checkout isn't. 🌶");
+            });
+            document.getElementById("crate-btn").addEventListener("click", function () {
+                showToast(count === 0 ? "Your crate is empty. The peppers are waiting." : "Crate: " + count + " bottle" + (count > 1 ? "s" : "") + " of imaginary fire.");
+            });
+        })();
+    </script>
+</body>
+</html>
